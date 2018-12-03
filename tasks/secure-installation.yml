@@ -47,6 +47,6 @@
     state: absent
 
 - name: Remove MySQL test database.
-  mysql_db: 
+  mysql_db:
     name: test
     state: absent

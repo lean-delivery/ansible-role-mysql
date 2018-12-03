@@ -34,7 +34,7 @@
     force: "{{ item.force | default(False) }}"
   with_items: "{{ mysql_config_include_files }}"
   notify: restart mysql
-  when: mysql_config_include_files | length > 0 
+  when: mysql_config_include_files | length > 0
 
 - name: Create slow query log file (if configured).
   command: "touch {{ mysql_slow_query_log_file }}"
