@@ -22,14 +22,14 @@ Ansible lint:
   tags:
     - delegated
 
-Docker {{ cookiecutter.role_name }}:
+Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - docker
 
-AWS {{ cookiecutter.role_name }}:
+.AWS mysql:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
@@ -38,7 +38,7 @@ AWS {{ cookiecutter.role_name }}:
   tags:
     - delegated
 
-EPC {{ cookiecutter.role_name }}:
+.EPC mysql:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
