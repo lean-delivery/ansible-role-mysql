@@ -24,7 +24,7 @@
     mode: 0755
   when: mysql_config_include_files | length
 
-# comment [E402] Template files should have the extension '.j2' 
+# comment [E402] Template files should have the extension '.j2'
 # - name: Copy my.cnf override files into include directory.
 #   template:
 #     src: "{{ item.src }}"
