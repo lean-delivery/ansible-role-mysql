@@ -2,8 +2,8 @@
 - name: Get MySQL version.
   command: 'mysql --version'
   register: mysql_cli_version
-  changed_when: false
-  check_mode: false
+  changed_when: False
+  check_mode: False
 
 - name: Copy my.cnf global MySQL configuration.
   template:

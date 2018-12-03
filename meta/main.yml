@@ -2,11 +2,13 @@
 dependencies: []
 
 galaxy_info:
+  role_name: "mysql"
   author: Epam
   description: MySQL server for RHEL/CentOS.
   company: "Epam"
-  license: "license (BSD, MIT)"
+  license: "Apache"
   min_ansible_version: 2.4
+  issue_tracker_url: "https://github.com/lean-delivery/ansible-role-jenkins/issues"
   platforms:
     - name: EL
       versions:
