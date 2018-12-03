@@ -12,7 +12,7 @@
   sudo: yes
   mysql_user:
     name: root
-    host: "{{ item }}" 
+    host: "{{ item }}"
     password: "{{ mysql_root_password }}"
     check_implicit_admin: yes
     priv: "*.*:ALL,GRANT"
@@ -32,8 +32,8 @@
     owner: "{{ item.user }}"
     mode: 0600
   with_items:
-    - { name: '{{ mysql_user_name }}', home: '{{ mysql_user_home }}', password: '{{ mysql_user_password }}' }
-    - { name: '{{ mysql_root_username }}', home: '{{ mysql_root_home }}', password: '{{ mysql_root_password }}' }
+    - {name: '{{ mysql_user_name }}', home: '{{ mysql_user_home }}', password: '{{ mysql_user_password }}'}
+    - {name: '{{ mysql_root_username }}', home: '{{ mysql_root_home }}', password: '{{ mysql_root_password }}'}
   when: ( item.name is defined ) and (mysql_install_packages | bool or mysql_user_password_update)
 
 - name: Remove anonymous MySQL users.
