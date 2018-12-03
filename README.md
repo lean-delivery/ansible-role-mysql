@@ -72,6 +72,10 @@ The MySQL users and their privileges. A user has the values:
   - `append_privs` (defaults to `no`)
   - `state`  (defaults to `present`)
 
+#additional_parameters
+
+#
+
 The formats of these are the same as in the `mysql_user` module.
 
     mysql_packages:
