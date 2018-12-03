@@ -13,8 +13,8 @@
 - name: "Choose platform based task "
   include_tasks: "{{ platform }}"
   with_first_found:
-    - "setup-{{ ansible_os_family }}.yml"
-    - "not-supported.yml"
+    - setup-{{ ansible_os_family }}.yml
+    - not-supported.yml
 
 - name: Check if MySQL packages were installed.
   set_fact:
