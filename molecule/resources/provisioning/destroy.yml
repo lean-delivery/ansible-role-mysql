@@ -1,5 +1,4 @@
 ---
-{% raw -%}
 - name: Destroy
   hosts: localhost
   connection: local
@@ -44,5 +43,4 @@
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
-    # Mandatory configuration for Molecule to function.
-{%- endraw %}
+      # Mandatory configuration for Molecule to function.

@@ -1,5 +1,4 @@
 ---
-{% raw -%}
 - name: Create
   hosts: localhost
   connection: local
@@ -34,7 +33,7 @@
       register: epc_jobs
       until: epc_jobs.finished
       retries: 300
-      delay: 20
+      delay: 30
       with_items: "{{ server.results }}"
 
     # Mandatory configuration for Molecule to function.
@@ -90,4 +89,3 @@
         delay: 10
         timeout: 320
       with_items: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
-{%- endraw %}
