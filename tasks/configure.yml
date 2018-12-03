@@ -34,12 +34,13 @@
     force: "{{ item.force | default(False) }}"
   with_items: "{{ mysql_config_include_files }}"
   notify: restart mysql
+  when: mysql_config_include_files | length > 0 
 
 - name: Create slow query log file (if configured).
   command: "touch {{ mysql_slow_query_log_file }}"
   args:
     creates: "{{ mysql_slow_query_log_file }}"
-    warn: false
+    warn: False
   when: mysql_slow_query_log_enabled
 
 - name: Create datadir if it does not exist
@@ -64,7 +65,7 @@
   command: "touch {{ mysql_log_error }}"
   args:
     creates: "{{ mysql_log_error }}"
-    warn: false
+    warn: False
   when: mysql_log == "" and mysql_log_error != ""
 
 - name: Set ownership on error log file (if configured).
@@ -81,7 +82,7 @@
     path: "{{ mysql_config_file }}"
     regexp: '{{ item.name }}'
     line: '{{ item.name }}: {{ item.value }}'
-    backrefs: yes
+    backrefs: True
     state: present
   with_items:
     - "{{ additional_parameters }}"
@@ -89,8 +90,11 @@
 
 - name: Ensure MySQL is started.
   block:
-    - systemd: "name={{ mysql_daemon }} state=started"
+    - name: systemd
+      systemd: "name={{ mysql_daemon }} state=started"
       when: ansible_distribution_major_version == "7"
-    - service: "name={{ mysql_daemon }} state=started"
+
+    - name: service
+      service: "name={{ mysql_daemon }} state=started"
       when: ansible_distribution_major_version == "6"
   register: mysql_service_configuration
