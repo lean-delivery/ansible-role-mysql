@@ -28,6 +28,6 @@
 
 - name: Run secure installation
   include_tasks: secure-installation.yml
-  
+
 - name: Create databases and users
   include_tasks: databases_and_users.yml
