@@ -11,6 +11,7 @@
   yum:
     name: "{{ item }}"
     state: present
+    update_cache: True
   with_items:
     - MySQL-python
     - perl-DBD-MySQL
