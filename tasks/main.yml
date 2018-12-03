@@ -15,6 +15,8 @@
   with_first_found:
     - 'setup-{{ ansible_os_family }}.yml'
     - 'not-supported.yml'
+  loop_control:
+    loop_var: platform
 
 - name: Check if MySQL packages were installed.
   set_fact:
