@@ -10,14 +10,14 @@ mysql_root_home: /root
 mysql_root_username: root
 mysql_root_password: root
 
-# Set this to `true` to forcibly update the root password.
-mysql_root_password_update: false
-mysql_user_password_update: false
+# Set this to `True` to forcibly update the root password.
+mysql_root_password_update: False
+mysql_user_password_update: False
 
-mysql_enabled_on_startup: true
+mysql_enabled_on_startup: True
 
 # Whether my.cnf should be updated on every run.
-overwrite_global_mycnf: true
+overwrite_global_mycnf: True
 
 # The following variables have a default value depending on operating system.
 # mysql_config_file: /etc/my.cnf
@@ -33,7 +33,7 @@ overwrite_global_mycnf: true
 # MySQL connection settings.
 mysql_port: "3306"
 mysql_bind_address: '0.0.0.0'
-mysql_skip_name_resolve: false
+mysql_skip_name_resolve: False
 mysql_datadir: /var/lib/mysql
 mysql_sql_mode: ''
 # The following variables have a default value depending on operating system.
@@ -44,7 +44,7 @@ mysql_sql_mode: ''
 mysql_log_file_group: mysql
 
 # Slow query log settings.
-mysql_slow_query_log_enabled: false
+mysql_slow_query_log_enabled: False
 mysql_slow_query_time: "2"
 # The following variable has a default value depending on operating system.
 # mysql_slow_query_log_file: /var/log/mysql-slow.log
