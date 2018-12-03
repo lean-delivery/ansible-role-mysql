@@ -1,4 +1,12 @@
 ---
+- name: "debug {{ ansible_os_family }}"
+  debug:
+    var: ansible_os_family
+
+- name: "debug {{ ansible_distribution_major_version }}"
+  debug:
+    var: ansible_distribution_major_version
+
 - name: Check whether the playbook can run on this OS
   fail:
     msg: "The role is not designed to run on {{ ansible_os_family }} platform.\
