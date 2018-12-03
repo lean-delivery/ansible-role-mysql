@@ -2,8 +2,8 @@
 __mysql_daemon: mysqld
 __mysql_version: 5.7
 __mysql_packages:
-  - mysql-server-{{mysql_version}}
-  - mysql-client-{{mysql_version}}
+  - mysql-community-server
+  - mysql-community-client
 __mysql_slow_query_log_file: /var/log/mysql-slow.log
 __mysql_log_error: /var/log/mysql.err
 __mysql_syslog_tag: mysql
