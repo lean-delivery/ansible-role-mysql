@@ -1,29 +1,29 @@
 ---
 dependency:
-  name: {{ cookiecutter.dependency_name }}
+  name: galaxy
   options:
     role-file: requirements.yml
 driver:
   name: delegated
 lint:
-  name: {{ cookiecutter.lint_name }}
+  name: yamllint
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-{{ cookiecutter.role_name }}
+  - name: test-aws-centos7-mysql
     image: CentOS7_64-bit
     shape: small
     region: AWS-EUCENTRAL
     wait_timeout: 1800
     groups:
       - rhel_family
-  - name: test-aws-ubuntu1804-{{ cookiecutter.role_name }}
-    image: Ubuntu18.04_64-bit
+  - name: test-aws-centos6-mysql
+    image: CentOS6_64-bit
     shape: small
     region: AWS-EUCENTRAL
     wait_timeout: 1800
     groups:
-      - debian_family
+      - rhel_family
 provisioner:
   name: ansible
   # log: True
@@ -35,15 +35,15 @@ provisioner:
     ssh_connection:
       control_path: "/var/ans/%%h"
   lint:
-    name: {{ cookiecutter.provisioner_lint_name }}
+    name: ansible-lint
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-delegated
 verifier:
-  name: {{ cookiecutter.verifier_name }}
+  name: testinfra
   options:
     verbose: true
   directory: ../resources/tests/
   lint:
-    name: {{ cookiecutter.verifier_lint_name }}
+    name: flake8
