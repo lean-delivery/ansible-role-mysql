@@ -74,15 +74,15 @@ The MySQL users and their privileges. A user has the values:
   - `append_privs` (defaults to `no`)
   - `state`  (defaults to `present`)
 
-#additional_parameters
-
-#
 
 The formats of these are the same as in the `mysql_user` module.
 
     mysql_packages:
       - mysql
       - mysql-server
+    
+    mysql_daemon: mysqld/mariadb
+    mysql_version: 5.7   (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
 
 (OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
@@ -125,6 +125,14 @@ The rest of the settings in `defaults/main.yml` control MySQL's memory usage and
 Replication settings. Set `mysql_server_id` and `mysql_replication_role` by server (e.g. the master would be ID `1`, with the `mysql_replication_role` of `master`, and the slave would be ID `2`, with the `mysql_replication_role` of `slave`). The `mysql_replication_user` uses the same keys as `mysql_users`, and is created on master servers, and used to replicate on all the slaves.
 
 `mysql_replication_master` needs to resolve to an IP or a hostname which is accessable to the Slaves (this could be a `/etc/hosts` injection or some other means), otherwise the slaves cannot communicate to the master.
+
+#additional_parameters
+Also you can set other parametrs, which are not listed here and it will will be written to the configuration file.
+     additional_parameters:
+        - name: mysql_expire_logs_days
+          value: 11
+
+#
 
 ### Later versions of MySQL on CentOS 7
 
