@@ -10,8 +10,8 @@
 
 - name: update mysql root password for all root accounts
   sudo: yes
-  mysql_user: 
-    name: root 
+  mysql_user:
+    name: root
     host: "{{ item }}" 
     password: "{{ mysql_root_password }}"
     check_implicit_admin: yes
@@ -21,9 +21,9 @@
     - 127.0.0.1
     - ::1
     - "{{ ansible_fqdn }}"
-    - localhost 
+    - localhost
   no_log: true
-  
+
 # Has to be after the password assignment, for idempotency.
 - name: Copy .my.cnf file with password credentials.
   template:
@@ -32,8 +32,8 @@
     owner: "{{ item.user }}"
     mode: 0600
   with_items:
-    - { name: {{ mysql_user_name }}, home: {{ mysql_user_home }}, password: {{ mysql_user_password }} }
-    - { name: {{ mysql_root_username }}, home: {{ mysql_root_home }}, password: {{ mysql_root_password }} }
+    - { name: '{{ mysql_user_name }}', home: '{{ mysql_user_home }}', password: '{{ mysql_user_password }}' }
+    - { name: '{{ mysql_root_username }}', home: '{{ mysql_root_home }}', password: '{{ mysql_root_password }}' }
   when: ( item.name is defined ) and (mysql_install_packages | bool or mysql_user_password_update)
 
 - name: Remove anonymous MySQL users.
@@ -41,6 +41,6 @@
     name: ""
     host_all: yes
     state: absent
- 
+
 - name: Remove MySQL test database.
   mysql_db: "name='test' state=absent"

@@ -2,9 +2,9 @@
 - name: Check whether the playbook can run on this OS
   fail:
     msg: "The role is not designed to run on {{ ansible_os_family }} platform.\
-          Please contact support@lean-delivery.com"   
+          Please contact support@lean-delivery.com"
   when: ansible_os_family != "RedHat" or ( ansible_distribution_major_version != "6" or ansible_distribution_major_version != "7" )
-  
+
 # Variable configuration.
 - name: Set variables
   include_tasks: variables.yml
@@ -27,5 +27,3 @@
   include_tasks: secure-installation.yml
 - name: Create databases and users
   include_tasks: databases_and_users.yml
-
-

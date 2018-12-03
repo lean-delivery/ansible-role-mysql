@@ -20,5 +20,4 @@
   with_items: "{{ mysql_users }}"
   no_log: true
 
-
       

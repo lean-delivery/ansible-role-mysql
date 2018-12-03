@@ -17,4 +17,3 @@ __mysql_supports_innodb_large_prefix: true
 __mysql_version: latest  
 mysql_repo: http://yum.mariadb.org/10.1/centos7-amd64
 mysql_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-
