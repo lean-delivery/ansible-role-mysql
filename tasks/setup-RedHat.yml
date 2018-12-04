@@ -43,4 +43,4 @@
 - name: debug
   debug:
     msg: "{{ log_content['content'] | b64decode |\
-         regex_search('.*root@localhost:\\ (\\S+)') }}"
+         regex_replace('.*root@localhost:\\ (\\S+)$', '\\1') }}"
