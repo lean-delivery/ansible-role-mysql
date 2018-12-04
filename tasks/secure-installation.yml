@@ -16,6 +16,8 @@
     password: '{{ mysql_root_password }}'
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
+    login_user: root
+    login_password: '{{ mysql_root_password }}'
 
 # no_log: True
 
