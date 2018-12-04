@@ -8,13 +8,16 @@
     state: present
   when: mysql_user_name  != "root"
 
+- name: flush handlers
+  meta: flush handlers
+
 - name: find temporary password
   become: True
   debug:
     var: item
   with_file:
     - '{{ mysql_log_error }}'
-
+  
 - name: update mysql root password for all root accounts
   become: True
   mysql_user:
