@@ -33,3 +33,18 @@
     state: started
     enabled: '{{ mysql_enabled_on_startup }}'
     runlevel: 235
+
+- name: find temporary password
+  become: True
+  slurp:
+    src: "/var/log/mysqld.log"
+  register: log_content
+
+- name: debug
+  debug:
+    msg: "{{ log_content['content'] | b64decode }}"
+
+- name: debug
+  debug:
+    msg: "{{ log_content['content'] | b64decode |\
+         regex_search('.*root@localhost:\\ (\\S+)', multiline=True, ignorecase=True) }}"
