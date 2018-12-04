@@ -22,8 +22,8 @@ install:
   - ansible --version
 
 script:
-  - unbuffer ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
-  - unbuffer molecule test -s default
+  - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
+  - molecule test -s default
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
