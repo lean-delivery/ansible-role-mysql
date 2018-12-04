@@ -17,7 +17,7 @@
     var: item
   with_file:
     - '{{ mysql_log_error }}'
-  
+
 - name: update mysql root password for all root accounts
   become: True
   mysql_user:
