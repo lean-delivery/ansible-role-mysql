@@ -21,15 +21,10 @@
   become: True
   mysql_user:
     name: root
-    host: '{{ item }}'
+    host_all: True
     password: '{{ mysql_root_password }}'
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
-  with_items:
-    - "{{ ansible_hostname }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
 
 # no_log: True
 
