@@ -8,8 +8,7 @@
     state: present
   when: mysql_user_name  != "root"
 
-- name: flush handlers
-  meta: flush handlers
+- meta: flush handlers
 
 - name: find temporary password
   become: True
