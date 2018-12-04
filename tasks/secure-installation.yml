@@ -12,17 +12,17 @@
   become: True
   mysql_user:
     name: root
-    host: "{{ item }}"
-    password: "{{ mysql_root_password }}"
+    host: '{{ item }}'
+    password: '{{ mysql_root_password }}'
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1
     - ::1
-    - "{{ ansible_fqdn }}"
     - localhost
-  no_log: True
+
+  #no_log: True
 
 # Has to be after the password assignment, for idempotency.
 - name: Copy .my.cnf file with password credentials.
