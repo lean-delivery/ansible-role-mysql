@@ -8,7 +8,7 @@ sudo: required
 addons:
   apt:
     packages:
-      - expect-dev # for unbuffer
+      - expect-dev
 
 language: python
 python:
