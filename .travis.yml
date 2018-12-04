@@ -1,4 +1,7 @@
 ---
+env:
+  - ANSIBLE_FORCE_COLOR=true
+  - ANSIBLE_STDOUT_CALLBACK=yaml
 dist: xenial
 sudo: required
 
