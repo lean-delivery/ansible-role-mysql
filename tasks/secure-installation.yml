@@ -11,7 +11,7 @@
 - name: find temporary password
   become: True
   slurp:
-    src: '{{ mysql_log }}'
+    src: "/var/log/messages"
   register: log_content
 
 - name: debug
