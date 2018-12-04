@@ -13,7 +13,7 @@
   debug:
     var: item
   with_file:
-    - "/var/log/mysqld.log"
+    - "/var/log/mysql.log"
 
 - name: update mysql root password for all root accounts
   become: True
