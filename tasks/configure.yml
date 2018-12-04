@@ -92,10 +92,14 @@
 - name: Ensure MySQL is started.
   block:
     - name: systemd
-      systemd: "name={{ mysql_daemon }} state=started"
+      systemd:
+        name: {{ mysql_daemon }}
+        state: started
       when: ansible_distribution_major_version == "7"
 
     - name: service
-      service: "name={{ mysql_daemon }} state=started"
+      service:
+        name: {{ mysql_daemon }}
+        state: started
       when: ansible_distribution_major_version == "6"
   register: mysql_service_configuration
