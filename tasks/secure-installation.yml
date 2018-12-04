@@ -8,6 +8,13 @@
     state: present
   when: mysql_user_name  != "root"
 
+- name: find temporary password
+  become: True
+  debug:
+    var: item
+  with_file:
+      - "/var/log/mysqld.log"
+
 - name: update mysql root password for all root accounts
   become: True
   mysql_user:
