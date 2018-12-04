@@ -5,6 +5,11 @@ env:
 dist: xenial
 sudo: required
 
+addons:
+  apt:
+    packages:
+      - expect-dev # for unbuffer
+
 language: python
 python:
   - "2.7"
@@ -20,8 +25,8 @@ install:
   - ansible --version
 
 script:
-  - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
-  - molecule test -s default
+  - unbuffer ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
+  - unbuffer molecule test -s default
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
