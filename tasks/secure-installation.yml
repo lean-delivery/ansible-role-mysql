@@ -22,7 +22,7 @@
     - ::1
     - localhost
 
-#no_log: True
+# no_log: True
 
 # Has to be after the password assignment, for idempotency.
 - name: Copy .my.cnf file with password credentials.
