@@ -18,6 +18,10 @@
   debug:
     msg: "{{ log_content['content'] | b64decode }}"
 
+- name: debug
+  debug:
+    msg: "{{ log_content['content'] | b64decode | regex_search('.*root@localhost:\\ (\\S+)', multiline=True, ignorecase=True) }}"
+
 - name: update mysql root password for all root accounts
   become: True
   mysql_user:
