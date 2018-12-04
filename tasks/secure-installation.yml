@@ -8,15 +8,6 @@
     state: present
   when: mysql_user_name  != "root"
 
-- name: sefwe
-  mysql_variables:
-    variable: host
-  register: mysql_hosts
-
-- name: debug host
-  debug:
-    var: mysql_hosts
-
 - name: update mysql root password for all root accounts
   become: True
   mysql_user:
