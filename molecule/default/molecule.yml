@@ -22,9 +22,13 @@ platforms:
   #     - rhel_family
 provisioner:
   name: ansible
+options:
+  force_color: True
   # log: True
   lint:
     name: ansible-lint
+    options:
+      force-color: True
 scenario:
   name: default
 verifier:
