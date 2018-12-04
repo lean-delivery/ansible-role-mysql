@@ -20,6 +20,15 @@
     - MySQL-python
     - perl-DBD-MySQL
 
+- name: Create main log file (if configured).
+  file:
+    path: "{{ mysql_log }}"
+    state: touch
+    owner: mysql
+    group: "{{ mysql_log_file_group }}"
+    mode: 0640
+  when: mysql_log != ""
+
 - name: Install {{ mysql_daemon }} {{ mysql_version }} packages.
   yum:
     name: "{{ mysql_packages }}"
