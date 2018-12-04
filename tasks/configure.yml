@@ -64,15 +64,6 @@
     mode: 0640
   when: mysql_log_error != ""
 
-- name: Create main log file (if configured).
-  file:
-    path: "{{ mysql_log }}"
-    state: touch
-    owner: mysql
-    group: "{{ mysql_log_file_group }}"
-    mode: 0640
-  when: mysql_log != ""
-
 - name: Set additional parameters in my.cnf
   lineinfile:
     path: "{{ mysql_config_file }}"
