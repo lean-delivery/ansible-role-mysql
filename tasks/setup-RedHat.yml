@@ -28,18 +28,8 @@
   register: mysql_installed_packages
 
 - name: Enable it to start automatically at the next boot
-  block:
-    - name: systemd
-      systemd:
-        name: '{{ mysql_daemon }}'
-        state: started
-        enabled: '{{ mysql_enabled_on_startup }}'
-      when: ansible_distribution_major_version == "7"
-
-    - name: service
-      service:
-        name: '{{ mysql_daemon }}'
-        state: started
-        enabled: '{{ mysql_enabled_on_startup }}'
-        runlevel: 235
-      when: ansible_distribution_major_version == "6"
+  service:
+    name: '{{ mysql_daemon }}'
+    state: started
+    enabled: '{{ mysql_enabled_on_startup }}'
+    runlevel: 235
