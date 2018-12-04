@@ -1,9 +1,8 @@
 ---
 __mysql_daemon: mysqld
-__mysql_version: 5.7
 __mysql_packages:
-  - mysql-community-server
-  - mysql-community-client
+    - mysql-community-server
+    - mysql-community-client
 __mysql_slow_query_log_file: /var/log/mysql-slow.log
 __mysql_log_error: /var/log/mysql.err
 __mysql_syslog_tag: mysql
@@ -13,5 +12,6 @@ __mysql_config_include_dir: /etc/my.cnf.d
 __mysql_socket: /var/lib/mysql/mysql.sock
 __mysql_supports_innodb_large_prefix: False
 
+__mysql_version: 5.7
 mysql_repo: http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/
 mysql_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql

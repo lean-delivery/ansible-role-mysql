@@ -7,6 +7,11 @@
     gpgcakey: '{{ mysql_gpgkey }}'
     gpgcheck: True
 
+- name:
+  rpm_key:
+    state: present
+    key: '{{ mysql_gpgkey }}'
+
 - name: Ensure MySQL Python libraries are installed.
   yum:
     name: "{{ item }}"
