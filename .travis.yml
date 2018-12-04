@@ -1,7 +1,7 @@
 ---
 env:
-  - ANSIBLE_FORCE_COLOR=true
-  - ANSIBLE_STDOUT_CALLBACK=yaml
+  global:
+    - ANSIBLE_FORCE_COLOR=true ANSIBLE_STDOUT_CALLBACK=yaml ANSIBLE_COLOR_CHANGED=yellow
 dist: xenial
 sudo: required
 
