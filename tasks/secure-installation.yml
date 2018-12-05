@@ -17,7 +17,9 @@
 - name: debug
   debug:
     msg: "{{ log_content['content'] | b64decode |\
-         regex_search('.*root@localhost:\\ (\\S+)', multiline=True, ignorecase=True) }}"
+         regex_search('.*root@localhost:\\ (\\S+)') |\
+         regex_replace('.*root@localhost:\\ (\\S+)', '\\1') }}"
+  register: mysql_root_temporary_password
 
 - name: update mysql root password for all root accounts
   become: True
@@ -28,7 +30,7 @@
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
     login_user: root
-    login_password: ''
+    login_password: '{{ mysql_root_temporary_password.results }}'
 
 # no_log: True
 
