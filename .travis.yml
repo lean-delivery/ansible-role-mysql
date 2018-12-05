@@ -2,10 +2,6 @@
 dist: xenial
 sudo: required
 
-addons:
-  apt:
-    packages:
-      - expect-dev
 
 language: python
 python:
