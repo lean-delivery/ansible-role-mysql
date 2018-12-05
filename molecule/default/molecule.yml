@@ -25,14 +25,13 @@ provisioner:
 options:
   config_options:
     defaults:
-      stdout_callback: debug
+      stdout_callback: yaml
       bin_ansible_callbacks: True
   # log: True
   lint:
     name: ansible-lint
     options:
-      force-color: True
-      c: .ansible-lint
+      c: ../.ansible-lint
       r: ~/ansible-lint-rules/rules/
 scenario:
   name: default
