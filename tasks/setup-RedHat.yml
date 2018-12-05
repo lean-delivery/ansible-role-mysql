@@ -15,8 +15,11 @@
 - name: Ensure MySQL Python libraries are installed.
   become: True
   yum:
-    name: [u'MySQL-python', u'perl-DBD-MySQL']
+    name: "{{ item }}"
     state: present
+  with_items:
+    - MySQL-python
+    - perl-DBD-MySQL
 
 - name: Install {{ mysql_daemon }} {{ mysql_version }} packages.
   become: True
