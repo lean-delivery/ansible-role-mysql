@@ -29,6 +29,7 @@ options:
     name: ansible-lint
     options:
       force-color: True
+      c: .ansible-lint
 scenario:
   name: default
 verifier:
