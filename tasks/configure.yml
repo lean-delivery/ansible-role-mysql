@@ -39,6 +39,7 @@
 #   when: mysql_config_include_files | length > 0
 
 - name: Create datadir if it does not exist
+  become: True
   file:
     path: "{{ mysql_datadir }}"
     state: directory
@@ -48,6 +49,7 @@
     setype: mysqld_db_t
 
 - name: Create slow query log file (if configured).
+  become: True
   file:
     path: "{{ mysql_slow_query_log_file }}"
     state: touch
@@ -57,6 +59,7 @@
   when: mysql_slow_query_log_enabled
 
 - name: Create error log file (if configured).
+  become: True
   file:
     path: "{{ mysql_log_error }}"
     state: touch

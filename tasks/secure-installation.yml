@@ -21,6 +21,12 @@
          regex_replace('.*root@localhost:\\ (\\S+)', '\\1') }}"
   register: mysql_root_temporary_password
 
+- name: update mysql root password for root@localhost account (5.7.x)
+  become: True
+  shell: mysql -uroot -p'{{ mysql_root_temporary_password.msg }}' --connect-expired-password \
+         -e "ALTER USER '{{ mysql_root_username }}'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
+  when: ( '5.7.' in mysql_cli_version.stdout )
+
 - name: update mysql root password for all root accounts
   become: True
   mysql_user:
@@ -30,16 +36,15 @@
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
     login_user: root
-    login_password: '{{ mysql_root_temporary_password.stdout }}'
-
-# no_log: True
+    login_password: "{{ mysql_root_password }}"
+  no_log: True
 
 # Has to be after the password assignment, for idempotency.
 - name: Copy .my.cnf file with password credentials.
   template:
     src: "user-my.cnf.j2"
     dest: "{{ item.home }}/.my.cnf"
-    owner: "{{ item.user }}"
+    owner: "{{ item.name }}"
     mode: 0600
   with_items:
     - name: '{{ mysql_user_name }}'
