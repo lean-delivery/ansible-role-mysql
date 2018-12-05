@@ -30,7 +30,7 @@
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
     login_user: root
-    login_password: '{{ mysql_root_temporary_password }}'
+    login_password: '{{ mysql_root_temporary_password.stdout }}'
 
 # no_log: True
 

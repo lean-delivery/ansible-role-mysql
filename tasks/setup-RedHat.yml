@@ -13,14 +13,13 @@
     key: '{{ mysql_gpgkey }}'
 
 - name: Ensure MySQL Python libraries are installed.
+  become: True
   yum:
-    name: "{{ item }}"
+    name: [u'MySQL-python', u'perl-DBD-MySQL']
     state: present
-  with_items:
-    - MySQL-python
-    - perl-DBD-MySQL
 
 - name: Install {{ mysql_daemon }} {{ mysql_version }} packages.
+  become: True
   yum:
     name: "{{ mysql_packages }}"
     state: present
@@ -28,6 +27,7 @@
   register: mysql_installed_packages
 
 - name: Enable it to start automatically at the next boot
+  become: True
   service:
     name: '{{ mysql_daemon }}'
     state: started

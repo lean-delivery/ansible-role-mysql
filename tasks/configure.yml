@@ -6,6 +6,7 @@
   check_mode: False
 
 - name: Copy my.cnf global MySQL configuration.
+  become: True
   template:
     src: my.cnf.j2
     dest: "{{ mysql_config_file }}"
