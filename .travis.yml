@@ -19,8 +19,8 @@ install:
 
 script:
 #  - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
-  - molecule --debug lint -s default
-  - molecule test -s default
+  - molecule --debug lint
+  - molecule --debug test -s default
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
