@@ -32,8 +32,8 @@ options:
     name: ansible-lint
     options:
       force-color: True
-      'c': .ansible-lint
-      'r': ~/ansible-lint-rules/rules/
+      c: .ansible-lint
+      r: ~/ansible-lint-rules/rules/
 scenario:
   name: default
 verifier:
