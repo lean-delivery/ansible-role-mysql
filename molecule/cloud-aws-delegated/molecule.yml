@@ -12,14 +12,14 @@ lint:
 platforms:
   - name: test-aws-centos7-mysql
     image: CentOS7_64-bit
-    shape: small
+    shape: large
     region: AWS-EUCENTRAL
     wait_timeout: 1800
     groups:
       - rhel_family
   - name: test-aws-centos6-mysql
     image: CentOS6_64-bit
-    shape: small
+    shape: large
     region: AWS-EUCENTRAL
     wait_timeout: 1800
     groups:

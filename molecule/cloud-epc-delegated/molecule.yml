@@ -12,14 +12,14 @@ lint:
 platforms:
   - name: test-epc-centos7-mysql
     image: CentOS7_64-bit
-    shape: small
+    shape: large
     region: EPAM-BY2
     wait_timeout: 3600
     groups:
       - rhel_family
   - name: test-epc-centos6-mysql
     image: CentOS6_64-bit
-    shape: small
+    shape: large
     region: EPAM-BY2
     wait_timeout: 3600
     groups:

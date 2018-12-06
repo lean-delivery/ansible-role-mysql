@@ -23,7 +23,6 @@
     owner: mysql
     group: mysql
     mode: 0755
-    setype: mysqld_db_t
 
 - name: Create slow query log file (if configured).
   file:
