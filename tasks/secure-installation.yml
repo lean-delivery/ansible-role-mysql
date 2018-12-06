@@ -32,7 +32,7 @@
 
 - name: update mysql root password for root@localhost account (5.7.x)
   become: True
-  shell: | 
+  shell: |
         mysql -u root -p'{{ mysql_root_temporary_password.msg }}' --connect-expired-password \
         -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';\
          FLUSH PRIVILEGES;"
