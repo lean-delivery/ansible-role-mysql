@@ -6,4 +6,6 @@
     sleep: 5
 
 - name: result root password change
-  command: touch /tmp/temporary_password_changed.txt
+  file:
+    path: /tmp/temporary_password_changed.txt
+    state: touch
