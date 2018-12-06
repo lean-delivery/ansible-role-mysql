@@ -16,7 +16,7 @@ platforms:
     groups:
       - rhel_family7
   - name: test-docker-centos6-mysql
-    image: leandelivery/docker-systemd:centos6
+    image: centos6
     privileged: True
     groups:
       - rhel_family6
