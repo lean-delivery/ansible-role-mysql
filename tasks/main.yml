@@ -25,6 +25,13 @@
     mysql_install_packages: "{{ (mysql_installed_packages is defined and \
         mysql_installed_packages.changed) }}"
 
+- name: Set additional parameters in '{{ mysql_config_file }}'
+  set_fact:
+    "{{ item.name }}: {{ item.value }}"
+  with_items:
+    - "{{ additional_parameters }}"
+  when: additional_parameters is defined
+
 # Configure MySQL.
 - name: Configure
   include_tasks: configure.yml

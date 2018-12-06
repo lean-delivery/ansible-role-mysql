@@ -1,4 +1,100 @@
 ---
+- name: Make new mysql admin user
+  block:
+    - name: Check mysql version
+      mysql_variables:
+        variable: version
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
+      register: mysql_version_out
+
+    - name: Set mysql version
+      set_fact:
+        mysql_version: '{{ mysql_version_out.msg.split("-")[0] }}'
+
+    - name: out mysql_version
+      debug:
+        var: mysql_version
+  rescue:
+    - name: Copy init.cnf for skip-grant-tables mode
+      template:
+        src: init.cnf.j2
+        dest: "{{ mysql_config_file }}"
+        owner: root
+        group: root
+        mode: 0644
+        force: True
+
+    - name: restart mysql
+      service:
+        name: '{{ mysql_daemon }}'
+        state: restarted
+        sleep: 5
+
+    - name: Check mysql version
+      mysql_variables:
+        variable: version
+      register: mysql_version_out
+
+    - name: Set mysql version
+      set_fact:
+        mysql_version: '{{ mysql_version_out.msg.split("-")[0] }}'
+
+    - name: out mysql_cli_version
+      debug:
+        var: mysql_version
+
+    - name: Copy reset.sql for root reset
+      template:
+        src: reset.sql.j2
+        dest: '/tmp/reset.sql'
+        force: True
+
+    - name: Reset root credentials
+      mysql_db:
+        name: mysql
+        state: import
+        target: '/tmp/reset.sql'
+
+    - name: Copy my.cnf global MySQL configuration.
+      template:
+        src: my.cnf.j2
+        dest: "{{ mysql_config_file }}"
+        mode: 0644
+
+    - name: restart mysql
+      service:
+        name: '{{ mysql_daemon }}'
+        state: restarted
+        sleep: 5
+
+- name: Ensure default user is present.
+  mysql_user:
+    name: '{{ mysql_root_username }}'
+    host: 'localhost'
+    config_file: /etc/my.cnf
+    password: '{{ mysql_root_password }}'
+    priv: '*.*:ALL,GRANT'
+    state: present
+    login_user: 'root'
+    login_password: '{{ mysql_root_password }}'
+  when: mysql_root_username != "root"
+
+- name: Check mysql version fom db
+  mysql_variables:
+    variable: version
+    login_user: '{{ mysql_root_username }}'
+    login_password: '{{ mysql_root_password }}'
+  register: mysql_version_out
+
+- name: Set mysql version
+  set_fact:
+    mysql_version: '{{ mysql_version_out.msg.split("-")[0] }}'
+
+- name: out mysql_cli_version
+  debug:
+    var: mysql_version
+
 - name: Ensure default user is present.
   mysql_user:
     name: "{{ mysql_user_name }}"
@@ -6,10 +102,11 @@
     password: "{{ mysql_user_password }}"
     priv: '*.*:ALL,GRANT'
     state: present
-  when: mysql_user_name  != "root"
+    login_user: '{{ mysql_root_username }}'
+    login_password: '{{ mysql_root_password }}'
+  when: mysql_user_name != "root"
 
 - name: Copy .my.cnf file with password credentials.
-  become: True
   template:
     src: "user-my.cnf.j2"
     dest: "{{ mysql_user_home }}/.my.cnf"
@@ -17,50 +114,16 @@
     mode: 0600
   when: mysql_user_name != mysql_root_username
 
-- name: log file
-  become: True
-  slurp:
-    src: "/var/log/mysqld.log"
-  register: log_content
-
-- name: find temporary password
-  debug:
-    msg: "{{ log_content['content'] | b64decode |\
-         regex_search('.*root@localhost:\\ (\\S+)') |\
-         regex_replace('.*root@localhost:\\ (\\S+)', '\\1') }}"
-  register: mysql_root_temporary_password
-
-- name: update mysql root password for root@localhost account (5.7.x)
-  become: True
-  shell: |
-        mysql -u root -p'{{ mysql_root_temporary_password.msg }}' --connect-expired-password \
-        -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';\
-         FLUSH PRIVILEGES;"
-  args:
-    creates: /tmp/temporary_password_changed.txt
-  when: ( '5.7.' in mysql_cli_version.stdout )
-  notify: result root password change
-
 - name: update mysql root password for all root accounts
-  become: True
   mysql_user:
     name: root
     host_all: True
     password: '{{ mysql_root_password }}'
     check_implicit_admin: True
     priv: "*.*:ALL,GRANT"
-    login_user: root
+    login_user: '{{ mysql_root_username }}'
     login_password: "{{ mysql_root_password }}"
   no_log: True
-
-# Has to be after the password assignment, for idempotency.
-- name: Copy .my.cnf file with password credentials.
-  become: True
-  template:
-    src: "root-my.cnf.j2"
-    dest: "{{ mysql_root_home }}/.my.cnf"
-    owner: "{{ mysql_root_username }}"
-    mode: 0600
 
 - name: Remove anonymous MySQL users.
   mysql_user:
