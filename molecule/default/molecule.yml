@@ -14,12 +14,12 @@ platforms:
     image: leandelivery/docker-systemd:centos7
     privileged: True
     groups:
-      - rhel_family
+      - rhel_family7
   - name: test-docker-centos6-mysql
     image: leandelivery/docker-systemd:centos6
     privileged: True
     groups:
-      - rhel_family
+      - rhel_family6
 provisioner:
   name: ansible
 options:
