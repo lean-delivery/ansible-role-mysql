@@ -1,17 +1,17 @@
 ---
-__mysql_daemon: mysqld
-__mysql_version: 5.7
-__mysql_packages:
+mysql_daemon: mysqld
+mysql_version: 5.7
+mysql_packages:
   - mysql-community-server
   - mysql-community-client
-__mysql_slow_query_log_file: /var/log/mysql-slow.log
-__mysql_log_error: /var/log/mysql.err
-__mysql_syslog_tag: mysql
-__mysql_pid_file: /var/run/mysqld/mysqld.pid
-__mysql_config_file: /etc/my.cnf
-__mysql_config_include_dir: /etc/my.cnf.d
-__mysql_socket: /var/lib/mysql/mysql.sock
-__mysql_supports_innodb_large_prefix: False
+mysql_slow_query_log_file: /var/log/mysql-slow.log
+mysql_log_error: /var/log/mysql.err
+mysql_syslog_tag: mysql
+mysql_pid_file: /var/run/mysqld/mysqld.pid
+mysql_config_file: /etc/my.cnf
+mysql_config_include_dir: /etc/my.cnf.d
+mysql_socket: /var/lib/mysql/mysql.sock
+mysql_supports_innodb_large_prefix: False
 
 mysql_repo: http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/6/$basearch/
 mysql_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql

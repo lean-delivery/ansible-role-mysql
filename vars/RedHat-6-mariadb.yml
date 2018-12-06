@@ -1,18 +1,18 @@
 ---
-__mysql_daemon: mariadb
-__mysql_packages:
+mysql_daemon: mariadb
+mysql_packages:
   - mariadb-client
   - mariadb-server
   - mariadb-libs
-__mysql_slow_query_log_file: /var/log/mysql-slow.log
-__mysql_log_error: /var/log/mariadb/mariadb.log
-__mysql_syslog_tag: mariadb
-__mysql_pid_file: /var/run/mariadb/mariadb.pid
-__mysql_config_file: /etc/my.cnf
-__mysql_config_include_dir: /etc/my.cnf.d
-__mysql_socket: /var/lib/mysql/mysql.sock
-__mysql_supports_innodb_large_prefix: False
+mysql_slow_query_log_file: /var/log/mysql-slow.log
+mysql_log_error: /var/log/mariadb/mariadb.log
+mysql_syslog_tag: mariadb
+mysql_pid_file: /var/run/mariadb/mariadb.pid
+mysql_config_file: /etc/my.cnf
+mysql_config_include_dir: /etc/my.cnf.d
+mysql_socket: /var/lib/mysql/mysql.sock
+mysql_supports_innodb_large_prefix: False
 
-__mysql_version: latest
+mysql_version: latest
 mysql_repo: http://yum.mariadb.org/10.1/centos6-amd64
 mysql_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB

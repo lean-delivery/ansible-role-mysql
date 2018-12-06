@@ -1,5 +1,6 @@
 ---
 - name: Add {{ mysql_daemon }} {{ mysql_version }} YUM repository file
+  become: True
   yum_repository:
     name: '{{ mysql_daemon }}'
     description: mysql YUM repo

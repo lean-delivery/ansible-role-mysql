@@ -45,7 +45,7 @@
     mode: 0640
   when: mysql_slow_query_log_enabled
 
-- name: Create error log file (if configured).
+- name: Create errorlog file (if configured).
   become: True
   file:
     path: "{{ mysql_log_error }}"
