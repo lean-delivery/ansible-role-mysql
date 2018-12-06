@@ -27,12 +27,9 @@ options:
     defaults:
       stdout_callback: yaml
       bin_ansible_callbacks: True
-  # log: True
+  log: True
   lint:
     name: ansible-lint
-    options:
-      c: ../.ansible-lint
-      r: ~/ansible-lint-rules/rules/
 scenario:
   name: default
 verifier:
