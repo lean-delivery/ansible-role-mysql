@@ -16,13 +16,13 @@
     mode: 0755
   when: mysql_config_include_files | length
 
-- name: Create datadir if it does not exist
-  file:
-    path: "{{ mysql_datadir }}"
-    state: directory
-    owner: mysql
-    group: mysql
-    mode: 0755
+# - name: Create datadir if it does not exist
+#   file:
+#     path: "{{ mysql_datadir }}"
+#     state: directory
+#     owner: mysql
+#     group: mysql
+#     mode: 0755
 
 - name: Create slow query log file (if configured).
   file:
