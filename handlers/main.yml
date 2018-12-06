@@ -7,4 +7,3 @@
 
 - name: result root password change
   command: touch /tmp/temporary_password_changed.txt
-  
