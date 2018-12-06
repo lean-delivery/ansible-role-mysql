@@ -153,7 +153,7 @@ If you want to install MySQL from the official repository instead of installing 
         mysql_log_error: /var/log/mysqld.err
         mysql_syslog_tag: mysqld
         mysql_pid_file: /var/run/mysqld/mysqld.pid
-        mysql_socket: /var/lib/mysql/mysql.sock
+        mysql_socket: /var/run/mysqld/mysqld.sock
       when: ansible_os_family == "RedHat"
 ```
 

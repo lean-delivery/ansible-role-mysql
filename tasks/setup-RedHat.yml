@@ -8,7 +8,8 @@
     gpgcakey: '{{ mysql_gpgkey }}'
     gpgcheck: True
 
-- name:
+- name: Add gpgkey
+  become: True
   rpm_key:
     state: present
     key: '{{ mysql_gpgkey }}'
