@@ -29,7 +29,7 @@ Docker mysql:
   tags:
     - docker
 
-.AWS mysql:
+AWS mysql:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
