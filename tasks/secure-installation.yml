@@ -33,15 +33,13 @@
 - name: update mysql root password for root@localhost account (5.7.x)
   become: True
   shell: mysql -u root -p'{{ mysql_root_temporary_password.msg }}' --connect-expired-password \
-        -e "ALTER USER '{{ mysql_root_username }}'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';\
+        -e "ALTER USER '{{ mysql_root_username }}'@'localhost' \
+        IDENTIFIED BY '{{ mysql_root_password }}';\
          FLUSH PRIVILEGES;"
   args:
     creates: /tmp/temporary_password_changed.txt
   when: ( '5.7.' in mysql_cli_version.stdout )
-  register: result_root_password_change
-
-- command: touch /tmp/temporary_password_changed.txt
-  when: result_root_password_change.changed
+  notify: result root password change
 
 - name: update mysql root password for all root accounts
   become: True

@@ -4,3 +4,7 @@
     name: '{{ mysql_daemon }}'
     state: restarted
     sleep: 5
+
+- name: result root password change
+  command: touch /tmp/temporary_password_changed.txt
+  
