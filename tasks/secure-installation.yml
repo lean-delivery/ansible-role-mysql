@@ -8,13 +8,13 @@
     state: present
   when: mysql_user_name  != "root"
 
-- name: find temporary password
+- name: log file
   become: True
   slurp:
     src: "/var/log/mysqld.log"
   register: log_content
 
-- name: debug
+- name: find temporary password
   debug:
     msg: "{{ log_content['content'] | b64decode |\
          regex_search('.*root@localhost:\\ (\\S+)') |\
@@ -23,13 +23,15 @@
 
 - name: update mysql root password for root@localhost account (5.7.x)
   become: True
-  shell: mysql -uroot -p'{{ mysql_root_temporary_password.msg }}' --connect-expired-password \
-         -e "ALTER USER '{{ mysql_root_username }}'@'localhost'\
-         IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
+  shell: mysql -u root -p'{{ mysql_root_temporary_password.msg }}' --connect-expired-password \
+        -e "ALTER USER '{{ mysql_root_username }}'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;"
   args:
-    chdir: tmp/
-    creates: temporary_password_changed.txt
-  when: "'5.7.' in mysql_cli_version.stdout"
+    creates: /tmp/temporary_password_changed.txt
+  when: ( '5.7.' in mysql_cli_version.stdout )
+  register: result_root_password_change
+
+- command: touch /tmp/temporary_password_changed.txt
+  when: result_root_password_change.changed
 
 - name: update mysql root password for all root accounts
   become: True
@@ -48,26 +50,21 @@
   become: True
   template:
     src: "user-my.cnf.j2"
-    dest: "{{ item.home }}/.my.cnf"
-    owner: "{{ item.name }}"
+    dest: "/root/.my.cnf"
+    owner: "root"
     mode: 0600
-  with_items:
-    - name: '{{ mysql_user_name }}'
-      home: '{{ mysql_user_home }}'
-      password: '{{ mysql_user_password }}'
-    - name: '{{ mysql_root_username }}'
-      home: '{{ mysql_root_home }}'
-      password: '{{ mysql_root_password }}'
-  when: ( item.name is defined ) and\
-       (mysql_install_packages | bool or mysql_user_password_update)
 
 - name: Remove anonymous MySQL users.
   mysql_user:
     name: ""
     host_all: True
     state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
 
 - name: Remove MySQL test database.
   mysql_db:
     name: test
     state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
