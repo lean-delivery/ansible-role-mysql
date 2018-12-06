@@ -15,11 +15,6 @@ platforms:
     privileged: True
     groups:
       - rhel_family
-  - name: test-docker-centos6-mysql
-    image: centos6
-    privileged: True
-    groups:
-      - rhel_family
 provisioner:
   name: ansible
 options:

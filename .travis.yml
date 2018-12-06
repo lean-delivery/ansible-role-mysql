@@ -22,4 +22,4 @@ script:
   - molecule test -s default
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  # webhooks: https://galaxy.ansible.com/api/v1/notifications/
