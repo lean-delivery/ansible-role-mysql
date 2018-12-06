@@ -3,6 +3,7 @@
   hosts: all
   roles:
     - role: ansible-role-mysql
+      become: True
       mysql_root_password: 88TEM-veDRE<888serd
       mysql_databases:
         - name: example2_db
