@@ -15,11 +15,20 @@ platforms:
     privileged: True
     groups:
       - rhel_family
-  - name: test-docker-centos7-mysql
-    image: centos6
+  - name: test-docker-ubuntu1804-mysql
+    image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: True
+    security_opts:
+      - seccomp=unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+      - /run
+    capabilities:
+      - SYS_ADMIN
     groups:
-      - rhel_family
+      - debian_family
 provisioner:
   name: ansible
 options:
