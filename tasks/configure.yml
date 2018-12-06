@@ -25,19 +25,6 @@
     mode: 0755
   when: mysql_config_include_files | length
 
-# comment [E402] Template files should have the extension '.j2'
-# - name: Copy my.cnf override files into include directory.
-#   template:
-#     src: "{{ item.src }}"
-#     dest: "{{ mysql_config_include_dir }}/{{ item.src | basename }}"
-#     owner: root
-#     group: root
-#     mode: 0644
-#     force: "{{ item.force | default(False) }}"
-#   with_items: "{{ mysql_config_include_files }}"
-#   notify: restart mysql
-#   when: mysql_config_include_files | length > 0
-
 - name: Create datadir if it does not exist
   become: True
   file:
@@ -68,12 +55,12 @@
     mode: 0640
   when: mysql_log_error != ""
 
-- name: Set additional parameters in my.cnf
+- name: Set additional parameters in '{{ mysql_config_file }}'
+  become: True
   lineinfile:
     path: "{{ mysql_config_file }}"
     regexp: '{{ item.name }}'
-    line: '{{ item.name }}: {{ item.value }}'
-    backrefs: True
+    line: "{{ item.name }}: {{ item.value }}"
     state: present
   with_items:
     - "{{ additional_parameters }}"

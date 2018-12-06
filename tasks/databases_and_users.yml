@@ -6,7 +6,7 @@
     encoding: "{{ item.encoding | default('utf8') }}"
     state: "{{ item.state | default('present') }}"
     target: "{{ item.target | default(None) }}"
-    login_user: root
+    login_user: "{{ mysql_root_username }}"
     login_password: "{{ mysql_root_password }}"
   with_items: "{{ mysql_databases }}"
 
@@ -19,7 +19,7 @@
     state: "{{ item.state | default('present') }}"
     append_privs: "{{ item.append_privs | default('no') }}"
     encrypted: "{{ item.encrypted | default('no') }}"
-    login_user: root
+    login_user: "{{ mysql_root_username }}"
     login_password: "{{ mysql_root_password }}"
   with_items: "{{ mysql_users }}"
   no_log: True

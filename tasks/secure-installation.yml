@@ -8,6 +8,15 @@
     state: present
   when: mysql_user_name  != "root"
 
+- name: Copy .my.cnf file with password credentials.
+  become: True
+  template:
+    src: "user-my.cnf.j2"
+    dest: "{{ mysql_user_home }}/.my.cnf"
+    owner: "{{ mysql_user_name }}"
+    mode: 0600
+  when: mysql_user_name != mysql_root_username
+
 - name: log file
   become: True
   slurp:
@@ -49,9 +58,9 @@
 - name: Copy .my.cnf file with password credentials.
   become: True
   template:
-    src: "user-my.cnf.j2"
-    dest: "/root/.my.cnf"
-    owner: "root"
+    src: "root-my.cnf.j2"
+    dest: "{{ mysql_root_home }}/.my.cnf"
+    owner: "{{ mysql_root_username }}"
     mode: 0600
 
 - name: Remove anonymous MySQL users.
@@ -59,12 +68,12 @@
     name: ""
     host_all: True
     state: absent
-    login_user: root
+    login_user: "{{ mysql_root_username }}"
     login_password: "{{ mysql_root_password }}"
 
 - name: Remove MySQL test database.
   mysql_db:
     name: test
     state: absent
-    login_user: root
+    login_user: "{{ mysql_root_username }}"
     login_password: "{{ mysql_root_password }}"
