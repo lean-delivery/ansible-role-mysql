@@ -39,6 +39,8 @@
     creates: /tmp/temporary_password_changed.txt
   when: ( '5.7.' in mysql_cli_version.stdout )
   notify: result root password change
+  tags:
+    - skip_ansible_lint
 
 - name: update mysql root password for all root accounts
   become: True
