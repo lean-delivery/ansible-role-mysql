@@ -64,3 +64,39 @@ EPC mysql-5.6:
     - molecule test -s cloud-epc-delegated-5.6
   tags:
     - delegated
+
+AWS mysql-5.5:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-5.5
+  tags:
+    - delegated
+
+EPC mysql-5.5:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-5.5
+  tags:
+    - delegated
+
+AWS mariadb:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-mariadb
+  tags:
+    - delegated
+
+EPC mariadb:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-mariadb
+  tags:
+    - delegated

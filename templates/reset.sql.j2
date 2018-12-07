@@ -3,5 +3,5 @@ FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';
 {% else %}
 FLUSH PRIVILEGES;
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('mysql_root_password');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('{{ mysql_root_password }}');
 {% endif %}
