@@ -29,7 +29,6 @@
     name: "{{ mysql_packages }}"
     state: present
     update_cache: True
-  register: mysql_installed_packages
 
 - name: Enable it to start automatically at the next boot
   become: True

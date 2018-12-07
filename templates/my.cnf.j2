@@ -99,7 +99,7 @@ lower_case_table_names = {{ mysql_lower_case_table_names }}
 event_scheduler = {{ mysql_event_scheduler_state }}
 
 # InnoDB settings.
-{% if mysql_supports_innodb_large_prefix and '8.0.' not in mysql_cli_version.stdout %}
+{% if mysql_supports_innodb_large_prefix and '8.0.' not in mysql_version %}
 innodb_large_prefix = {{ mysql_innodb_large_prefix }}
 innodb_file_format = {{ mysql_innodb_file_format }}
 {% endif %}
@@ -110,6 +110,12 @@ innodb_log_buffer_size = {{ mysql_innodb_log_buffer_size }}
 innodb_flush_log_at_trx_commit = {{ mysql_innodb_flush_log_at_trx_commit }}
 innodb_lock_wait_timeout = {{ mysql_innodb_lock_wait_timeout }}
 
+# Additional parameters 
+{% if additional_parameters is defined %}
+{% for tems in additional_parameters %}
+{{ item.name }} = {{ item.value }}
+{% endfor %}
+{% endif %}
 [mysqldump]
 quick
 max_allowed_packet = {{ mysql_mysqldump_max_allowed_packet }}
