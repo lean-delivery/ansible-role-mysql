@@ -33,10 +33,6 @@ The MySQL root user account details.
 
 > Note: If you get an error like `ERROR 1698 (28000): Access denied for user 'root'@'localhost' (using password: YES)` when trying to log in from the CLI you might need to run as root or sudoer.
 
-    mysql_enabled_on_startup: true
-
-Whether MySQL should be enabled on startup.
-
     mysql_config_file: *default value depends on OS*
     mysql_config_include_dir: *default value depends on OS*
     
