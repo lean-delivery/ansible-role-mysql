@@ -65,7 +65,7 @@
     - name: Remove file reset.sql
       file:
         path: '/tmp/reset.sql'
-        status: absent
+        state: absent
 
     - name: restart mysql
       service:
