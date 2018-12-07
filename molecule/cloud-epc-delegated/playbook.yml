@@ -17,8 +17,8 @@
       mysql_port: "3306"
       mysql_bind_address: '0.0.0.0'
       mysql_daemon: mysqld
-      additional_parameters:
-        - name: mysql_expire_logs_days
-          value: 11
-        - name: mysql_max_binlog_size
-          value: 101M
+      # additional_parameters:
+      #   - name: expire_logs_days
+      #     value: 11
+      #   - name: max_binlog_size
+      #     value: 101M
