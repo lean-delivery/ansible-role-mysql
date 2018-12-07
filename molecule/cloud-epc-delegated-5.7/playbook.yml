@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-mysql
+      become: True
+      mysql_root_password: 88TEM-veDRE<888serd
+      mysql_databases:
+        - name: example2_db
+          encoding: latin1
+          collation: latin1_general_ci
+      mysql_users:
+        - name: example2_user
+          host: "%"
+          password: Sime32-SRRR-password
+          priv: "example2_db.*:ALL"
+      mysql_port: "3306"
+      mysql_bind_address: '0.0.0.0'
+      mysql_daemon: mysqld
+      # additional_parameters:
+      #   - name: expire_logs_days
+      #     value: 11
+      #   - name: max_binlog_size
+      #     value: 101M

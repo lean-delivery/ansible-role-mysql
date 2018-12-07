@@ -29,20 +29,38 @@ Docker mysql:
   tags:
     - docker
 
-AWS mysql:
+AWS mysql-5.7:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-delegated
+    - molecule test -s cloud-aws-delegated-5.7
   tags:
     - delegated
 
-EPC mysql:
+EPC mysql-5.7:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
   script:
-    - molecule test -s cloud-epc-delegated
+    - molecule test -s cloud-epc-delegated-5.7
+  tags:
+    - delegated
+
+AWS mysql-5.6:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-5.6
+  tags:
+    - delegated
+
+EPC mysql-5.6:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-5.6
   tags:
     - delegated

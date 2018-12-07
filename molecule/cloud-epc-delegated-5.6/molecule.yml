@@ -10,23 +10,23 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-mysql
+  - name: test-epc-centos7-mysql-5.6
     image: CentOS7_64-bit
     shape: large
-    region: AWS-EUCENTRAL
-    wait_timeout: 1800
+    region: EPAM-BY2
+    wait_timeout: 3600
     groups:
       - rhel_family
-  - name: test-aws-centos6-mysql
+  - name: test-epc-centos6-mysql-5.6
     image: CentOS6_64-bit
     shape: large
-    region: AWS-EUCENTRAL
-    wait_timeout: 1800
+    region: EPAM-BY2
+    wait_timeout: 3600
     groups:
       - rhel_family
 provisioner:
   name: ansible
-  # log: True
+  log: True
   playbooks:
     create: ../resources/provisioning/create.yml
     prepare: ../resources/provisioning/prepare.yml
@@ -39,7 +39,7 @@ provisioner:
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-aws-delegated
+  name: cloud-epc-delegated-5.6
 verifier:
   name: testinfra
   options:
