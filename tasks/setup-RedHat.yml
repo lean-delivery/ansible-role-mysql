@@ -25,10 +25,3 @@
     name: "{{ mysql_packages }}"
     state: present
     update_cache: True
-
-- name: Enable it to start automatically at the next boot
-  service:
-    name: '{{ mysql_daemon }}'
-    state: started
-    enabled: True
-    runlevel: 235

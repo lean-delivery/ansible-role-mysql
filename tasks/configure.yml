@@ -7,7 +7,30 @@
     group: root
     mode: 0644
     force: "{{ overwrite_global_mycnf }}"
+  register: mysql_config
   notify: restart mysql
+
+- name: Clean InnoDB logs
+  block:
+    - name: Stop MySQL to change configs
+      service:
+        name: '{{ mysql_daemon }}'
+        state: stopped
+
+    - name: Find InnoDB log files
+      find:
+        paths: '{{ mysql_datadir }}'
+        patterns: 'ib_logfile*'
+      register: innodb_log
+
+    - name: Remove default InnoDB log files
+      file:
+        path: '{{ idb_log.path }}'
+        state: absent
+      loop: '{{ innodb_log.files }}'
+      loop_control:
+        loop_var: idb_log
+  when: mysql_config.changed | bool
 
 - name: Verify mysql include directory exists.
   file:
@@ -44,4 +67,3 @@
   service:
     name: '{{ mysql_daemon }}'
     state: started
-  register: mysql_service_configuration

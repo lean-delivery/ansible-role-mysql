@@ -25,11 +25,31 @@
         mode: 0644
         force: True
 
-    - name: restart mysql with skip-grant-tables
+    - name: Clean InnoDB logs
+      block:
+        - name: Stop MySQL to change configs
+          service:
+            name: '{{ mysql_daemon }}'
+            state: stopped
+
+        - name: Find InnoDB log files
+          find:
+            paths: '{{ mysql_datadir }}'
+            patterns: 'ib_logfile*'
+          register: innodb_log
+
+        - name: Remove default InnoDB log files
+          file:
+            path: '{{ idb_log.path }}'
+            state: absent
+          loop: '{{ innodb_log.files }}'
+          loop_control:
+            loop_var: idb_log
+
+    - name: Start mysql with skip-grant-tables
       service:
         name: '{{ mysql_daemon }}'
-        state: restarted
-        sleep: 5
+        state: started
 
     - name: Check mysql version
       mysql_variables:
@@ -67,11 +87,31 @@
         path: '/tmp/reset.sql'
         state: absent
 
-    - name: restart mysql
+    - name: Clean InnoDB logs
+      block:
+        - name: Stop MySQL to change configs
+          service:
+            name: '{{ mysql_daemon }}'
+            state: stopped
+
+        - name: Find InnoDB log files
+          find:
+            paths: '{{ mysql_datadir }}'
+            patterns: 'ib_logfile*'
+          register: innodb_log
+
+        - name: Remove default InnoDB log files
+          file:
+            path: '{{ idb_log.path }}'
+            state: absent
+          loop: '{{ innodb_log.files }}'
+          loop_control:
+            loop_var: idb_log
+
+    - name: Start mysql
       service:
         name: '{{ mysql_daemon }}'
-        state: restarted
-        sleep: 5
+        state: started
 
 - name: Ensure default user is present.
   mysql_user:
