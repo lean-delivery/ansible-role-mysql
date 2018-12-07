@@ -112,7 +112,7 @@ innodb_lock_wait_timeout = {{ mysql_innodb_lock_wait_timeout }}
 
 # Additional parameters 
 {% if additional_parameters is defined %}
-{% for tems in additional_parameters %}
+{% for items in additional_parameters %}
 {{ item.name }} = {{ item.value }}
 {% endfor %}
 {% endif %}
