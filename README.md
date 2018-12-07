@@ -50,8 +50,6 @@ A list of files that should override the default global my.cnf. Each item in the
 
 The MySQL databases to create. A database has the values `name`, `encoding` (defaults to `utf8`), `collation` (defaults to `utf8_general_ci`) and `replicate` (defaults to `1`, only used if replication is configured). The formats of these are the same as in the `mysql_db` module.
 
-You can also delete a database (or ensure it's not on the server) by setting `state` to `absent` (defaults to `present`).
-
     mysql_users: []
 
 The MySQL users and their privileges. A user has the values:
@@ -64,7 +62,6 @@ The MySQL users and their privileges. A user has the values:
   - `append_privs` (defaults to `no`)
   - `state`  (defaults to `present`)
 
-
 The formats of these are the same as in the `mysql_user` module.
 
     mysql_packages:
@@ -72,7 +69,7 @@ The formats of these are the same as in the `mysql_user` module.
       - mysql-server
     
     mysql_daemon: mysqld/mariadb
-    mysql_version: 5.7   (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
+    mysql_version: 5.7 (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
 
 (OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
