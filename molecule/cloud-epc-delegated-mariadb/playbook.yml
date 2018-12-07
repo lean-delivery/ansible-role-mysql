@@ -16,7 +16,7 @@
           priv: "example2_db.*:ALL"
       mysql_port: "3306"
       mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mysqld
+      mysql_daemon: mariadb
       # additional_parameters:
       #   - name: expire_logs_days
       #     value: 11

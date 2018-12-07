@@ -10,14 +10,14 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-epc-centos7-mysql-5.7
+  - name: test-epc-centos7-mysql-mariadb
     image: CentOS7_64-bit
     shape: large
     region: EPAM-BY2
     wait_timeout: 3600
     groups:
       - rhel_family
-  - name: test-epc-centos6-mysql-5.7
+  - name: test-epc-centos6-mysql-mariadb
     image: CentOS6_64-bit
     shape: large
     region: EPAM-BY2
@@ -39,7 +39,7 @@ provisioner:
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-epc-delegated-5.7
+  name: cloud-epc-delegated-mariadb
 verifier:
   name: testinfra
   options:
