@@ -25,7 +25,7 @@
         mode: 0644
         force: True
 
-    - name: restart mysql
+    - name: restart mysql with skip-grant-tables
       service:
         name: '{{ mysql_daemon }}'
         state: restarted
@@ -62,38 +62,16 @@
         dest: "{{ mysql_config_file }}"
         mode: 0644
 
+    - name: Remove file reset.sql
+      file:
+        path: '/tmp/reset.sql'
+        status: absent
+
     - name: restart mysql
       service:
         name: '{{ mysql_daemon }}'
         state: restarted
         sleep: 5
-
-- name: Ensure default user is present.
-  mysql_user:
-    name: '{{ mysql_root_username }}'
-    host: 'localhost'
-    config_file: /etc/my.cnf
-    password: '{{ mysql_root_password }}'
-    priv: '*.*:ALL,GRANT'
-    state: present
-    login_user: 'root'
-    login_password: '{{ mysql_root_password }}'
-  when: mysql_root_username != "root"
-
-- name: Check mysql version fom db
-  mysql_variables:
-    variable: version
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  register: mysql_version_out
-
-- name: Set mysql version
-  set_fact:
-    mysql_version: '{{ mysql_version_out.msg.split("-")[0] }}'
-
-- name: out mysql_cli_version
-  debug:
-    var: mysql_version
 
 - name: Ensure default user is present.
   mysql_user:

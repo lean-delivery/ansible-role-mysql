@@ -1,6 +1,5 @@
 ---
 - name: Add {{ mysql_daemon }} {{ mysql_version }} YUM repository file
-  become: True
   yum_repository:
     name: '{{ mysql_daemon }}'
     description: mysql YUM repo
@@ -9,13 +8,11 @@
     gpgcheck: True
 
 - name: Add gpgkey
-  become: True
   rpm_key:
     state: present
     key: '{{ mysql_gpgkey }}'
 
 - name: Ensure MySQL Python libraries are installed.
-  become: True
   yum:
     name: "{{ item }}"
     state: present
@@ -24,14 +21,12 @@
     - perl-DBD-MySQL
 
 - name: Install {{ mysql_daemon }} {{ mysql_version }} packages.
-  become: True
   yum:
     name: "{{ mysql_packages }}"
     state: present
     update_cache: True
 
 - name: Enable it to start automatically at the next boot
-  become: True
   service:
     name: '{{ mysql_daemon }}'
     state: started
