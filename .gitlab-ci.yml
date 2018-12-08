@@ -7,7 +7,6 @@ stages:
 before_script:
   - ansible --version
   - molecule --version
-  - export ANSIBLE_FORCE_COLOR=true
   - export TERM=xterm-256color
   - tput colors
 
@@ -28,7 +27,6 @@ Ansible lint:
 Docker mysql:
   stage: deployment test
   script:
-    - export ANSIBLE_FORCE_COLOR=true
     - molecule test -s default
   tags:
     - docker
