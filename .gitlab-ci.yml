@@ -7,6 +7,8 @@ stages:
 before_script:
   - ansible --version
   - molecule --version
+  - export ANSIBLE_FORCE_COLOR=true
+  - tput colors
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
