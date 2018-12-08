@@ -17,9 +17,6 @@ platforms:
       - rhel_family
 provisioner:
   name: ansible
-  # log: True
-  env:
-    ANSIBLE_FORCE_COLOR: True
 config_options:
   defaults:
     stdout_callback: yaml
