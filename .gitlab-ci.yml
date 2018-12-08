@@ -24,7 +24,7 @@ Ansible lint:
 
 Docker mysql:
   variables:
-    ANSIBLE_FORCE_COLOR: True
+    ANSIBLE_FORCE_COLOR: "True"
   stage: deployment test
   script:
     - molecule test -s default
