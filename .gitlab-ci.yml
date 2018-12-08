@@ -23,10 +23,9 @@ Ansible lint:
     - delegated
 
 Docker mysql:
-  variables:
-    ANSIBLE_FORCE_COLOR: "True"
   stage: deployment test
   script:
+    - export ANSIBLE_FORCE_COLOR=true
     - molecule test -s default
   tags:
     - docker
