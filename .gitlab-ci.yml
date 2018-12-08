@@ -8,6 +8,7 @@ before_script:
   - ansible --version
   - molecule --version
   - export ANSIBLE_FORCE_COLOR=true
+  - export TERM=xterm-256color
   - tput colors
 
 variables:
