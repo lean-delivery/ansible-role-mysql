@@ -18,12 +18,12 @@ platforms:
 provisioner:
   name: ansible
 options:
-  config_options:
-    defaults:
-      force_color: True
-      stdout_callback: yaml
-      bin_ansible_callbacks: True
   log: True
+config_options:
+  defaults:
+    force_color: True
+    stdout_callback: yaml
+    bin_ansible_callbacks: True
   lint:
     name: ansible-lint
 scenario:
