@@ -67,9 +67,8 @@ The formats of these are the same as in the `mysql_user` module.
     mysql_packages:
       - mysql
       - mysql-server
-    
-    mysql_daemon: mysqld/mariadb
-    mysql_version: 5.7 (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
+    mysql_daemon: mysqld    # (mysqld/mariadb)
+    mysql_version: 5.7      # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
 
 (OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
@@ -114,48 +113,16 @@ Replication settings. Set `mysql_server_id` and `mysql_replication_role` by serv
 `mysql_replication_master` needs to resolve to an IP or a hostname which is accessable to the Slaves (this could be a `/etc/hosts` injection or some other means), otherwise the slaves cannot communicate to the master.
 
 #additional_parameters
-Also you can set other parametrs, which are not listed here and it will will be written to the configuration file.
+Also you can set other parametrs, which are not listed here and it will be written to the configuration file. Example:
      additional_parameters:
         - name: mysql_expire_logs_days
           value: 11
 
 #
 
-### Later versions of MySQL on CentOS 7
-
-If you want to install MySQL from the official repository instead of installing the system default MariaDB equivalents, you can add the following `pre_tasks` task in your playbook:
-
-```yaml
-  pre_tasks:
-    - name: Install the MySQL repo.
-      yum:
-        name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-        state: present
-      when: ansible_os_family == "RedHat"
-  
-    - name: Override variables for MySQL (RedHat).
-      set_fact:
-        mysql_daemon: mysqld
-        mysql_packages: ['mysql-server']
-        mysql_log_error: /var/log/mysqld.err
-        mysql_syslog_tag: mysqld
-        mysql_pid_file: /var/run/mysqld/mysqld.pid
-        mysql_socket: /var/run/mysqld/mysqld.sock
-      when: ansible_os_family == "RedHat"
-```
-
 ### MariaDB usage
 
 This role works with either MySQL or a compatible version of MariaDB. On RHEL/CentOS 7+, the mariadb database engine was substituted as the default MySQL replacement package. No modifications are necessary though all of the variables still reference 'mysql' instead of mariadb.
-
-#### Ubuntu 14.04 and 16.04 MariaDB configuration
-
-On Ubuntu, the package names are named differently, so the `mysql_package` variable needs to be altered. Set the following variables (at a minimum):
-
-    mysql_packages:
-      - mariadb-client
-      - mariadb-server
-      - python-mysqldb
 
 ## Dependencies
 
@@ -172,6 +139,9 @@ None.
 
 *Inside `vars/main.yml`*:
 
+    become: True
+    mysql_daemon: mysqld
+    mysql_version: 5.7
     mysql_root_password: super-secure-password
     mysql_databases:
       - name: example_db
