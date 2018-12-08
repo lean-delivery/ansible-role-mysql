@@ -20,6 +20,7 @@ provisioner:
 options:
   config_options:
     defaults:
+      force_color: True
       stdout_callback: yaml
       bin_ansible_callbacks: True
   log: True

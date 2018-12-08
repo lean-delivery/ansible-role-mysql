@@ -10,11 +10,19 @@
   register: mysql_config
   notify: restart mysql
 
+- name: Verify mysql pid directory exists.
+  file:
+    path: "{{ mysql_pid_file | dirname }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: 0755
+
 - name: Clean InnoDB logs
   block:
     - name: Stop MySQL to change configs
       service:
-        name: '{{ mysql_daemon }}'
+        name: '{{ mysql_service_name }}'
         state: stopped
 
     - name: Find InnoDB log files
@@ -65,5 +73,14 @@
 
 - name: Ensure MySQL is started.
   service:
-    name: '{{ mysql_daemon }}'
+    name: '{{ mysql_service_name }}'
     state: started
+    enabled: True
+
+- name: Wait for service to be ready
+  wait_for:
+    port: '{{ mysql_port }}'
+    host: '{{ mysql_bind_address }}'
+    connect_timeout: 3
+    delay: 3
+    timeout: 30

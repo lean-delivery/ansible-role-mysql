@@ -26,12 +26,15 @@ platforms:
       - rhel_family
 provisioner:
   name: ansible
+  options:
   # log: True
   playbooks:
     create: ../resources/provisioning/create.yml
     prepare: ../resources/provisioning/prepare.yml
     destroy: ../resources/provisioning/destroy.yml
   config_options:
+    defaults:
+      force_color: True
     ssh_connection:
       control_path: "/var/ans/%%h"
   lint:
