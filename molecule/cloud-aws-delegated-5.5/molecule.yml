@@ -26,7 +26,6 @@ platforms:
       - rhel_family
 provisioner:
   name: ansible
-  options:
   # log: True
   playbooks:
     create: ../resources/provisioning/create.yml

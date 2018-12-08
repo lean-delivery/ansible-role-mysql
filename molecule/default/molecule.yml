@@ -17,13 +17,12 @@ platforms:
       - rhel_family
 provisioner:
   name: ansible
-options:
   log: True
-# config_options:
-#   defaults:
-#     force_color: True
-#     stdout_callback: yaml
-#     bin_ansible_callbacks: True
+config_options:
+  defaults:
+    # force_color: True
+    stdout_callback: yaml
+    bin_ansible_callbacks: True
   lint:
     name: ansible-lint
 scenario:
