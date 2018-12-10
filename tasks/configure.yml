@@ -60,7 +60,7 @@
 - name: Reload MySQL service
   service:
     name: '{{ mysql_service_name }}'
-    state: reloaded
+    state: started
     enabled: True
 
 - name: Wait for service to be ready
