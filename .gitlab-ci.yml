@@ -22,14 +22,14 @@ Ansible lint:
   tags:
     - delegated
 
-Docker mysql:
+.Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - docker
 
-AWS mysql-5.7:
+.AWS mysql-5.7:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
@@ -38,7 +38,7 @@ AWS mysql-5.7:
   tags:
     - delegated
 
-EPC mysql-5.7:
+.EPC mysql-5.7:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -49,14 +49,14 @@ EPC mysql-5.7:
 
 AWS mysql-5.6:
   variables:
-    EPC_REGION: AWS-EUCENTRAL
+    EPC_REGION: AWS-USEAST-2
   stage: deployment test
   script:
     - molecule test -s cloud-aws-delegated-5.6
   tags:
     - delegated
 
-EPC mysql-5.6:
+.EPC mysql-5.6:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -67,14 +67,14 @@ EPC mysql-5.6:
 
 AWS mysql-5.5:
   variables:
-    EPC_REGION: AWS-EUCENTRAL
+    EPC_REGION: AWS-USEAST-2
   stage: deployment test
   script:
     - molecule test -s cloud-aws-delegated-5.5
   tags:
     - delegated
 
-EPC mysql-5.5:
+.EPC mysql-5.5:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -83,7 +83,7 @@ EPC mysql-5.5:
   tags:
     - delegated
 
-AWS mariadb:
+.AWS mariadb:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
@@ -92,7 +92,7 @@ AWS mariadb:
   tags:
     - delegated
 
-EPC mariadb:
+.EPC mariadb:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
