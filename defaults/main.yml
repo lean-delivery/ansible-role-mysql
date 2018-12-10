@@ -10,11 +10,6 @@ mysql_root_home: /root
 mysql_root_username: root
 mysql_root_password: root
 
-# Set this to `True` to forcibly update the root password.
-mysql_root_password_update: False
-mysql_user_password_update: False
-
-
 # Whether my.cnf should be updated on every run.
 overwrite_global_mycnf: True
 
