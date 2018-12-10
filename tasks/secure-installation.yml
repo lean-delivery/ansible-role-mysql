@@ -16,15 +16,8 @@
       debug:
         var: mysql_version
   rescue:
-    - name: Stop MySQL to change configs
-      service:
-        name: '{{ mysql_service_name }}'
-        state: stopped
-
-    - name: Wait until the lock file is removed
-      wait_for:
-        path: /var/lock/subsys/mysql
-        state: absent
+    - name: Clear InnoDB logs
+      include_tasks: clear_innodb_logs.yml
 
     - name: Copy init.cnf for skip-grant-tables mode
       template:
@@ -34,22 +27,6 @@
         group: root
         mode: 0644
         force: True
-
-    - name: Clean InnoDB logs
-      block:
-        - name: Find InnoDB log files
-          find:
-            paths: '{{ mysql_datadir }}'
-            patterns: 'ib_logfile*'
-          register: innodb_log
-
-        - name: Remove default InnoDB log files
-          file:
-            path: '{{ idb_log.path }}'
-            state: absent
-          loop: '{{ innodb_log.files }}'
-          loop_control:
-            loop_var: idb_log
 
     - name: Start mysql with skip-grant-tables
       service:
@@ -89,31 +66,8 @@
         state: import
         target: '/tmp/reset.sql'
 
-    - name: Clean InnoDB logs
-      block:
-        - name: Stop MySQL to change configs
-          service:
-            name: '{{ mysql_service_name }}'
-            state: stopped
-
-        - name: Wait until the lock file is removed
-          wait_for:
-            path: /var/lock/subsys/mysql
-            state: absent
-
-        - name: Find InnoDB log files
-          find:
-            paths: '{{ mysql_datadir }}'
-            patterns: 'ib_logfile*'
-          register: innodb_log
-
-        - name: Remove default InnoDB log files
-          file:
-            path: '{{ idb_log.path }}'
-            state: absent
-          loop: '{{ innodb_log.files }}'
-          loop_control:
-            loop_var: idb_log
+    - name: Clear InnoDB logs
+      include_tasks: clear_innodb_logs.yml
 
     - name: Copy my.cnf global MySQL configuration.
       template:
