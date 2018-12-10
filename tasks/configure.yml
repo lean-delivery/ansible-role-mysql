@@ -49,14 +49,18 @@
     owner: mysql
     group: "{{ mysql_log_file_group }}"
     mode: 0640
+    seuser: system_u
+    serole: object_r
+    setype: mysqld_log_t
+    selevel: s0
   register: touch_log
   changed_when: touch_log.diff.before.state != "file"
   when: mysql_log_error != ""
 
-- name: Ensure MySQL is started.
+- name: Reload MySQL service
   service:
     name: '{{ mysql_service_name }}'
-    state: started
+    state: reloaded
     enabled: True
 
 - name: Wait for service to be ready
