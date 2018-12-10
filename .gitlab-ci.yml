@@ -29,7 +29,7 @@ Docker mysql:
   tags:
     - docker
 
-AWS mysql-5.7:
+.AWS mysql-5.7:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
@@ -38,7 +38,7 @@ AWS mysql-5.7:
   tags:
     - delegated
 
-EPC mysql-5.7:
+.EPC mysql-5.7:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -83,7 +83,7 @@ EPC mysql-5.7:
   tags:
     - delegated
 
-AWS mariadb:
+.AWS mariadb:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
@@ -92,7 +92,7 @@ AWS mariadb:
   tags:
     - delegated
 
-EPC mariadb:
+.EPC mariadb:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
