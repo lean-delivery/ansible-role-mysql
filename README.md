@@ -36,7 +36,7 @@ Note that this role requires root access, so either run it in a playbook with a 
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
+Available variables are listed below, along with default values (see `defaults/main.yml` and `var/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-{{ mysql_daemon }}.yml`):
 
     mysql_packages:
       - mysql-community-server   # (mysql-community-server/MariaDB-server)
