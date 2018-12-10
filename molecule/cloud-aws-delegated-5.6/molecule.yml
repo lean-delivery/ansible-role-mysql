@@ -13,14 +13,14 @@ platforms:
   - name: test-aws-centos7-mysql-5.6
     image: CentOS7_64-bit
     shape: large
-    region: AWS-EUCENTRAL
+    region: AWS-USEAST-2
     wait_timeout: 1800
     groups:
       - rhel_family
   - name: test-aws-centos6-mysql-5.6
     image: CentOS6_64-bit
     shape: large
-    region: AWS-EUCENTRAL
+    region: AWS-USEAST-2
     wait_timeout: 1800
     groups:
       - rhel_family
