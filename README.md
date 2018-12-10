@@ -4,11 +4,30 @@
 
 ## Summary
 
-Installs and configures MySQL or MariaDB server on RHEL/CentOS or Debian/Ubuntu servers.
+This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers.
+
+## Role tasks
+
+  - Installs MySQL/MariaDB
+  - Reset root password for mysql
+  - Create db and users
 
 ## Requirements
 
-No special requirements; note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
+  - Minimal Version of the ansible for installation: 2.5.13
+  - Supported versions:
+      - Mysql
+          - 5.5
+          - 5.6
+          - 5.7
+      - Mariadb
+          - 10.1
+  - Supported OS:
+      - CentOS
+          - 6
+          - 7
+
+Note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
 
     - hosts: database
       roles:
@@ -18,6 +37,15 @@ No special requirements; note that this role requires root access, so either run
 ## Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+    mysql_packages:
+      - mysql-community-server   # (mysql-community-server/MariaDB-server)
+      - mysql-community-client   # (mysql-community-client/MariaDB-client)
+                                 # (MariaDB-common)
+    mysql_daemon: mysqld         # (mysqld/mariadb)
+    mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
+
+(OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
     mysql_user_home: /root
     mysql_user_name: root
@@ -30,8 +58,6 @@ The home directory inside which Python MySQL settings will be stored, which Ansi
     mysql_root_password: root
 
 The MySQL root user account details.
-
-> Note: If you get an error like `ERROR 1698 (28000): Access denied for user 'root'@'localhost' (using password: YES)` when trying to log in from the CLI you might need to run as root or sudoer.
 
     mysql_config_file: *default value depends on OS*
     mysql_config_include_dir: *default value depends on OS*
@@ -63,14 +89,6 @@ The MySQL users and their privileges. A user has the values:
   - `state`  (defaults to `present`)
 
 The formats of these are the same as in the `mysql_user` module.
-
-    mysql_packages:
-      - mysql
-      - mysql-server
-    mysql_daemon: mysqld    # (mysqld/mariadb)
-    mysql_version: 5.7      # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
-
-(OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
     mysql_port: "3306"
     mysql_bind_address: '0.0.0.0'
@@ -112,7 +130,7 @@ Replication settings. Set `mysql_server_id` and `mysql_replication_role` by serv
 
 `mysql_replication_master` needs to resolve to an IP or a hostname which is accessable to the Slaves (this could be a `/etc/hosts` injection or some other means), otherwise the slaves cannot communicate to the master.
 
-#additional_parameters
+## additional_parameters
 Also you can set other parametrs, which are not listed here and it will be written to the configuration file. Example:
      additional_parameters:
         - name: mysql_expire_logs_days
@@ -142,7 +160,7 @@ None.
     become: True
     mysql_daemon: mysqld
     mysql_version: 5.7
-    mysql_root_password: super-secure-password
+    mysql_root_password: set-your-password
     mysql_databases:
       - name: example_db
         encoding: latin1
@@ -150,7 +168,7 @@ None.
     mysql_users:
       - name: example_user
         host: "%"
-        password: similarly-secure-password
+        password: set-your-password
         priv: "example_db.*:ALL"
 
 ## License
