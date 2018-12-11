@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   role_name: "mysql"
-  author: Epam
+  author: "Lean Delivery team team@lean-delivery.com"
   description: MySQL server for RHEL/CentOS.
   company: "Epam"
   license: "Apache"
