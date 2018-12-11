@@ -8,7 +8,7 @@ galaxy_info:
   company: "Epam"
   license: "Apache"
   min_ansible_version: 2.4
-  issue_tracker_url: "https://github.com/lean-delivery/ansible-role-jenkins/issues"
+  issue_tracker_url: "https://github.com/lean-delivery/ansible-role-mysql/issues"
   platforms:
     - name: EL
       versions:
