@@ -7,13 +7,13 @@ mysql_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql
 
 # Define a custom list of packages to install; if none provided, the default
 # package list from vars/[OS-family].yml will be used.
-# mysql_packages:
-#  - mysql-community-server
-#  - mysql-community-client
+mysql_packages:
+  - mysql-community-server
+  - mysql-community-client
 #
-# mysql_python_packages:
-#  - MySQL-python
-#  - perl-DBD-MySQL
+mysql_python_packages:
+  - MySQL-python
+  - perl-DBD-MySQL
 
 # Set this to the user ansible is logging in as - should have root
 # or sudo access
@@ -43,7 +43,7 @@ mysql_sql_mode: ''
 # The following variables have a default value depending on operating system. The default
 # parametr from vars/[OS-family].yml will be used
 # mysql_pid_file: /var/run/mysqld/mysqld.pid
-# mysql_socket: /var/run/mysqld/mysqld.sock
+mysql_socket: /var/run/mysqld/mysqld.sock
 
 mysql_service_name: '{{ mysql_daemon }}'
 
