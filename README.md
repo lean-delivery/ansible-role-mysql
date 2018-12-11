@@ -131,11 +131,14 @@ Replication settings. Set `mysql_server_id` and `mysql_replication_role` by serv
 `mysql_replication_master` needs to resolve to an IP or a hostname which is accessable to the Slaves (this could be a `/etc/hosts` injection or some other means), otherwise the slaves cannot communicate to the master.
 
 ## additional_parameters
-Also you can set other parametrs, which are not listed here and it will be written to the configuration file `my.cnf`. Example:
+Also you can set other parametrs, which are not listed here and it will be written to the configuration file `my.cnf`. 
+
+Example:
+```
      additional_parameters:
         - name: mysql_expire_logs_days
           value: 11
-
+```
 #
 
 ### MariaDB usage
