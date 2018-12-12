@@ -109,11 +109,11 @@ innodb_flush_log_at_trx_commit = {{ mysql_innodb_flush_log_at_trx_commit }}
 innodb_lock_wait_timeout = {{ mysql_innodb_lock_wait_timeout }}
 
 # Additional parameters 
-{% if additional_parameters is defined %}
+{# {% if additional_parameters is defined %}
 {% for param in additional_parameters %}
 {{ param.name }} = {{ param.value }}
 {% endfor %}
-{% endif %}
+{% endif %} #}
 
 [mysqldump]
 quick
