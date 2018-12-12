@@ -83,7 +83,7 @@ Docker mysql:
   tags:
     - delegated
 
-EPC mysql-5.7:
+.EPC mysql-5.7:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
