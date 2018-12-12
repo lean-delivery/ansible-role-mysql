@@ -30,13 +30,6 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 6
           - 7
 
-Note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
-
-    - hosts: database
-      roles:
-        - role: lean_delivery.mysql
-          become: yes
-
 ## Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml` and `var/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-{{ mysql_daemon }}.yml`):
