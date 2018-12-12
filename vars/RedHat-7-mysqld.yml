@@ -1,8 +1,13 @@
 ---
 mysql_daemon: mysqld
+mysql_service_name: '{{ mysql_daemon }}'
+mysql_version: 5.7
+mysql_repo: http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/
+mysql_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql
 mysql_packages:
   - mysql-community-server
   - mysql-community-client
+
 mysql_python_packages:
   - MySQL-python
   - perl-DBD-MySQL
@@ -14,7 +19,3 @@ mysql_config_file: /etc/my.cnf
 mysql_config_include_dir: /etc/my.cnf.d
 mysql_socket: /var/lib/mysql/mysql.sock
 mysql_supports_innodb_large_prefix: False
-
-mysql_version: 5.7
-mysql_repo: http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/
-mysql_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql

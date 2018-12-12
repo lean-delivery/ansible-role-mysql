@@ -1,5 +1,9 @@
 ---
 mysql_daemon: mariadb
+mysql_service_name: '{{ mysql_daemon }}'
+mysql_version: latest
+mysql_repo: http://yum.mariadb.org/10.1/centos7-amd64
+mysql_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 mysql_packages:
   - mariadb
   - MariaDB-client
@@ -16,7 +20,3 @@ mysql_config_file: /etc/my.cnf
 mysql_config_include_dir: /etc/my.cnf.d
 mysql_socket: /var/lib/mysql/mysql.sock
 mysql_supports_innodb_large_prefix: True
-
-mysql_version: latest
-mysql_repo: http://yum.mariadb.org/10.1/centos7-amd64
-mysql_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
