@@ -1,5 +1,6 @@
 ---
 - name: "Add {{ mysql_daemon }} {{ mysql_version }} YUM repository file"
+  become: True
   yum_repository:
     name: "{{ mysql_daemon }}"
     description: "mysql YUM repo"
@@ -8,16 +9,19 @@
     gpgcheck: True
 
 - name: "Add gpgkey"
+  become: True
   rpm_key:
     state: present
     key: "{{ mysql_gpgkey }}"
 
 - name: "Ensure MySQL Python libraries are installed."
+  become: True
   yum:
     name: "{{ mysql_python_packages }}"
     state: present
 
 - name: "Install {{ mysql_daemon }} {{ mysql_version }} packages."
+  become: True
   yum:
     name: "{{ mysql_packages }}"
     state: present

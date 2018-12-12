@@ -115,6 +115,7 @@
   when: mysql_user_name != mysql_root_username
 
 - name: "Update mysql root password for all root accounts"
+  become: True
   mysql_user:
     name: "root"
     host_all: True

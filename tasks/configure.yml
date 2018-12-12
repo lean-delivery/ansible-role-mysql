@@ -1,5 +1,6 @@
 ---
 - name: "Copy my.cnf global MySQL configuration."
+  become: True
   template:
     src: "my.cnf.j2"
     dest: "{{ mysql_config_file }}"
@@ -11,6 +12,7 @@
   notify: restart mysql
 
 - name: "Verify mysql pid directory exists."
+  become: True
   file:
     path: "{{ mysql_pid_file | dirname }}"
     state: directory
@@ -32,6 +34,7 @@
   when: mysql_config_include_files | length
 
 - name: "Create slow query log file (if configured)."
+  become: True
   file:
     path: "{{ mysql_slow_query_log_file }}"
     state: touch
@@ -43,6 +46,7 @@
   when: mysql_slow_query_log_enabled
 
 - name: "Create errorlog file (if configured)."
+  become: True
   file:
     path: "{{ mysql_log_error }}"
     state: touch
