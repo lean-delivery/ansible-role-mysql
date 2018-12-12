@@ -1,9 +1,9 @@
 ---
 # Define a what install mysqd(and which version 5.5/5.6/5.7) or mariabd (version 10.1)
-mysql_daemon: mysqld
-mysql_version: 5.7
-mysql_repo: http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/
-mysql_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql
+mysql_daemon: "mysqld"
+mysql_version: "5.7"
+mysql_repo: "http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/"
+mysql_gpgkey: "http://repo.mysql.com/RPM-GPG-KEY-mysql"
 
 # Define a custom list of packages to install; if none provided, the default
 # package list from vars/[OS-family].yml will be used.
@@ -36,10 +36,10 @@ overwrite_global_mycnf: True
 
 # MySQL connection settings.
 mysql_port: "3306"
-mysql_bind_address: '0.0.0.0'
+mysql_bind_address: "0.0.0.0"
 mysql_skip_name_resolve: False
 mysql_datadir: /var/lib/mysql
-mysql_sql_mode: ''
+mysql_sql_mode: ""
 # The following variables have a default value depending on operating system. The default
 # parametr from vars/[OS-family].yml will be used
 # mysql_pid_file: /var/run/mysqld/mysqld.pid
@@ -98,7 +98,7 @@ mysql_innodb_file_format: "barracuda"
 mysql_mysqldump_max_allowed_packet: "64M"
 
 # Logging settings.
-mysql_log: '/var/log/{{ mysql_daemon }}.log'
+mysql_log: "/var/log/{{ mysql_daemon }}.log"
 # The following variables have a default value depending on operating system. The default
 # parametr from vars/[OS-family].yml will be used
 # mysql_log_error: /var/log/mysql/mysql.err
@@ -127,8 +127,8 @@ mysql_server_id: "1"
 mysql_max_binlog_size: "100M"
 mysql_binlog_format: "ROW"
 mysql_expire_logs_days: "10"
-mysql_replication_role: ''
-mysql_replication_master: ''
+mysql_replication_role: ""
+mysql_replication_master: ""
 # Same keys as `mysql_users` above.
 mysql_replication_user: []
 
