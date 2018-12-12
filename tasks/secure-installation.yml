@@ -1,4 +1,6 @@
 ---
+# Reset default passwort for root didn't work with module mysql_user,
+# that why we use this block
 - name: "Make new mysql admin user"
   block:
     - name: Check mysql version
