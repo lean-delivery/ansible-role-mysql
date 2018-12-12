@@ -16,6 +16,7 @@
   yum:
     name: "{{ mysql_python_packages }}"
     state: present
+  when: ansible_host == "localhost"
 
 - name: "Install {{ mysql_daemon }} {{ mysql_version }} packages."
   yum:
