@@ -1,6 +1,7 @@
 ---
 # Variable configuration.
 - name: "Include OS-specific variables (RedHat)."
-  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}\
-      -{{ mysql_daemon }}.yml"
+  include_vars: >
+    {{ ansible_os_family }}-{{ ansible_distribution_major_version }}
+    -{{ mysql_daemon }}.yml
   when: ansible_os_family == "RedHat" and mysql_daemon is defined

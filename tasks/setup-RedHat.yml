@@ -1,16 +1,16 @@
 ---
 - name: "Add {{ mysql_daemon }} {{ mysql_version }} YUM repository file"
   yum_repository:
-    name: '{{ mysql_daemon }}'
-    description: mysql YUM repo
-    baseurl: '{{ mysql_repo }}'
-    gpgcakey: '{{ mysql_gpgkey }}'
+    name: "{{ mysql_daemon }}"
+    description: "mysql YUM repo"
+    baseurl: "{{ mysql_repo }}"
+    gpgcakey: "{{ mysql_gpgkey }}"
     gpgcheck: True
 
 - name: "Add gpgkey"
   rpm_key:
     state: present
-    key: '{{ mysql_gpgkey }}'
+    key: "{{ mysql_gpgkey }}"
 
 - name: "Ensure MySQL Python libraries are installed."
   yum:
