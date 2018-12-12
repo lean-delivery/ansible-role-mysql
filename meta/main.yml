@@ -7,7 +7,7 @@ galaxy_info:
   description: MySQL server for RHEL/CentOS.
   company: "EPAM Systems"
   license: "Apache"
-  min_ansible_version: 2.4
+  min_ansible_version: 2.5.13
   issue_tracker_url: "https://github.com/lean-delivery/ansible-role-mysql/issues"
   platforms:
     - name: EL

@@ -18,8 +18,3 @@
       mysql_bind_address: '0.0.0.0'
       mysql_daemon: mysqld
       mysql_version: 5.5
-      # additional_parameters:
-        # - name: expire_logs_days
-        #   value: 11
-        # - name: max_binlog_size
-        #   value: 101M

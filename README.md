@@ -14,7 +14,7 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
 
 ## Requirements
 
-  - Minimal Version of the ansible for installation: 2.5.13
+  - Minimal Version of the Ansible for installation: 2.5.13
   - Supported versions:
       - Mysql
           - 5.5
@@ -134,7 +134,7 @@ Replication settings. Set `mysql_server_id` and `mysql_replication_role` by serv
 Also you can set other parametrs, which are not listed here and it will be written to the configuration file `my.cnf`. 
 
 Example:
-```
+```yaml
      additional_parameters:
         - name: mysql_expire_logs_days
           value: 11
@@ -151,28 +151,28 @@ None.
 
 ## Example Playbook
 
-    - hosts: db-servers
-      become: yes
-      vars_files:
-        - vars/main.yml
-      roles:
-        - role: lean_delivery.mysql 
+```yaml
+- hosts: db-servers
+  roles:
+    - role: lean_delivery.mysql
+      become: True
+      mysql_root_password: Super_P@s$0rd
+      mysql_databases:
+        - name: example2_db
+          encoding: latin1
+          collation: latin1_general_ci
+      mysql_users:
+        - name: example2_user
+          host: "%"
+          password: Sime32_U$er_p@ssw0rd
+          priv: "example2_db.*:ALL"
+      mysql_port: "3306"
+      mysql_bind_address: '0.0.0.0'
+      mysql_daemon: mysqld
+      mysql_version: 5.7
+``` 
 
-*Inside `vars/main.yml`*:
-
-    become: True
-    mysql_daemon: mysqld
-    mysql_version: 5.7
-    mysql_root_password: set-your-password
-    mysql_databases:
-      - name: example_db
-        encoding: latin1
-        collation: latin1_general_ci
-    mysql_users:
-      - name: example_user
-        host: "%"
-        password: set-your-password
-        priv: "example_db.*:ALL"
+**ATTENTION!** Note that override parameters in playbook have to be set as `role parameters` (see example above). Parameters set as usual hostvars or inventory parameters will not supercede default role parameters set by role scenario depending on OS version etc. 
 
 ## License
 Apache
