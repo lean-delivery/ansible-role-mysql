@@ -1,18 +1,21 @@
 ---
-- name: "Stop MySQL"
-  service:
-    name: '{{ mysql_service_name }}'
-    state: stopped
+- name: "Stop and start MySQL service"
+  block:
+    - name: "Stop MySQL"
+      service:
+        name: '{{ mysql_service_name }}'
+        state: stopped
 
-- name: "Wait until the lock file is removed"
-  wait_for:
-    path: /var/lock/subsys/mysql
-    state: absent
+    - name: "Wait until the lock file is removed"
+      wait_for:
+        path: /var/lock/subsys/mysql
+        state: absent
 
-- name: "Start mysql"
-  service:
-    name: '{{ mysql_service_name }}'
-    state: started
+    - name: "Start mysql"
+      service:
+        name: '{{ mysql_service_name }}'
+        state: started
+  become: True
 
 - name: "Wait for service to be ready"
   wait_for:
