@@ -19,9 +19,11 @@
         var: "mysql_version"
   rescue:
     - name: "Clear InnoDB logs"
+      become: True
       include_tasks: clear_innodb_logs.yml
 
     - name: "Copy init.cnf for skip-grant-tables mode"
+      become: True
       template:
         src: "init.cnf.j2"
         dest: "{{ mysql_config_file }}"
@@ -31,6 +33,7 @@
         force: True
 
     - name: "Start mysql with skip-grant-tables"
+      become: True
       service:
         name: "{{ mysql_service_name }}"
         state: started
@@ -69,13 +72,17 @@
         target: "/tmp/reset.sql"
 
     - name: "Clear InnoDB logs"
+      become: True
       include_tasks: clear_innodb_logs.yml
 
     - name: "Copy my.cnf global MySQL configuration."
+      become: True
       template:
         src: "my.cnf.j2"
         dest: "{{ mysql_config_file }}"
         mode: "0644"
+        owner: "root"
+        group: "root"
 
     - name: "Remove file reset.sql"
       file:
@@ -83,6 +90,7 @@
         state: absent
 
     - name: "Start mysql"
+      become: True
       service:
         name: "{{ mysql_service_name }}"
         state: started
@@ -107,6 +115,7 @@
   when: mysql_user_name != "root"
 
 - name: "Copy .my.cnf file with password credentials."
+  become: True
   template:
     src: "user-my.cnf.j2"
     dest: "{{ mysql_user_home }}/.my.cnf"
@@ -115,7 +124,6 @@
   when: mysql_user_name != mysql_root_username
 
 - name: "Update mysql root password for all root accounts"
-  become: True
   mysql_user:
     name: "root"
     host_all: True

@@ -1,71 +1,70 @@
 ---
-- name: "Copy my.cnf global MySQL configuration."
+- name: "Setup config and start MySQL service"
+  block:
+    - name: "Copy my.cnf global MySQL configuration."
+      template:
+        src: my.cnf.j2
+        dest: "{{ mysql_config_file }}"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+        force: "{{ overwrite_global_mycnf }}"
+      register: mysql_config
+      notify: restart mysql
+
+    - name: "Verify mysql pid directory exists."
+      file:
+        path: "{{ mysql_pid_file | dirname }}"
+        state: directory
+        owner: "mysql"
+        group: "mysql"
+        mode: "0755"
+
+    - name: "Clear InnoDB logs"
+      include_tasks: clear_innodb_logs.yml
+      when: mysql_config.changed | bool
+
+    - name: "Verify mysql include directory exists."
+      file:
+        path: "{{ mysql_config_include_dir }}"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: "0755"
+      when: mysql_config_include_files | length
+
+    - name: "Create slow query log file (if configured)."
+      file:
+        path: "{{ mysql_slow_query_log_file }}"
+        state: touch
+        owner: "mysql"
+        group: "{{ mysql_log_file_group }}"
+        mode: "0640"
+      register: touch_slowlog
+      changed_when: touch_slowlog.diff.before.state != "file"
+      when: mysql_slow_query_log_enabled
+
+    - name: "Create errorlog file (if configured)."
+      file:
+        path: "{{ mysql_log_error }}"
+        state: touch
+        owner: "mysql"
+        group: "{{ mysql_log_file_group }}"
+        mode: "0640"
+        seuser: "system_u"
+        serole: "object_r"
+        setype: "mysqld_log_t"
+        selevel: "s0"
+      register: touch_log
+      changed_when: touch_log.diff.before.state != "file"
+      when: mysql_log_error != ""
+
+    - name: "Start MySQL service"
+      service:
+        name: "{{ mysql_service_name }}"
+        state: started
+        enabled: True
   become: True
-  template:
-    src: my.cnf.j2
-    dest: "{{ mysql_config_file }}"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-    force: "{{ overwrite_global_mycnf }}"
-  register: mysql_config
-  notify: restart mysql
-
-- name: "Verify mysql pid directory exists."
-  become: True
-  file:
-    path: "{{ mysql_pid_file | dirname }}"
-    state: directory
-    owner: "mysql"
-    group: "mysql"
-    mode: "0755"
-
-- name: "Clear InnoDB logs"
-  include_tasks: clear_innodb_logs.yml
-  when: mysql_config.changed | bool
-
-- name: "Verify mysql include directory exists."
-  file:
-    path: "{{ mysql_config_include_dir }}"
-    state: directory
-    owner: "root"
-    group: "root"
-    mode: "0755"
-  when: mysql_config_include_files | length
-
-- name: "Create slow query log file (if configured)."
-  become: True
-  file:
-    path: "{{ mysql_slow_query_log_file }}"
-    state: touch
-    owner: "mysql"
-    group: "{{ mysql_log_file_group }}"
-    mode: "0640"
-  register: touch_slowlog
-  changed_when: touch_slowlog.diff.before.state != "file"
-  when: mysql_slow_query_log_enabled
-
-- name: "Create errorlog file (if configured)."
-  become: True
-  file:
-    path: "{{ mysql_log_error }}"
-    state: touch
-    owner: "mysql"
-    group: "{{ mysql_log_file_group }}"
-    mode: "0640"
-    seuser: "system_u"
-    serole: "object_r"
-    setype: "mysqld_log_t"
-    selevel: "s0"
-  register: touch_log
-  changed_when: touch_log.diff.before.state != "file"
-  when: mysql_log_error != ""
-
-- name: "Reload MySQL service"
-  service:
-    name: "{{ mysql_service_name }}"
-    state: started
-    enabled: True
 
 - name: "Wait for service to be ready"
   wait_for:
