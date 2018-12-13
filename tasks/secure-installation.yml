@@ -20,7 +20,7 @@
   rescue:
     - name: "Clear InnoDB logs"
       become: True
-      include_tasks: clear_innodb_logs.yml
+      import_tasks: clear_innodb_logs.yml
 
     - name: "Copy init.cnf for skip-grant-tables mode"
       become: True
