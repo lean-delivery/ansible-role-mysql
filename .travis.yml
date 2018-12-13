@@ -22,7 +22,7 @@ install:
 script:
   - ls -lh
   - ls -lh ../ansible-role-mysql
-  - ansible-lint .
+  - ansible-lint . -c .ansible-lint
   # - molecule test -s default
 
 notifications:
