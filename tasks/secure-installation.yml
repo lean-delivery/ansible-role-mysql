@@ -1,0 +1,150 @@
+---
+# Reset default passwort for root didn't work with module mysql_user,
+# that why we use this block
+- name: "Make new mysql admin user"
+  block:
+    - name: "Check mysql version"
+      mysql_variables:
+        variable: "version"
+        login_user: "{{ mysql_root_username }}"
+        login_password: "{{ mysql_root_password }}"
+      register: mysql_version_out
+
+    - name: "Set mysql version"
+      set_fact:
+        mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
+
+    - name: "Out mysql_version"
+      debug:
+        var: "mysql_version"
+  rescue:
+    - name: "Clear InnoDB logs and restart MySQL in skip-grant-tables mode"
+      block:
+        - name: "Clear InnoDB logs"
+          include_tasks: clear_innodb_logs.yml
+
+        - name: "Copy init.cnf for skip-grant-tables mode"
+          template:
+            src: "init.cnf.j2"
+            dest: "{{ mysql_config_file }}"
+            owner: "root"
+            group: "root"
+            mode: "0644"
+            force: True
+
+        - name: "Start mysql with skip-grant-tables"
+          service:
+            name: "{{ mysql_service_name }}"
+            state: started
+      become: True
+
+    - name: "Wait for service to be ready"
+      wait_for:
+        port: "{{ mysql_port }}"
+        host: "{{ mysql_bind_address }}"
+        connect_timeout: 3
+        delay: 3
+        timeout: 30
+
+    - name: "Check mysql version"
+      mysql_variables:
+        variable: "version"
+      register: mysql_version_out
+
+    - name: "Set mysql version"
+      set_fact:
+        mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
+
+    - name: "Out mysql_cli_version"
+      debug:
+        var: "mysql_version"
+
+    - name: "Copy reset.sql for root reset"
+      template:
+        src: "reset.sql.j2"
+        dest: "/tmp/reset.sql"
+        force: True
+
+    - name: "Reset root credentials"
+      mysql_db:
+        name: "mysql"
+        state: import
+        target: "/tmp/reset.sql"
+
+    - name: "Clear InnoDB logs and restart MySQL in normal mode"
+      block:
+        - name: "Clear InnoDB logs"
+          include_tasks: clear_innodb_logs.yml
+
+        - name: "Copy my.cnf global MySQL configuration."
+          template:
+            src: "my.cnf.j2"
+            dest: "{{ mysql_config_file }}"
+            mode: "0644"
+            owner: "root"
+            group: "root"
+
+        - name: "Start mysql"
+          service:
+            name: "{{ mysql_service_name }}"
+            state: started
+      become: True
+
+    - name: "Remove file reset.sql"
+      file:
+        path: "/tmp/reset.sql"
+        state: absent
+
+    - name: "Wait for service to be ready"
+      wait_for:
+        port: "{{ mysql_port }}"
+        host: "{{ mysql_bind_address }}"
+        connect_timeout: 3
+        delay: 3
+        timeout: 30
+
+- name: "Ensure default user is present."
+  mysql_user:
+    name: "{{ mysql_user_name }}"
+    host: "localhost"
+    password: "{{ mysql_user_password }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password }}"
+  when: mysql_user_name != "root"
+
+- name: "Copy .my.cnf file with password credentials."
+  become: True
+  template:
+    src: "user-my.cnf.j2"
+    dest: "{{ mysql_user_home }}/.my.cnf"
+    owner: "{{ mysql_user_name }}"
+    mode: "0600"
+  when: mysql_user_name != mysql_root_username
+
+- name: "Update mysql root password for all root accounts"
+  mysql_user:
+    name: "root"
+    host_all: True
+    password: "{{ mysql_root_password }}"
+    check_implicit_admin: True
+    priv: "*.*:ALL,GRANT"
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password }}"
+  no_log: True
+
+- name: "Remove anonymous MySQL users."
+  mysql_user:
+    name: ""
+    host_all: True
+    state: absent
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password }}"
+
+- name: "Remove MySQL test database."
+  mysql_db:
+    name: "test"
+    state: absent
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password }}"

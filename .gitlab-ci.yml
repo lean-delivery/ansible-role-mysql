@@ -1,0 +1,102 @@
+---
+# Run all tests
+stages:
+  - lint
+  - deployment test
+
+before_script:
+  - ansible --version
+  - molecule --version
+
+variables:
+  GET_SOURCES_ATTEMPTS: "5"
+
+Ansible lint:
+  stage: lint
+  before_script:
+    - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
+  script:
+    - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
+  after_script:
+    - rm -rf ~/ansible-lint-rules
+  tags:
+    - delegated
+
+Docker mysql:
+  stage: deployment test
+  script:
+    - molecule test -s default
+  tags:
+    - docker
+
+AWS mysql-5.5:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-5.5
+  tags:
+    - delegated
+
+AWS mysql-5.6:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-5.6
+  tags:
+    - delegated
+
+AWS mysql-5.7:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-5.7
+  tags:
+    - delegated
+
+AWS mariadb:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated-mariadb
+  tags:
+    - delegated
+
+EPC mysql-5.5:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-5.5
+  tags:
+    - delegated
+
+EPC mysql-5.6:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-5.6
+  tags:
+    - delegated
+
+EPC mysql-5.7:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-5.7
+  tags:
+    - delegated
+
+EPC mariadb:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated-mariadb
+  tags:
+    - delegated

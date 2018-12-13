@@ -1,0 +1,3 @@
+---
+- name: "restart mysql"
+  import_tasks: mysql_restart.yml
