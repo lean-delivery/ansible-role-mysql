@@ -21,8 +21,8 @@ install:
 
 script:
   - ls -lh
-  - ls -lh lean-delivery/ansible-role-mysql
-  - ansible-lint -L lean-delivery/ansible-role-mysql
+  - ls -lh ../ansible-role-mysql
+  - ansible-lint -L ../ansible-role-mysql
   # - molecule test -s default
 
 notifications:
