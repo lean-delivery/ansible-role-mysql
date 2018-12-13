@@ -20,6 +20,8 @@ install:
   - ansible-lint --version
 
 script:
+  - ls -lh
+  - ls -lh lean-delivery/ansible-role-mysql
   - ansible-lint -L lean-delivery/ansible-role-mysql
   # - molecule test -s default
 
