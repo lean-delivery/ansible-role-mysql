@@ -7,6 +7,7 @@ stages:
 before_script:
   - ansible --version
   - molecule --version
+  - ansible-lint --version
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"

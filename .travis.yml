@@ -16,6 +16,7 @@ before_install:
 install:
   - pip install --upgrade ansible==2.5.* ansible-lint docker-py molecule==2.17 pyOpenSSL PyYAML pytest==3.7.4
   - ansible --version
+  - ansible-lint --version
 
 script:
   - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"` -L -R
