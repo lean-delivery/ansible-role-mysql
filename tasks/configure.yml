@@ -44,7 +44,7 @@
       changed_when: touch_slowlog.diff.before.state != "file"
       when: mysql_slow_query_log_enabled
 
-    - name: "Create errorlog file (if configured)."   
+    - name: "Create errorlog file (if configured)."
       file:
         path: "{{ mysql_log_error }}"
         state: touch
@@ -57,7 +57,6 @@
         selevel: "s0"
       register: touch_log
       changed_when: touch_log.diff.before.state != "file"
-      when: mysql_log_error != ""
 
     - name: "Start MySQL service"
       service:
