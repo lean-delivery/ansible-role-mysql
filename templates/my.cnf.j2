@@ -49,13 +49,13 @@ expire_logs_days = {{ mysql_expire_logs_days }}
 max_binlog_size = {{ mysql_max_binlog_size }}
 binlog_format = {{mysql_binlog_format}}
 
-{# {% for db in mysql_databases %}
+{% for db in mysql_databases %}
 {% if db.replicate|default(1) %}
 binlog_do_db = {{ db.name }}
 {% else %}
 binlog_ignore_db = {{ db.name }}
 {% endif %}
-{% endfor %} #}
+{% endfor %}
 {% endif %}
 
 {% if mysql_replication_role == 'slave' %}
@@ -97,7 +97,7 @@ lower_case_table_names = {{ mysql_lower_case_table_names }}
 event_scheduler = {{ mysql_event_scheduler_state }}
 
 # InnoDB settings.
-{% if mysql_supports_innodb_large_prefix and '8.0.' not in mysql_version %}
+{% if mysql_supports_innodb_large_prefix and (mysql_version is version('8.0', '<')) %}
 innodb_large_prefix = {{ mysql_innodb_large_prefix }}
 innodb_file_format = {{ mysql_innodb_file_format }}
 {% endif %}
@@ -109,11 +109,11 @@ innodb_flush_log_at_trx_commit = {{ mysql_innodb_flush_log_at_trx_commit }}
 innodb_lock_wait_timeout = {{ mysql_innodb_lock_wait_timeout }}
 
 # Additional parameters 
-{# {% if additional_parameters is defined %}
+{% if additional_parameters is defined %}
 {% for param in additional_parameters %}
 {{ param.name }} = {{ param.value }}
 {% endfor %}
-{% endif %} #}
+{% endif %}
 
 [mysqldump]
 quick

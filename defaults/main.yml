@@ -133,6 +133,6 @@ mysql_replication_master: ""
 mysql_replication_user: []
 
 # if you want to add some other parametrs, which must be in my.cnf file.
-additional_parameters: []
+# additional_parameters: []
 #   - name: some_parametr
 #     value: 11
