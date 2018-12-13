@@ -57,7 +57,7 @@
         selevel: "s0"
       register: touch_log
       changed_when: touch_log.diff.before.state != "file"
-      when: mysql_log_error
+      when: mysql_log_error != ""
 
     - name: "Start MySQL service"
       service:
