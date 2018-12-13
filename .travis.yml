@@ -20,7 +20,7 @@ install:
   - ansible-lint --version
 
 script:
-  - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"` -L -R
+  - ansible-lint -L -R /home/travis/build/lean-delivery/ansible-role-mysql
   - molecule test -s default
 
 notifications:
