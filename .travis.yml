@@ -20,7 +20,7 @@ install:
   - ansible-lint --version
 
 script:
-  - ansible-lint -L ../ansible-role-mysql/tasks/configure.yml
+  - ansible-lint -L lean-delivery/ansible-role-mysql
   # - molecule test -s default
 
 notifications:
