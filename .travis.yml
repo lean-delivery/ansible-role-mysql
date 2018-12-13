@@ -20,8 +20,8 @@ install:
   - ansible-lint --version
 
 script:
-  - ansible-lint -L -R /home/travis/build/lean-delivery/ansible-role-mysql
-  - molecule test -s default
+  - ansible-lint -L ../ansible-role-mysql/
+  # - molecule test -s default
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
