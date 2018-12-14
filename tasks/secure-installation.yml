@@ -1,11 +1,11 @@
 ---
-# Reset default passwort for root didn't work with module mysql_user,
+# Reset default passwort for root didn"t work with module mysql_user,
 # that why we use this block
 - name: "Make new mysql admin user"
   block:
     - name: "Check mysql version"
       mysql_variables:
-        variable: "version"
+        variable: version
         login_user: "{{ mysql_root_username }}"
         login_password: "{{ mysql_root_password }}"
       register: mysql_version_out
@@ -16,7 +16,7 @@
 
     - name: "Out mysql_version"
       debug:
-        var: "mysql_version"
+        var: mysql_version
   rescue:
     - name: "Clear InnoDB logs and restart MySQL in skip-grant-tables mode"
       block:
@@ -25,11 +25,11 @@
 
         - name: "Copy init.cnf for skip-grant-tables mode"
           template:
-            src: "init.cnf.j2"
+            src: init.cnf.j2
             dest: "{{ mysql_config_file }}"
-            owner: "root"
-            group: "root"
-            mode: "0644"
+            owner: root
+            group: root
+            mode: 0644
             force: True
 
         - name: "Start mysql with skip-grant-tables"
@@ -48,7 +48,7 @@
 
     - name: "Check mysql version"
       mysql_variables:
-        variable: "version"
+        variable: version
       register: mysql_version_out
 
     - name: "Set mysql version"
@@ -57,19 +57,19 @@
 
     - name: "Out mysql_cli_version"
       debug:
-        var: "mysql_version"
+        var: mysql_version
 
     - name: "Copy reset.sql for root reset"
       template:
-        src: "reset.sql.j2"
-        dest: "/tmp/reset.sql"
+        src: reset.sql.j2
+        dest: /tmp/reset.sql
         force: True
 
     - name: "Reset root credentials"
       mysql_db:
-        name: "mysql"
+        name: mysql
         state: import
-        target: "/tmp/reset.sql"
+        target: /tmp/reset.sql
 
     - name: "Clear InnoDB logs and restart MySQL in normal mode"
       block:
@@ -78,11 +78,11 @@
 
         - name: "Copy my.cnf global MySQL configuration."
           template:
-            src: "my.cnf.j2"
+            src: my.cnf.j2
             dest: "{{ mysql_config_file }}"
-            mode: "0644"
-            owner: "root"
-            group: "root"
+            mode: 0644
+            owner: root
+            group: root
 
         - name: "Start mysql"
           service:
@@ -92,7 +92,7 @@
 
     - name: "Remove file reset.sql"
       file:
-        path: "/tmp/reset.sql"
+        path: /tmp/reset.sql
         state: absent
 
     - name: "Wait for service to be ready"
@@ -106,7 +106,7 @@
 - name: "Ensure default user is present."
   mysql_user:
     name: "{{ mysql_user_name }}"
-    host: "localhost"
+    host: localhost
     password: "{{ mysql_user_password }}"
     priv: "*.*:ALL,GRANT"
     state: present
@@ -117,15 +117,15 @@
 - name: "Copy .my.cnf file with password credentials."
   become: True
   template:
-    src: "user-my.cnf.j2"
+    src: user-my.cnf.j2
     dest: "{{ mysql_user_home }}/.my.cnf"
     owner: "{{ mysql_user_name }}"
-    mode: "0600"
+    mode: 0600
   when: mysql_user_name != mysql_root_username
 
 - name: "Update mysql root password for all root accounts"
   mysql_user:
-    name: "root"
+    name: root
     host_all: True
     password: "{{ mysql_root_password }}"
     check_implicit_admin: True
@@ -144,7 +144,7 @@
 
 - name: "Remove MySQL test database."
   mysql_db:
-    name: "test"
+    name: test
     state: absent
     login_user: "{{ mysql_root_username }}"
     login_password: "{{ mysql_root_password }}"
