@@ -4,20 +4,20 @@
     - name: "Copy my.cnf global MySQL configuration."
       template:
         src: my.cnf.j2
-        dest: "{{ mysql_config_file }}"
-        owner: "root"
-        group: "root"
-        mode: "0644"
-        force: "{{ overwrite_global_mycnf }}"
+        dest: '{{ mysql_config_file }}'
+        owner: root
+        group: root
+        mode: 0644
+        force: '{{ overwrite_global_mycnf }}'
       register: mysql_config
       notify: restart mysql
 
     - name: "Verify mysql pid directory exists."
       file:
-        path: "{{ mysql_pid_file | dirname }}"
+        path: '{{ mysql_pid_file | dirname }}'
         state: directory
-        owner: "mysql"
-        group: "mysql"
+        owner: mysql
+        group: mysql
         mode: "0755"
 
     - name: "Clear InnoDB logs"
@@ -26,49 +26,49 @@
 
     - name: "Verify mysql include directory exists."
       file:
-        path: "{{ mysql_config_include_dir }}"
+        path: '{{ mysql_config_include_dir }}'
         state: directory
-        owner: "root"
-        group: "root"
-        mode: "0755"
+        owner: root
+        group: root
+        mode: 0755
       when: mysql_config_include_files | length
 
     - name: "Create slow query log file (if configured)."
       file:
-        path: "{{ mysql_slow_query_log_file }}"
+        path: '{{ mysql_slow_query_log_file }}'
         state: touch
-        owner: "mysql"
-        group: "{{ mysql_log_file_group }}"
-        mode: "0640"
+        owner: mysql
+        group: '{{ mysql_log_file_group }}'
+        mode: 0640
       register: touch_slowlog
       changed_when: touch_slowlog.diff.before.state != "file"
       when: mysql_slow_query_log_enabled
 
     - name: "Create errorlog file (if configured)."
       file:
-        path: "{{ mysql_log_error }}"
+        path: '{{ mysql_log_error }}'
         state: touch
-        owner: "mysql"
-        group: "{{ mysql_log_file_group }}"
-        mode: "0640"
-        seuser: "system_u"
-        serole: "object_r"
-        setype: "mysqld_log_t"
-        selevel: "s0"
+        owner: mysql
+        group: '{{ mysql_log_file_group }}'
+        mode: 0640
+        seuser: system_u
+        serole: object_r
+        setype: mysqld_log_t
+        selevel: s0
       register: touch_log
       changed_when: touch_log.diff.before.state != "file"
 
     - name: "Start MySQL service"
       service:
-        name: "{{ mysql_service_name }}"
+        name: '{{ mysql_service_name }}'
         state: started
         enabled: True
   become: True
 
 - name: "Wait for service to be ready"
   wait_for:
-    port: "{{ mysql_port }}"
-    host: "{{ mysql_bind_address }}"
+    port: '{{ mysql_port }}'
+    host: '{{ mysql_bind_address }}'
     connect_timeout: 3
     delay: 3
     timeout: 30
