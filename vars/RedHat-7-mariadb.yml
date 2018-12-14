@@ -6,6 +6,7 @@ mysql_gpgkey: "https://yum.mariadb.org/RPM-GPG-KEY-MariaDB"
 mysql_packages:
   - "MariaDB-client"
   - "MariaDB-server"
+
 mysql_python_packages:
   - "MySQL-python"
   - "perl-DBD-MySQL"

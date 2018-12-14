@@ -3,7 +3,7 @@
   block:
     - name: "Stop MySQL"
       service:
-        name: '{{ mysql_service_name }}'
+        name: "{{ mysql_service_name }}"
         state: stopped
 
     - name: "Wait until the lock file is removed"
@@ -13,14 +13,14 @@
 
     - name: "Start mysql"
       service:
-        name: '{{ mysql_service_name }}'
+        name: "{{ mysql_service_name }}"
         state: started
   become: True
 
 - name: "Wait for service to be ready"
   wait_for:
-    port: '{{ mysql_port }}'
-    host: '{{ mysql_bind_address }}'
+    port: "{{ mysql_port }}"
+    host: "{{ mysql_bind_address }}"
     connect_timeout: 3
     delay: 3
     timeout: 30
