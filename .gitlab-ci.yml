@@ -18,6 +18,7 @@ Ansible lint:
     - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
   script:
     - ansible-lint . -c .ansible-lint
+
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
