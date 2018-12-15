@@ -1,6 +1,6 @@
 # Ansible Role: MySQL
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-mysql/master/LICENSE)
-[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-mysql.svg)](https://travis-ci.org/lean-delivery/ansible-role-mysql)
+[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-mysql.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-mysql)
 [![Galaxy](https://img.shields.io/badge/galaxy-lean_delivery.mysql-blue.svg)](https://galaxy.ansible.com/lean_delivery/mysql)
 ![Ansible](https://img.shields.io/ansible/role/d/35413.svg)
 ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F35413%2F&query=$.min_ansible_version)
