@@ -2,13 +2,13 @@
 - name: Create
   hosts: localhost
   connection: local
-  gather_facts: false
+  gather_facts: False
   no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
   vars:
     ssh_port: 22
-
     keypair_name: molecule_key
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
+
   tasks:
     - name: Persist the keypair
       copy:
@@ -17,36 +17,28 @@
         mode: 0600
       no_log: True
 
-    - name: Test for presence of local keypair
-      stat:
-        path: "{{ keypair_path }}"
-      register: keypair_local
-
     - name: Create molecule instance(s)
       ec2:
         key_name: "{{ keypair_name }}"
         image: "{{ item.image }}"
         instance_type: "{{ item.instance_type }}"
         vpc_subnet_id: "{{ item.vpc_subnet_id }}"
-        group:
-          - molecule
-          - default
-          - epam-by-ru
+        group: "{{ item.aws_sec_group | default(item.security_group_name) }}"
         instance_tags:
           instance: "{{ item.name }}"
           Name: "{{ item.name }}"
           ssh_user: "{{ item.ssh_user }}"
         spot_price: "{{ item.spot_price }}"
         wait: True
-        assign_public_ip: true
+        assign_public_ip: "{{ item.assign_public_ip | default(True) }}"
         exact_count: 1
         count_tag:
           instance: "{{ item.name }}"
       register: server
-      changed_when: false
       loop: "{{ molecule_yml.platforms }}"
       async: 7200
       poll: 0
+#      no_log: True
 
     - name: Wait for instance(s) creation to complete
       async_status:
@@ -63,14 +55,18 @@
       set_fact:
         instance_conf_dict: {
           'instance': "{{ item.instances[0].tags.instance }}",
-          'address': "{{ item.instances[0].public_ip }}",
+          'address': "{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}",
           'user': "{{ item.instances[0].tags.ssh_user }}",
           'port': "{{ ssh_port }}",
           'identity_file': "{{ keypair_path }}",
-          'instance_ids': "{{ item.instance_ids }}", }
+          'instance_ids': "{{ item.instance_ids }}" }
       loop: "{{ instance_create.results }}"
       register: instance_config_dict
       when: instance_create.changed | bool
+
+    - name: Debug
+      debug:
+        msg: "{{ instance_create }}"
 
     - name: Convert instance config dict to a list
       set_fact:
@@ -82,6 +78,9 @@
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: instance_create.changed | bool
+
+    - name: Debug
+      debug: "msg={{ instance_conf }}"
 
     - name: Wait for SSH
       wait_for:

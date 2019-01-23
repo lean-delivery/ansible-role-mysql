@@ -30,39 +30,36 @@ platforms:
 #    ssh_user: centos
 #    groups:
 #     - rhel_family
-  - name: test-aws-Ubuntu16-mysql-5.7
+  - name: test-aws-ubuntu16-mysql-5.7
     image: ami-0f9cf087c1f27d9b1
-    instance_type: m4.large
+    instance_type: t2.small
     region: us-east-1
-    vpc_subnet_id: subnet-01be2149
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
     security_group_name:
       - default
-      - epmldi-docker-machine
-      - molecule
-      - epam-by-ru
     spot_price: 0.04
     wait_timeout: 1800
-    ssh_user: centos
+    ssh_user: ubuntu
     groups:
       - debian_family
-  - name: test-aws-Ubuntu18-mysql-5.7
-    image: ami-0ac019f4fcb7cb7e6
-    instance_type: m4.large
-    region: us-east-1
-    vpc_subnet_id: subnet-01be2149
-    security_group_name:
-      - default
-      - epmldi-docker-machine
-      - molecule
-      - epam-by-ru
-    spot_price: 0.04
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - debian_family
+
+#  - name: test-aws-ubuntu18-mysql-5.7
+#    image: ami-0ac019f4fcb7cb7e6
+#    instance_type: t2.small
+#    region: us-east-1
+#    vpc_subnet_id: subnet-01be2149
+#    security_group_name:
+#      - default
+#      - epmldi-docker-machine
+#    spot_price: 0.04
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - debian_family
 provisioner:
   name: ansible
-  log: False
+  log: True
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
