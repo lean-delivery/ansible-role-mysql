@@ -51,6 +51,10 @@
 
     # Mandatory configuration for Molecule to function.
 
+    - name: Debug
+      debug:
+        msg: "{{ item.instances[0].public_ip }}"
+
     - name: Populate instance config dict
       set_fact:
         instance_conf_dict: {
