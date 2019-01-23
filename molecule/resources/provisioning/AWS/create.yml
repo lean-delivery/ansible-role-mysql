@@ -15,7 +15,7 @@
         dest: "{{ keypair_path }}"
         content: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
         mode: 0600
-      no_log: False
+      no_log: True
 
     - name: Create molecule instance(s)
       ec2:
@@ -38,7 +38,7 @@
       loop: "{{ molecule_yml.platforms }}"
       async: 7200
       poll: 0
-      no_log: False
+#      no_log: True
 
     - name: Wait for instance(s) creation to complete
       async_status:
