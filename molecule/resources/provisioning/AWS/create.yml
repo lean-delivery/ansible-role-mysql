@@ -2,7 +2,7 @@
 - name: Create
   hosts: localhost
   connection: local
-  gather_facts: false
+  gather_facts: False
   no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
   vars:
     ssh_port: 22
@@ -23,7 +23,7 @@
         image: "{{ item.image }}"
         instance_type: "{{ item.instance_type }}"
         vpc_subnet_id: "{{ item.vpc_subnet_id }}"
-        group: "{{ item.aws_sec_group }}"
+        group: "{{ item.aws_sec_group | default(item.security_group_name) }}"
         instance_tags:
           instance: "{{ item.name }}"
           Name: "{{ item.name }}"
