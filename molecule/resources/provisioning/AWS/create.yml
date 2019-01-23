@@ -30,7 +30,7 @@
           ssh_user: "{{ item.ssh_user }}"
         spot_price: "{{ item.spot_price }}"
         wait: True
-        assign_public_ip: True
+        assign_public_ip: "{{ item.assign_public_ip | default(True) }}"
         exact_count: 1
         count_tag:
           instance: "{{ item.name }}"
