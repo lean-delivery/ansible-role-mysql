@@ -1,0 +1,82 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+#  - name: test-aws-centos7-mysql-5.7
+#    image: ami-9887c6e7
+#    instance_type: m5.large
+#    region: us-east-1
+#    vpc_subnet_id: subnet-01be2149
+#    spot_price: 0.04
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - rhel_family
+#  - name: test-aws-centos6-mysql-5.7
+#    image: ami-1585c46a
+#    instance_type: m4.large
+#    region: us-east-1
+#    vpc_subnet_id: subnet-01be2149
+#    spot_price: 0.04
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#     - rhel_family
+  - name: test-aws-Ubuntu16-mysql-5.7
+    image: ami-0f9cf087c1f27d9b1
+    instance_type: m4.large
+    region: us-east-1
+    vpc_subnet_id: subnet-01be2149
+    security_group_name:
+      - default
+      - epmldi-docker-machine
+      - molecule
+      - epam-by-ru
+    spot_price: 0.04
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - debian_family
+  - name: test-aws-Ubuntu18-mysql-5.7
+    image: ami-0ac019f4fcb7cb7e6
+    instance_type: m4.large
+    region: us-east-1
+    vpc_subnet_id: subnet-01be2149
+    security_group_name:
+      - default
+      - epmldi-docker-machine
+      - molecule
+      - epam-by-ru
+    spot_price: 0.04
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - debian_family
+provisioner:
+  name: ansible
+  log: False
+  playbooks:
+    create: ../resources/provisioning/AWS/create.yml
+    prepare: ../resources/provisioning/AWS/prepare.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+  lint:
+    name: ansible-lint
+  env:
+    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
+scenario:
+  name: cloud-aws-direct-5.7
+verifier:
+  name: testinfra
+  options:
+    verbose: true
+  directory: ../resources/tests/
+  lint:
+    name: flake8

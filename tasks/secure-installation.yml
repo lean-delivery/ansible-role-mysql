@@ -17,6 +17,8 @@
     - name: "Out mysql_version"
       debug:
         var: mysql_version
+  become: True
+
   rescue:
     - name: "Clear InnoDB logs and restart MySQL in skip-grant-tables mode"
       block:
@@ -132,7 +134,8 @@
     priv: "*.*:ALL,GRANT"
     login_user: "{{ mysql_root_username }}"
     login_password: "{{ mysql_root_password }}"
-  no_log: True
+#  no_log: True
+  become: True
 
 - name: "Remove anonymous MySQL users."
   mysql_user:

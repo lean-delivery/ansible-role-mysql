@@ -1,0 +1,26 @@
+---
+mysql_daemon: "mariadb"
+mysql_version: "latest"
+mysql_packages:
+  - "mysql-community-server"
+  - "mariadb-server"
+
+mysql_python_packages:
+  - "python-mysqldb"
+
+mysql_repo: "http://yum.mariadb.org/10.1/centos7-amd64"
+
+key_server: "hkp://keyserver.ubuntu.com"
+id: "0xF1656F24C74CD1D8"
+
+repo_config:
+  - 'deb http://mirror.homelab.no/mariadb/repo/10.1/ubuntu cosmic main'
+
+mysql_slow_query_log_file: "/var/log/mysql-slow.log"
+mysql_log_error: "/var/log/mariadb.log"
+mysql_syslog_tag: "mariadb"
+mysql_pid_file: "/var/run/mariadb/mariadb.pid"
+mysql_config_file: "/etc/my.cnf"
+mysql_config_include_dir: "/etc/mysql.conf.d"
+mysql_socket: "/var/lib/mysql/mysql.sock"
+mysql_supports_innodb_large_prefix: "True"

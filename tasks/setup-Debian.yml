@@ -1,0 +1,43 @@
+---
+- name: "Add repository and install {{ mysql_version }} packages"
+  block:
+    - name: "Ensure Python libraries are installed."
+      apt:
+        name: "{{ mysql_python_packages }}"
+        state: present
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
+
+    - name: "Add {{ mysql_daemon }} apt key"
+      apt_key:
+        keyserver: "{{ key_server }}"
+        id: "{{ id }}"
+        state: present
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
+
+    - name: "Install {{ mysql_daemon }} {{ mysql_version }} REPO"
+      apt_repository:
+        repo={{ item }}
+        state=present
+      with_items:
+        "{{ repo_config }}"
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
+
+    - name: "Install {{ mysql_daemon }}"
+      apt:
+        name: "{{ mysql_packages }}"
+        state: present
+      register: task_result
+      until: task_result is success
+      retries: 1
+      delay: 2
+
+  become: True
