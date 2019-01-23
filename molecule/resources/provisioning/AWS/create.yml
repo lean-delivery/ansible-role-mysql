@@ -51,15 +51,11 @@
 
     # Mandatory configuration for Molecule to function.
 
-    - name: Debug
-      debug:
-        msg: "{{ item.instances[0].public_ip }}"
-
     - name: Populate instance config dict
       set_fact:
         instance_conf_dict: {
           'instance': "{{ item.instances[0].tags.instance }}",
-          'address': "{{ (item.instances[0].public_ip != 'None') | ternary(item.instances[0].public_ip, item.instances[0].private_ip) }}",
+          'address': "{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}",
           'user': "{{ item.instances[0].tags.ssh_user }}",
           'port': "{{ ssh_port }}",
           'identity_file': "{{ keypair_path }}",
@@ -67,6 +63,10 @@
       loop: "{{ instance_create.results }}"
       register: instance_config_dict
       when: instance_create.changed | bool
+
+    - name: Debug
+      debug:
+        msg: "{{ instance_create.results.instances[0].public_ip }}"
 
     - name: Convert instance config dict to a list
       set_fact:
