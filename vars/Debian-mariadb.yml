@@ -16,6 +16,8 @@ id: "0xF1656F24C74CD1D8"
 repo_config:
   - 'deb http://mirror.homelab.no/mariadb/repo/10.1/ubuntu cosmic main'
 
+mysql_service_name: "mysql"
+
 mysql_slow_query_log_file: "/var/log/mysql-slow.log"
 mysql_log_error: "/var/log/mariadb.log"
 mysql_syslog_tag: "mariadb"
