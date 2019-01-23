@@ -10,26 +10,53 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-mysql-5.6
-    image: ami-9887c6e7
-    instance_type: m5.large
+#  - name: test-aws-centos7-mysql-5.6
+#    image: ami-9887c6e7
+#    instance_type: m5.large
+#    region: us-east-1
+#    vpc_subnet_id: subnet-01be2149
+#    spot_price: 0.04
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - rhel_family
+#  - name: test-aws-centos6-mysql-5.6
+#    image: ami-1585c46a
+#    instance_type: m4.large
+#    region: us-east-1
+#    vpc_subnet_id: subnet-01be2149
+#    spot_price: 0.04
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - rhel_family
+  - name: test-aws-ubuntu16-mysql-5.7
+    image: ami-0f9cf087c1f27d9b1
+    instance_type: t2.small
     region: us-east-1
-    vpc_subnet_id: subnet-01be2149
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    security_group_name:
+      - default
     spot_price: 0.04
     wait_timeout: 1800
-    ssh_user: centos
+    ssh_user: ubuntu
     groups:
-      - rhel_family
-  - name: test-aws-centos6-mysql-5.6
-    image: ami-1585c46a
-    instance_type: m4.large
+      - debian_family
+
+  - name: test-aws-ubuntu18-mysql-5.7
+    image: ami-0ac019f4fcb7cb7e6
+    instance_type: t2.small
     region: us-east-1
-    vpc_subnet_id: subnet-01be2149
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    security_group_name:
+      - default
     spot_price: 0.04
     wait_timeout: 1800
-    ssh_user: centos
+    ssh_user: ubuntu
     groups:
-      - rhel_family
+      - debian_family
 provisioner:
   name: ansible
   log: False
