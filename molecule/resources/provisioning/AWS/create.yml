@@ -38,7 +38,7 @@
       loop: "{{ molecule_yml.platforms }}"
       async: 7200
       poll: 0
-      no_log: True
+      no_log: False
 
     - name: Wait for instance(s) creation to complete
       async_status:
