@@ -76,7 +76,7 @@
       when: instance_create.changed | bool
 
     - name: Debug
-      debug: "var={{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
+      debug: "var={{ instance_conf }}"
 
     - name: Wait for SSH
       wait_for:
