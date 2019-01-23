@@ -55,7 +55,7 @@
       set_fact:
         instance_conf_dict: {
           'instance': "{{ item.instances[0].tags.instance }}",
-          'address': "{{ item.instances[0].public_ip | default(item.instances[0].private_ip) }}",
+          'address': "{{ (item.instances[0].public_ip != 'None') | ternary(item.instances[0].public_ip, item.instances[0].private_ip) }}",
           'user': "{{ item.instances[0].tags.ssh_user }}",
           'port': "{{ ssh_port }}",
           'identity_file': "{{ keypair_path }}",
