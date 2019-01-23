@@ -74,6 +74,7 @@
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: instance_create.changed | bool
+      no_log: False
 
     - name: Wait for SSH
       wait_for:
