@@ -5,23 +5,16 @@ mysql_daemon: "mysql"
 mysql_packages:
   - "mysql-server"
 
-mysql_old_packages:
-  - "mysql-server-{{ mysql_version }}"
-  - "mysql-client-{{ mysql_version }}"
-
 mysql_python_packages:
   - "python-mysqldb"
 
 mysql_repo: "https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb"
 
-key_server: "ha.pool.sks-keyservers.net"
-id: "A4A9406876FCBD3C456770C88C718D3B5072E1F5"
-
 mysql_slow_query_log_file: "/var/log/mysql-slow.log"
 mysql_log_error: "/var/log/mysql.err"
 mysql_syslog_tag: "mysql"
 mysql_pid_file: "/var/run/mysqld/mysqld.pid"
-mysql_config_file: "/etc/my.cnf"
+mysql_config_file: "/etc/mysql/mysql.conf.d/my.cnf"
 mysql_config_include_dir: "/etc/mysql.conf.d"
 mysql_socket: "/var/lib/mysql/mysql.sock"
 mysql_supports_innodb_large_prefix: "False"
