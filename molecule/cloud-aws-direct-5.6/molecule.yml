@@ -39,7 +39,7 @@ platforms:
       - rhel_family
 
   - name: test-aws-Debian9-mysql-5.6
-    image: ami-003f19e0e687de1cd
+    image: ami-0dc82b70
     instance_type: t2.small
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -53,7 +53,7 @@ platforms:
       - debian_family
 
   - name: test-aws-Debian8-mysql-5.6
-    image: ami-49e5cb5e
+    image: ami-116d857a
     instance_type: t2.small
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
