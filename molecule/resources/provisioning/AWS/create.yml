@@ -7,7 +7,7 @@
   vars:
     ssh_port: 22
     keypair_name: "molecule_key-{{ lookup('pipe','hostname') | to_uuid }}"
-    keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
+    keypair_path: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/../../ssh_key"
 
   tasks:
     - name: Test for presence of local keypair
