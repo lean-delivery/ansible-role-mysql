@@ -5,7 +5,7 @@
   gather_facts: False
   no_log: False #"{{ (not lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(False) | bool) }}"
   vars:
-    keypair_name: "molecule_key-{{ lookup('pipe','hostname') }}"
+    keypair_name: "molecule_key-{{ lookup('pipe','hostname') | to_uuid }}"
   tasks:
 
     - name: Delete remote keypair
