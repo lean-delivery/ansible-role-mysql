@@ -16,7 +16,7 @@
         dest: /tmp/mysql-apt-config_0.8.12-1_all.deb
       when: mysql_daemon != "mariadb"
 
-    - name: "Install {{ mysql_daemon }} {{ mysql_version }}"
+    - name: "Install deb repo"
       apt:
         deb: /tmp/mysql-apt-config_0.8.12-1_all.deb
         state: present
@@ -35,14 +35,16 @@
       when: mysql_daemon != "mariadb"
 
     - name: "Reconfigure package"
-      shell: DEBIAN_FRONTEND=noninteractive dpkg-reconfigure mysql-apt-config
-      tags:
-        - skip_ansible_lint
+      command: dpkg-reconfigure mysql-apt-config
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+      changed_when: false
       when: mysql_daemon != "mariadb"
 
     - name: "apt-get update"
       apt:
         update_cache: yes
+      changed_when: false
       register: task_result
       until: task_result is success
       retries: 10
