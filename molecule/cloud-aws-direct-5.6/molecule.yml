@@ -48,7 +48,7 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: root
+    ssh_user: admin
     groups:
       - debian_family
 
@@ -62,7 +62,7 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: root
+    ssh_user: admin
     groups:
       - debian_family
 
