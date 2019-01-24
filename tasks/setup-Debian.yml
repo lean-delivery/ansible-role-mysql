@@ -34,13 +34,19 @@
         vtype: select
       when: mysql_daemon != "mariadb"
 
-    - name: "Reconfigure package mysql-apt-config"
-      shell: DEBIAN_FRONTEND=noninteractive dpkg-reconfigure mysql-apt-config
+    - name: "Reconfigure package"
+      command: dpkg-reconfigure mysql-apt-config DEBIAN_FRONTEND=noninteractive
+      tags:
+        - skip_ansible_lint
       when: mysql_daemon != "mariadb"
 
     - name: "apt-get update"
       apt:
         update_cache: yes
+      register: task_result
+      until: task_result is success
+      retries: 10
+      delay: 2
 
     - name: "Install {{ mysql_daemon }}"
       apt:
@@ -49,7 +55,7 @@
         update_cache: yes
       register: task_result
       until: task_result is success
-      retries: 1
+      retries: 10
       delay: 2
 
   become: True
