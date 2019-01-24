@@ -6,16 +6,32 @@
   no_log: False #"{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
   vars:
     ssh_port: 22
-    keypair_name: molecule_key
+    keypair_name: molecule_key-"{{ lookup('pipe','hostname') }}"
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
   tasks:
+    - name: Test for presence of local keypair
+      stat:
+        path: "{{ keypair_path }}"
+      register: keypair_local
+
+    - name: Delete remote keypair
+      ec2_key:
+        name: "{{ keypair_name }}"
+        state: absent
+      when: not keypair_local.stat.exists
+
+    - name: Create keypair
+      ec2_key:
+        name: "{{ keypair_name }}"
+      register: keypair
+
     - name: Persist the keypair
       copy:
         dest: "{{ keypair_path }}"
-        content: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
+        content: "{{ keypair.key.private_key }}"
         mode: 0600
-      no_log: True
+      when: keypair.changed
 
     - name: Create molecule instance(s)
       ec2:
@@ -63,10 +79,6 @@
       loop: "{{ instance_create.results }}"
       register: instance_config_dict
       when: instance_create.changed | bool
-
-    - name: Debug
-      debug:
-        msg: "{{ instance_create }}"
 
     - name: Convert instance config dict to a list
       set_fact:
