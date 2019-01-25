@@ -33,7 +33,7 @@
     - name: Create keypair
       ec2_key:
         name: "{{ keypair_name }}-{{ item.name }}"
-        material: "{{ lookup('file', keypair_path + '.pub') }}"
+        key_material: "{{ lookup('file', keypair_path + '.pub') }}"
       loop: "{{ molecule_yml.platforms }}"
       register: keypair
 
