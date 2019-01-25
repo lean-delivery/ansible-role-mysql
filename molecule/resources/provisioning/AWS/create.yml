@@ -29,9 +29,8 @@
     - name: Persist the keypair
       copy:
         dest: "{{ keypair_name }}"
-        content: "{{ item.key.private_key }}"
+        content: "{{ keypair_tmp.key.private_key }}"
         mode: 0600
-      loop: "{{ keypair_tmp.results }}"
       when: keypair.changed
 
     # - openssl_privatekey:
