@@ -8,7 +8,7 @@
     ssh_port: 22
     keypair_name: "molecule-key_\
       {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}_\
-      {{ lookup('env','MOLECULE_SCENARIO_NAME') }}"
+      {{ lookup('env','MOLECULE_SCENARIO_NAME') }}-{{ lookup('env','MOLECULE_SCENARIO_NAME') | to_uuid }}"
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
   tasks:
@@ -28,7 +28,7 @@
         dest: "{{ keypair_path }}"
         content: "{{ keypair.key.private_key }}"
         mode: 0600
-      when: keypair.changed
+      when: keypair.changed | bool
 
     - name: Create molecule instance(s)
       ec2:
@@ -87,9 +87,6 @@
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: instance_create.changed | bool
-
-    - name: Debug
-      debug: "msg={{ instance_conf }}"
 
     - name: Wait for SSH
       wait_for:
