@@ -27,7 +27,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS mysql 5.7:
+AWS mysql 5.7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -55,7 +55,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS mysql mariadb:
+.AWS mysql mariadb:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
