@@ -28,7 +28,7 @@
 
     - name: Persist the keypair
       copy:
-        dest: "{{ keypair_name }}"
+        dest: "{{ keypair_path }}"
         content: "{{ keypair_tmp.key.private_key }}"
         mode: 0600
       when: keypair_tmp.changed
