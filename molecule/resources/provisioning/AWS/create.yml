@@ -12,23 +12,17 @@
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
   tasks:
-    # - name: Test for presence of local keypair
-    #   stat:
-    #     path: "{{ keypair_path }}"
-    #   register: keypair_local
-
     - name: Create keypair
       ec2_key:
         name: "{{ keypair_name }}"
       register: keypair
-      # when: not keypair_local.stat.exists
 
     - name: Persist the keypair
       copy:
         dest: "{{ keypair_path }}"
         content: "{{ keypair.key.private_key }}"
         mode: 0600
-      # when: keypair.changed | bool
+      when: keypair.changed | bool
 
     - name: Create molecule instance(s)
       ec2:
