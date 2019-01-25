@@ -7,7 +7,7 @@
   vars:
     ssh_port: 22
     keypair_name: "molecule_key-\
-      {{ lookup('env','MOLECULE_SCENARIO_DIRECTORY').split('/')[-1] }}\
+      {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}\
       -{{ lookup('env','MOLECULE_SCENARIO_NAME') }}"
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
