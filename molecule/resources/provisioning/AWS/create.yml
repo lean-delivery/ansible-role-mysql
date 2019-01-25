@@ -8,7 +8,7 @@
     ssh_port: 22
     keypair_name: "molecule-key_\
       {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}_\
-      {{ lookup('env','MOLECULE_SCENARIO_NAME') }}-{{ lookup('env','MOLECULE_SCENARIO_NAME') | to_uuid }}"
+      {{ lookup('env','MOLECULE_SCENARIO_NAME') }}"
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
   tasks:
