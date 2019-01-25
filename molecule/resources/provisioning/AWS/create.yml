@@ -7,6 +7,7 @@
   vars:
     ssh_port: 22
     keypair_name: "molecule_key"
+    keypair_name_tmp: "molecule_key-{{ lookup('pipe','hostname') | to_uuid }}"
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
   tasks:
@@ -15,25 +16,37 @@
         path: "{{ keypair_path }}"
       register: keypair_local
 
-    - name: Delete remote keypair
+    - name: Create keypair
       ec2_key:
-        name: "{{ keypair_name }}-{{ item.name }}"
+        name: "{{ keypair_name_tmp }}"
+      register: keypair_tmp
+
+    - name: Delete temporary remote keypair
+      ec2_key:
+        name: "{{ keypair_name_tmp }}"
         state: absent
-      when: not keypair_local.stat.exists
-      loop: "{{ molecule_yml.platforms }}"
 
-    - openssl_privatekey:
-        path: "{{ keypair_path }}"
+    - name: Persist the keypair
+      copy:
+        dest: "{{ keypair_name }}"
+        content: "{{ item.key.private_key }}"
         mode: 0600
-        size: 2048
-      when: not keypair_local.stat.exists
+      loop: "{{ keypair_tmp.results }}"
+      when: keypair.changed
 
-    - openssl_publickey:
+    # - openssl_privatekey:
+    #     path: "{{ keypair_path }}"
+    #     mode: 0600
+    #     size: 2048
+    #   when: not keypair_local.stat.exists
+
+    - name: Get public_key
+      openssl_publickey:
         path: "{{ keypair_path }}.pub"
-#        format: "OpenSSH"
+        format: "OpenSSH"
         privatekey_path: "{{ keypair_path }}"
 
-    - name: Create keypair
+    - name: Create individual keypair
       ec2_key:
         name: "{{ keypair_name }}-{{ item.name }}"
         key_material: "{{ lookup('file', keypair_path + '.pub') }}"
