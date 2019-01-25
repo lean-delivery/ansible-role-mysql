@@ -6,8 +6,8 @@
   no_log: False #"{{ (not lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(False) | bool) }}"
   vars:
     keypair_name: "molecule_key-\
-      {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}\
-      -{{ lookup('env','MOLECULE_SCENARIO_NAME') }}"
+      {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}_\
+      {{ lookup('env','MOLECULE_SCENARIO_NAME') }}"
   tasks:
 
     - name: Delete remote keypair
