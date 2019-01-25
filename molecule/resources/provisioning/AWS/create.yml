@@ -6,8 +6,8 @@
   no_log: False #"{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
   vars:
     ssh_port: 22
-    keypair_name: "molecule_key"
-    keypair_name_tmp: "molecule_key-{{ lookup('pipe','hostname') | to_uuid }}"
+    keypair_name: "molecule_key-{{ lookup('env','MOLECULE_SCENARIO_DIRECTORY').\
+      split('/')[-1]-lookup('env','MOLECULE_SCENARIO_NAME) }}"
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
   tasks:
@@ -16,60 +16,22 @@
         path: "{{ keypair_path }}"
       register: keypair_local
 
-    # - name: Create temporary keypair
-    #   ec2_key:
-    #     name: "{{ keypair_name_tmp }}"
-    #   register: keypair_tmp
-    #   when: not keypair_local.stat.exists
-
-    # - name: Delete temporary remote keypair
-    #   ec2_key:
-    #     name: "{{ keypair_name_tmp }}"
-    #     state: absent
-    #   when: not keypair_local.stat.exists
-    
-    - name: Create temporary keypair
-      openssl_privatekey:
-        path: "{{ keypair_path }}"
-        mode: 0600
-        size: 2048
+    - name: Create keypair
+      ec2_key:
+        name: "{{ keypair_name }}"
+      register: keypair
       when: not keypair_local.stat.exists
 
-    # - name: Persist the keypair
-    #   copy:
-    #     dest: "{{ keypair_path }}"
-    #     content: "{{ keypair_tmp.key.private_key }}"
-    #     mode: 0600
-    #   when: keypair_tmp.changed
-
-    - name: Get public_key
-      openssl_publickey:
-        path: "{{ keypair_path }}.pub"
-        format: "OpenSSH"
-        privatekey_path: "{{ keypair_path }}"
-
-    - name: Create individual keypair
-      ec2_key:
-        name: "{{ keypair_name }}-{{ item.name }}"
-        key_material: "{{ lookup('file', keypair_path + '.pub') }}"
-      loop: "{{ molecule_yml.platforms }}"
-      register: keypair
-
-    - name: Debug
-      debug:
-        msg: "{{ keypair.results }}"
-
-    # - name: Persist the keypair
-    #   copy:
-    #     dest: "{{ keypair_path }}-{{ item.item.name }}"
-    #     content: "{{ item.key.private_key }}"
-    #     mode: 0600
-    #   loop: "{{ keypair.results }}"
-    #   when: keypair.changed
+    - name: Persist the keypair
+      copy:
+        dest: "{{ keypair_path }}"
+        content: "{{ keypair.key.private_key }}"
+        mode: 0600
+      when: keypair.changed
 
     - name: Create molecule instance(s)
       ec2:
-        key_name: "{{ keypair_name }}-{{ item.name }}"
+        key_name: "{{ keypair_name }}"
         image: "{{ item.image }}"
         instance_type: "{{ item.instance_type }}"
         vpc_subnet_id: "{{ item.vpc_subnet_id }}"
