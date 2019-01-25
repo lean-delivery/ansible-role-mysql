@@ -12,20 +12,28 @@
   tasks:
     - name: Test for presence of local keypair
       stat:
-        path: "{{ keypair_path }}-{{ item.name }}"
+        path: "{{ keypair_path }}"
       register: keypair_local
-      loop: "{{ molecule_yml.platforms }}"
 
     - name: Delete remote keypair
       ec2_key:
-        name: "{{ keypair_name }}"
+        name: "{{ keypair_name }}-{{ item.name }}"
         state: absent
-      when: not item.stat.exists
-      loop: "{{ keypair_local.results }}"
+      when: not keypair_local.stat.exists
+      loop: "{{ molecule_yml.platforms }}"
+
+    - openssl_privatekey:
+        path: "{{ keypair_path }}"
+      when: not keypair_local.stat.exists
+
+    - openssl_publickey:
+        path: "{{ keypair_path }}.pub"
+        privatekey_path: "{{ keypair_path }}"
 
     - name: Create keypair
       ec2_key:
         name: "{{ keypair_name }}-{{ item.name }}"
+        material: "{{ lookup('file', keypair_path + '.pub') }}"
       loop: "{{ molecule_yml.platforms }}"
       register: keypair
 
@@ -33,13 +41,13 @@
       debug:
         msg: "{{ keypair.results }}"
 
-    - name: Persist the keypair
-      copy:
-        dest: "{{ keypair_path }}-{{ item.item.name }}"
-        content: "{{ item.key.private_key }}"
-        mode: 0600
-      loop: "{{ keypair.results }}"
-      when: keypair.changed
+    # - name: Persist the keypair
+    #   copy:
+    #     dest: "{{ keypair_path }}-{{ item.item.name }}"
+    #     content: "{{ item.key.private_key }}"
+    #     mode: 0600
+    #   loop: "{{ keypair.results }}"
+    #   when: keypair.changed
 
     - name: Create molecule instance(s)
       ec2:
