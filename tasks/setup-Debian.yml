@@ -16,7 +16,7 @@
         dest: /tmp/mysql-apt-config_0.8.12-1_all.deb
       when: mysql_daemon != "mariadb"
 
-    - name: "Install deb repo"
+    - name: "Installing deb package"
       apt:
         deb: /tmp/mysql-apt-config_0.8.12-1_all.deb
         state: present
@@ -26,7 +26,7 @@
       delay: 2
       when: mysql_daemon != "mariadb"
 
-    - name: "Select version {{ mysql_version }}"
+    - name: "Selecting version {{ mysql_version }}"
       debconf:
         name: mysql-apt-config
         question: mysql-apt-config/select-server
@@ -34,14 +34,14 @@
         vtype: select
       when: mysql_daemon != "mariadb"
 
-    - name: "Reconfigure package"
+    - name: "Reconfiguring package"
       command: dpkg-reconfigure mysql-apt-config
       environment:
         DEBIAN_FRONTEND: noninteractive
       changed_when: false
       when: mysql_daemon != "mariadb"
 
-    - name: "apt-get update"
+    - name: "Running apt-get update"
       apt:
         update_cache: yes
       changed_when: false
@@ -50,7 +50,7 @@
       retries: 10
       delay: 2
 
-    - name: "Install {{ mysql_daemon }}"
+    - name: "Installing database"
       apt:
         name: "{{ mysql_packages }}"
         state: present
