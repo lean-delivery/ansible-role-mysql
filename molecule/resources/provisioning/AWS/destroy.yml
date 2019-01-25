@@ -5,13 +5,14 @@
   gather_facts: False
   no_log: False #"{{ (not lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(False) | bool) }}"
   vars:
-    keypair_name: "molecule_key-{{ lookup('pipe','hostname') | to_uuid }}"
+    keypair_name: "molecule_key"
   tasks:
 
     - name: Delete remote keypair
       ec2_key:
-        name: "{{ keypair_name }}"
+        name: "{{ keypair_name }}-{{ item.name }}"
         state: absent
+      loop: "{{ molecule_yml.platforms }}"
 
     - name: Get instances list
       ec2_instance_facts:
