@@ -24,11 +24,11 @@
 
     - openssl_privatekey:
         path: "{{ keypair_path }}"
-        format: "OpenSSH"
       when: not keypair_local.stat.exists
 
     - openssl_publickey:
         path: "{{ keypair_path }}.pub"
+        format: "OpenSSH"
         privatekey_path: "{{ keypair_path }}"
 
     - name: Create keypair
