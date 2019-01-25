@@ -31,7 +31,7 @@
         dest: "{{ keypair_name }}"
         content: "{{ keypair_tmp.key.private_key }}"
         mode: 0600
-      when: keypair.changed
+      when: keypair_tmp.changed
 
     # - openssl_privatekey:
     #     path: "{{ keypair_path }}"
