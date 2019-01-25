@@ -31,12 +31,12 @@
 
     - name: Debug
       debug:
-        msg: "{{ keypair }}"
+        msg: "{{ keypair.results }}"
 
     - name: Persist the keypair
       copy:
-        dest: "{{ keypair_path }}-{{ item.name }}"
-        content: "{{ keypair.key.private_key }}"
+        dest: "{{ keypair_path }}-{{ item.item.name }}"
+        content: "{{ item.key.private_key }}"
         mode: 0600
       loop: "{{ keypair.results }}"
       when: keypair.changed
