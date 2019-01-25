@@ -24,6 +24,7 @@
 
     - openssl_privatekey:
         path: "{{ keypair_path }}"
+        mode: 0600
       when: not keypair_local.stat.exists
 
     - openssl_publickey:
