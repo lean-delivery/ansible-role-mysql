@@ -28,13 +28,9 @@
         size: 2048
       when: not keypair_local.stat.exists
 
-    - name: Debug
-      debug:
-        msg: "{{ lookup('file', keypair_path) }}"
-
     - openssl_publickey:
         path: "{{ keypair_path }}.pub"
-        format: "OpenSSH"
+#        format: "OpenSSH"
         privatekey_path: "{{ keypair_path }}"
 
     - name: Create keypair
