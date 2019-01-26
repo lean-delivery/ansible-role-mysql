@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: False
-  no_log: False #"{{ (not lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(False) | bool) }}"
+  no_log: "{{ (not lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(False) | bool) }}"
   vars:
     keypair_name: "molecule-key_\
       {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}_\
@@ -12,7 +12,7 @@
 
     - name: Delete remote keypair
       ec2_key:
-        name: "{{ keypair_name }}"
+        name: '{{ keypair_name }}'
         state: absent
 
     - name: Get instances list
@@ -30,17 +30,6 @@
         wait: True
       register: server
       when: ( ec2_sets.instances | map(attribute='instance_id') | list | length )
-      # async: 7200
-      # poll: 0
-
-    # - name: Wait for instance(s) deletion to complete
-    #   async_status:
-    #     jid: "{{ server.ansible_job_id }}"
-    #   register: ec2_jobs
-    #   until: ec2_jobs.finished
-    #   retries: 300
-    #   delay: 20
-    #   loop: "{{ server.results }}"
 
     # Mandatory configuration for Molecule to function.
 
@@ -50,6 +39,6 @@
 
     - name: Dump instance config
       copy:
-        content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
-        dest: "{{ molecule_instance_config }}"
+        content: '{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}'
+        dest: '{{ molecule_instance_config }}'
       when: server.changed | bool
