@@ -38,7 +38,7 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-Debian9-mysql-5.7
+  - name: test-aws-Debian9-mysql-5.6
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
@@ -52,7 +52,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Debian8-mysql-5.7
+  - name: test-aws-Debian8-mysql-5.6
     image: ami-49e5cb5e
     instance_type: m5.large
     region: us-east-1
