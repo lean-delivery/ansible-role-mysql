@@ -11,9 +11,9 @@ lint:
     config-file: .yamllint
 platforms:
   - name: test-aws-centos7-mysql-8.0
-    image: ami-0f9cf087c1f27d9b1 #ubuntu
+    image: ami-0f9cf087c1f27d9b1# ubuntu
 #    image: ami-9887c6e7
-    instance_type: t2.medium
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-01be2149
     spot_price: 0.05
