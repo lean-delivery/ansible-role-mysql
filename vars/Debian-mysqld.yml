@@ -3,10 +3,11 @@ mysql_service_name: "mysql"
 mysql_daemon: "mysql"
 
 mysql_packages:
-  - "mysql-server"
+  - mysql-server
 
 mysql_python_packages:
-  - "python-mysqldb"
+  - dirmngr
+  - python-mysqldb
 
 mysql_repo: "https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb"
 

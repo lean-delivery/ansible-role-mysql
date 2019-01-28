@@ -36,9 +36,9 @@ platforms:
     wait_timeout: 1800
     ssh_user: centos
     groups:
-      - rhel_family
+     - rhel_family
 
-  - name: test-aws-ubuntu16-mysql-mariadb
+  - name: test-aws-ubuntu16-mariadb
     image: ami-0f9cf087c1f27d9b1
     instance_type: m5.large
     region: us-east-1
@@ -52,7 +52,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-ubuntu18-mysql-mariadb
+  - name: test-aws-ubuntu18-mariadb
     image: ami-0ac019f4fcb7cb7e6
     instance_type: m5.large
     region: us-east-1
@@ -66,33 +66,33 @@ platforms:
     groups:
       - debian_family
 
-  # - name: test-aws-Debian9-mysql-mariadb
-  #   image: ami-003f19e0e687de1cd
-  #   instance_type: t2.small
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: admin
-  #   groups:
-  #     - debian_family
+  - name: test-aws-Debian9-mariadb
+    image: ami-003f19e0e687de1cd
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
 
-  # - name: test-aws-Debian8-mysql-mariadb
-  #   image: ami-49e5cb5e
-  #   instance_type: t2.small
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: admin
-  #   groups:
-  #     - debian_family
+  - name: test-aws-Debian8-mariadb
+    image: ami-49e5cb5e
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
 
 provisioner:
   name: ansible
