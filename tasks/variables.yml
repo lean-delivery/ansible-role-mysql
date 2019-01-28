@@ -1,10 +1,10 @@
 ---
 # Variable configuration.
 - name: "Include OS-specific variables."
-  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}\
-    -{{ mysql_daemon }}.yml"
-  when: ansible_os_family == "RedHat" and mysql_daemon is defined
-
-- name: "Include OS-specific variables."
-  include_vars: "{{ ansible_os_family }}-{{ mysql_daemon }}.yml"
-  when: ansible_os_family == "Debian" and mysql_daemon is defined
+  include_vars: '{{ platform }}'
+  with_first_found:
+    - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}\
+          -{{ mysql_daemon }}.yml"
+    - "{{ ansible_os_family }}-{{ mysql_daemon }}.yml"
+  loop_control:
+    loop_var: platform

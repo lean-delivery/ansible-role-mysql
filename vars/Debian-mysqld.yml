@@ -1,6 +1,6 @@
 ---
 mysql_service_name: mysql
-mysql_daemon: mysql
+mysql_daemon: mysqld
 
 mysql_packages:
   - mysql-server
@@ -9,17 +9,12 @@ mysql_python_packages:
   - dirmngr
   - python-mysqldb
 
-mysql_repo: https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
-
 mysql_slow_query_log_file: /var/log/mysql-slow.log
 mysql_log_error: /var/log/mysql.err
 mysql_syslog_tag: mysql
 mysql_pid_file: /var/run/mysqld/mysqld.pid
 mysql_config_file: /etc/my.cnf
-mysql_config_include_dir: /etc/mysql.conf.d
-mysql_socket: /var/lib/mysql/mysql.sock
+mysql_config_include_dir: /etc/mysql/mysql.conf.d
+mysql_socket: /var/run/mysql/mysql.sock
 mysql_supports_innodb_large_prefix: False
-
-mysql_root_home: /root
-mysql_root_username: root
-mysql_root_password: root
+mysql_datadir: /var/lib/mysql

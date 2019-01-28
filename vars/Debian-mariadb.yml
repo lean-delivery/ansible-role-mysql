@@ -1,16 +1,10 @@
 ---
 mysql_daemon: mariadb
-mysql_version: latest
 mysql_packages:
   - mariadb-server
 
 mysql_python_packages:
   - python-mysqldb
-
-mysql_repo: http://yum.mariadb.org/10.1/centos7-amd64
-
-repo_config:
-  - 'deb http://mirror.homelab.no/mariadb/repo/10.1/ubuntu cosmic main'
 
 mysql_service_name: mysql
 
@@ -20,5 +14,6 @@ mysql_syslog_tag: mariadb
 mysql_pid_file: /var/run/mariadb/mariadb.pid
 mysql_config_file: /etc/mysql/conf.d/my.cnf
 mysql_config_include_dir: /etc/mysql/mariadb.conf.d
-mysql_socket: /var/lib/mysql/mysql.sock
+mysql_socket: /var/run/mysqld/mysqld.sock
 mysql_supports_innodb_large_prefix: True
+mysql_datadir: /var/lib/mysql
