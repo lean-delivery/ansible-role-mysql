@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: False
-  no_log: "{{ (not lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(False) | bool) }}"
+  no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
   vars:
     keypair_name: "molecule-key_\
       {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}_\
