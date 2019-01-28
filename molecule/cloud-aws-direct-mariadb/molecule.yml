@@ -81,7 +81,7 @@ platforms:
       - debian_family
 
   - name: test-aws-Debian8-mariadb
-    image: ami-116d857a
+    image: ami-49e5cb5e
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
