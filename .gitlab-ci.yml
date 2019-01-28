@@ -65,6 +65,8 @@ AWS mysql 5.7:
     - aws
 
 AWS mysql-8.0:
+  variables:
+    AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-direct-8.0
