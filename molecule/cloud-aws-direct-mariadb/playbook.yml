@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  tasks:
+    - name: Collect facts
+      setup:
   roles:
     - role: ansible-role-mysql
       mysql_root_password: 88TEM-veDRE<888serd

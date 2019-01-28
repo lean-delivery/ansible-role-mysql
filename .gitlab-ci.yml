@@ -46,7 +46,7 @@ AWS mysql 5.6:
   tags:
     - aws
 
-AWS mysql 5.5:
+.AWS mysql 5.5:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -64,21 +64,14 @@ AWS mysql mariadb:
   tags:
     - aws
 
-.AWS mysql-8.0:
+AWS mysql-8.0:
+  variables:
+    AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-direct-8.0
   tags:
     - aws
-
-.AWS mariadb:
-  variables:
-    EPC_REGION: AWS-EUCENTRAL
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-delegated-mariadb
-  tags:
-    - delegated
 
 .EPC mysql-5.5:
   variables:

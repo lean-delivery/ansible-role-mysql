@@ -1,24 +1,24 @@
 ---
-- name: "Stop MySQL to change configs"
+- name: 'Stop MySQL to change configs'
   service:
-    name: "{{ mysql_service_name }}"
+    name: '{{ mysql_service_name }}'
     state: stopped
 
-- name: "Wait until the lock file is removed"
+- name: 'Wait until the lock file is removed'
   wait_for:
-    path: "/var/lock/subsys/mysql"
+    path: '/var/lock/subsys/mysql'
     state: absent
 
-- name: "Find InnoDB log files"
+- name: 'Find InnoDB log files'
   find:
-    paths: "{{ mysql_datadir }}"
-    patterns: "ib_logfile*"
+    paths: '{{ mysql_datadir }}'
+    patterns: 'ib_logfile*'
   register: innodb_log
 
-- name: "Remove default InnoDB log files"
+- name: 'Remove default InnoDB log files'
   file:
-    path: "{{ idb_log.path }}"
+    path: '{{ idb_log.path }}'
     state: absent
-  loop: "{{ innodb_log.files }}"
+  loop: '{{ innodb_log.files }}'
   loop_control:
     loop_var: idb_log
