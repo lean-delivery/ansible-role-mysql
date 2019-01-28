@@ -17,7 +17,7 @@
     - name: 'Out mysql_version'
       debug:
         var: mysql_version
-  become: True
+  # become: True
 
   rescue:
     - name: 'Clear InnoDB logs and restart MySQL in skip-grant-tables mode'
@@ -135,7 +135,7 @@
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
   no_log: True
-  become: True
+  # become: True
 
 - name: 'Remove anonymous MySQL users.'
   mysql_user:
@@ -144,7 +144,7 @@
     state: absent
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-  become: True
+  # become: True
 
 - name: 'Remove MySQL test database.'
   mysql_db:
@@ -152,4 +152,4 @@
     state: absent
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-  become: True
+  # become: True
