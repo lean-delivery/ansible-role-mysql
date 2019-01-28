@@ -17,7 +17,7 @@ mysql_syslog_tag: "mysql"
 mysql_pid_file: "/var/run/mysqld/mysqld.pid"
 mysql_config_file: "/etc/my.cnf"
 mysql_config_include_dir: "/etc/mysql.conf.d"
-mysql_socket: "/var/lib/mysql/mysql.sock"
+mysql_socket: "/var/run/mysql/mysql.sock"
 mysql_supports_innodb_large_prefix: "False"
 
 mysql_root_home: /root
