@@ -16,13 +16,15 @@ def test_hosts_file(host):
 
 def test_mysql_service(host):
     if host.ansible("setup")["ansible_facts"]["ansible_os_family"] != "Debian":
-        service = host.service("mysqld")
-        assert service.is_running
-        assert service.is_enabled
+        with host.sudo():
+            service = host.service("mysqld")
+            assert service.is_running
+            assert service.is_enabled
     else:
-        service = host.service("mysql")
-        assert service.is_running
-        assert service.is_enabled
+        with host.sudo():
+            service = host.service("mysql")
+            assert service.is_running
+            assert service.is_enabled
 
 
 def test_mysql_is_listening(host):
