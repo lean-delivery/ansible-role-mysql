@@ -105,51 +105,50 @@
         delay: 3
         timeout: 30
 
-- name: 'Copy .my.cnf file with password credentials.'
+- name: 'Setup admin credentials'
+  block:
+    - name: 'Ensure default user is present.'
+      mysql_user:
+        name: '{{ mysql_user_name }}'
+        host: localhost
+        password: '{{ mysql_user_password }}'
+        priv: '*.*:ALL,GRANT'
+        state: present
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
+      when: mysql_user_name != 'root'
+
+    - name: 'Copy .my.cnf file with password credentials.'
+      template:
+        src: user-my.cnf.j2
+        dest: '{{ mysql_user_home }}/.my.cnf'
+        owner: '{{ mysql_user_name }}'
+        mode: 0600
+      when: mysql_user_name != mysql_root_username
+
+    - name: 'Update mysql root password for all root accounts'
+      mysql_user:
+        name: root
+        host_all: True
+        password: '{{ mysql_root_password }}'
+        check_implicit_admin: True
+        priv: '*.*:ALL,GRANT'
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
+      no_log: False
+
+    - name: 'Remove anonymous MySQL users.'
+      mysql_user:
+        name: ''
+        host_all: True
+        state: absent
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
+
+    - name: 'Remove MySQL test database.'
+      mysql_db:
+        name: test
+        state: absent
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
   become: True
-  template:
-    src: user-my.cnf.j2
-    dest: '{{ mysql_user_home }}/.my.cnf'
-    owner: '{{ mysql_user_name }}'
-    mode: 0600
-  when: mysql_user_name != mysql_root_username
-
-- name: 'Ensure default user is present.'
-  mysql_user:
-    name: '{{ mysql_user_name }}'
-    host: localhost
-    password: '{{ mysql_user_password }}'
-    priv: '*.*:ALL,GRANT'
-    state: present
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  when: mysql_user_name != 'root'
-
-- name: 'Update mysql root password for all root accounts'
-  mysql_user:
-    name: root
-    host_all: True
-    password: '{{ mysql_root_password }}'
-    check_implicit_admin: True
-    priv: '*.*:ALL,GRANT'
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  no_log: False
-  # become: True
-
-- name: 'Remove anonymous MySQL users.'
-  mysql_user:
-    name: ''
-    host_all: True
-    state: absent
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  # become: True
-
-- name: 'Remove MySQL test database.'
-  mysql_db:
-    name: test
-    state: absent
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  # become: True
