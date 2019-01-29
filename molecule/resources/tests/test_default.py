@@ -15,7 +15,7 @@ def test_hosts_file(host):
 
 
 def test_mysql_service(host):
-    if host.ansible.get_variables()["ansible_os_family"] != "Debian":
+    if host.ansible("setup")["ansible_facts"]["ansible_os_family"] != "Debian":
         service = host.service("mysqld")
         assert service.is_running
         assert service.is_enabled
