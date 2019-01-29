@@ -146,7 +146,7 @@
     state: absent
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-  # become: True
+  become: True
 
 - name: 'Remove MySQL test database.'
   mysql_db:
@@ -154,4 +154,4 @@
     state: absent
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-  # become: True
+  become: True
