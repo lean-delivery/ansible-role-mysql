@@ -17,7 +17,7 @@
     - name: 'Out mysql_version'
       debug:
         var: mysql_version
-  become: True
+  # become: True
 
   rescue:
     - name: 'Clear InnoDB logs and restart MySQL in skip-grant-tables mode'
@@ -51,13 +51,11 @@
     - name: 'Check mysql version'
       mysql_variables:
         variable: version
-        # login_user: '{{ mysql_root_username }}'
       register: mysql_version_out
 
     - name: 'Set mysql version'
       set_fact:
         mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
-      become: True
 
     - name: 'Out mysql_cli_version'
       debug:
