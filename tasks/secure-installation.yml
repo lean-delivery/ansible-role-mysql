@@ -17,7 +17,7 @@
     - name: 'Out mysql_version'
       debug:
         var: mysql_version
-  # become: True
+  become: True
 
   rescue:
     - name: 'Clear InnoDB logs and restart MySQL in skip-grant-tables mode'
