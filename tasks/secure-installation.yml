@@ -40,18 +40,11 @@
             state: started
       become: True
 
-    - name: 'Wait for service to be ready'
-      wait_for:
-        port: '{{ mysql_port }}'
-        host: '{{ mysql_bind_address }}'
-        connect_timeout: 3
-        delay: 3
-        timeout: 30
-
     - name: 'Check mysql version'
       mysql_variables:
         variable: version
       register: mysql_version_out
+      until: mysql_version_out is succeeded
 
     - name: 'Set mysql version'
       set_fact:
