@@ -12,3 +12,20 @@ def test_hosts_file(host):
     assert f.exists
     assert f.user == 'root'
     assert f.group == 'root'
+
+
+def test_mysql_service(host):
+    if host.ansible("setup")["ansible_facts"]["ansible_os_family"] != "Debian":
+        with host.sudo():
+            service = host.service("mysqld")
+            assert service.is_running
+            assert service.is_enabled
+    else:
+        with host.sudo():
+            service = host.service("mysql")
+            assert service.is_running
+            assert service.is_enabled
+
+
+def test_mysql_is_listening(host):
+    assert host.socket('tcp://127.0.0.1:3306').is_listening
