@@ -51,6 +51,7 @@
     - name: 'Check mysql version'
       mysql_variables:
         variable: version
+        login_user: '{{ mysql_root_username }}'
       register: mysql_version_out
 
     - name: 'Set mysql version'
