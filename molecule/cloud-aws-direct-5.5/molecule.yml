@@ -40,7 +40,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: True
+  log: False
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
