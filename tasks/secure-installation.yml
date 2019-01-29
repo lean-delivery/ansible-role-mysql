@@ -6,7 +6,7 @@
     - name: 'Check mysql version'
       mysql_variables:
         variable: version
-        login_user: 'root'
+        login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
       register: mysql_version_out
 
@@ -17,7 +17,7 @@
     - name: 'Out mysql_version'
       debug:
         var: mysql_version
-  # become: True
+  become: True
 
   rescue:
     - name: 'Clear InnoDB logs and restart MySQL in skip-grant-tables mode'
