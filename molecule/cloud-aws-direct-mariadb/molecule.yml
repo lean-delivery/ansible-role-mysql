@@ -39,7 +39,7 @@ platforms:
      - rhel_family
 
   - name: test-aws-ubuntu16-mariadb
-    image: ami-0d2f29f439bddaf7c
+    image: ami-09677e0a6b14905b0
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -53,7 +53,7 @@ platforms:
       - debian_family
 
   - name: test-aws-ubuntu18-mariadb
-    image: ami-0d7dd8af61b1d0ad8
+    image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
