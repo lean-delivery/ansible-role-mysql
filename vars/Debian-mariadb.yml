@@ -1,9 +1,11 @@
 ---
 mysql_daemon: mariadb
+mysql_version: latest
 mysql_packages:
   - mariadb-server
 
 mysql_python_packages:
+  - dirmngr
   - python-mysqldb
 
 mysql_service_name: mysql
