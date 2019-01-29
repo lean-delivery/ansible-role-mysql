@@ -10,23 +10,25 @@
       delay: 2
       until: task_result is succeeded
 
-    # - name: 'Add Mysql apt key'
-    #   apt_key:
-    #     keyserver: pgp.mit.edu
-    #     id: 5072E1F5
-    #     state: present
-    #   register: apt_key_install
-    #   retries: 10
-    #   delay: 2
-    #   until: apt_key_install is succeeded
+    - block:
+        - name: 'Add Mysql apt key'
+          apt_key:
+            keyserver: pgp.mit.edu
+            id: 5072E1F5
+            state: present
+          register: apt_key_install
+          retries: 10
+          delay: 2
+          until: apt_key_install is succeeded
 
-    # - name: 'Copy mysql.list'
-    #   template:
-    #     src: mysql.list.j2
-    #     dest: /etc/apt/sources.list.d/mysql.list
-    #     owner: root
-    #     group: root
-    #     mode: 0644
+        - name: 'Copy mysql.list'
+          template:
+            src: mysql.list.j2
+            dest: /etc/apt/sources.list.d/mysql.list
+            owner: root
+            group: root
+            mode: 0644
+      when: mysql_daemon == 'mysqld'
 
     - name: 'apt-get update'
       apt:
