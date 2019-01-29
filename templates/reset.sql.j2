@@ -3,9 +3,6 @@ UPDATE user SET plugin='';
 UPDATE user SET password=PASSWORD('{{ mysql_root_password }}') WHERE user='root';
 FLUSH PRIVILEGES;
 {% elif mysql_version is version('5.7.6', '>=') %}
-{# use mysql;
-UPDATE user SET authentication_string=PASSWORD("") where User='root';
-UPDATE user SET plugin='mysql_native_password' where User='root'; #}
 FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';
 {% else %}
