@@ -9,6 +9,7 @@
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
       register: mysql_version_out
+      become: True
 
     - name: 'Set mysql version'
       set_fact:
@@ -17,7 +18,6 @@
     - name: 'Out mysql_version'
       debug:
         var: mysql_version
-  become: True
 
   rescue:
     - name: 'Clear InnoDB logs and restart MySQL in skip-grant-tables mode'
@@ -40,24 +40,15 @@
             state: started
       become: True
 
-    - name: 'Wait for service to be ready'
-      wait_for:
-        port: '{{ mysql_port }}'
-        host: '{{ mysql_bind_address }}'
-        connect_timeout: 3
-        delay: 3
-        timeout: 30
-
     - name: 'Check mysql version'
       mysql_variables:
         variable: version
-        # login_user: '{{ mysql_root_username }}'
       register: mysql_version_out
+      until: mysql_version_out is succeeded
 
     - name: 'Set mysql version'
       set_fact:
         mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
-      become: True
 
     - name: 'Out mysql_cli_version'
       debug:
@@ -107,51 +98,50 @@
         delay: 3
         timeout: 30
 
-- name: 'Ensure default user is present.'
-  mysql_user:
-    name: '{{ mysql_user_name }}'
-    host: localhost
-    password: '{{ mysql_user_password }}'
-    priv: '*.*:ALL,GRANT'
-    state: present
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  when: mysql_user_name != 'root'
+- name: 'Setup admin credentials'
+  block:
+    - name: 'Ensure default user is present.'
+      mysql_user:
+        name: '{{ mysql_user_name }}'
+        host: localhost
+        password: '{{ mysql_user_password }}'
+        priv: '*.*:ALL,GRANT'
+        state: present
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
+      when: mysql_user_name != 'root'
 
-- name: 'Copy .my.cnf file with password credentials.'
-  become: True
-  template:
-    src: user-my.cnf.j2
-    dest: '{{ mysql_user_home }}/.my.cnf'
-    owner: '{{ mysql_user_name }}'
-    mode: 0600
-  when: mysql_user_name != mysql_root_username
+    - name: 'Copy .my.cnf file with password credentials.'
+      template:
+        src: user-my.cnf.j2
+        dest: '{{ mysql_user_home }}/.my.cnf'
+        owner: '{{ mysql_user_name }}'
+        mode: 0600
+      when: mysql_user_name != mysql_root_username
 
-- name: 'Update mysql root password for all root accounts'
-  mysql_user:
-    name: root
-    host_all: True
-    password: '{{ mysql_root_password }}'
-    check_implicit_admin: True
-    priv: '*.*:ALL,GRANT'
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  no_log: False
-  become: True
+    - name: 'Update mysql root password for all root accounts'
+      mysql_user:
+        name: root
+        host_all: True
+        password: '{{ mysql_root_password }}'
+        check_implicit_admin: True
+        priv: '*.*:ALL,GRANT'
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
+      no_log: False
 
-- name: 'Remove anonymous MySQL users.'
-  mysql_user:
-    name: ''
-    host_all: True
-    state: absent
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
-  become: True
+    - name: 'Remove anonymous MySQL users.'
+      mysql_user:
+        name: ''
+        host_all: True
+        state: absent
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
 
-- name: 'Remove MySQL test database.'
-  mysql_db:
-    name: test
-    state: absent
-    login_user: '{{ mysql_root_username }}'
-    login_password: '{{ mysql_root_password }}'
+    - name: 'Remove MySQL test database.'
+      mysql_db:
+        name: test
+        state: absent
+        login_user: '{{ mysql_root_username }}'
+        login_password: '{{ mysql_root_password }}'
   become: True

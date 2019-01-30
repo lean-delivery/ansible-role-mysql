@@ -1,7 +1,14 @@
 ---
 # Variable configuration.
-- name: 'Set variables'
-  include_tasks: variables.yml
+- name: "Include OS-specific variables."
+  include_vars: '{{ platform_vars }}'
+  with_first_found:
+    - "{{ ansible_os_family }}\
+          -{{ ansible_distribution_major_version }}\
+          -{{ mysql_daemon }}.yml"
+    - '{{ ansible_os_family }}-{{ mysql_daemon }}.yml'
+  loop_control:
+    loop_var: platform_vars
 
 # Install Mysql
 - name: 'Choose platform based task '

@@ -8,7 +8,7 @@
     target: '{{ item.target | default(None) }}'
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-  with_items: '{{ mysql_databases }}'
+  loop: '{{ mysql_databases }}'
   become: True
 
 - name: 'Ensure MySQL users are present.'
@@ -22,6 +22,6 @@
     encrypted: '{{ item.encrypted | default("no") }}'
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-  with_items: '{{ mysql_users }}'
+  loop: '{{ mysql_users }}'
   no_log: True
   become: True
