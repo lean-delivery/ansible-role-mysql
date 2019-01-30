@@ -8,11 +8,9 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_hosts_file(host):
     f = host.file('/etc/hosts')
-
     assert f.exists
     assert f.user == 'root'
     assert f.group == 'root'
-
 
 def test_mysql_service(host):
     name = host.ansible("setup")["ansible_facts"]["mysql_service_name"]
