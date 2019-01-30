@@ -15,7 +15,7 @@ def test_hosts_file(host):
 
 
 def test_mysql_service(host):
-    name = host.ansible("setup")["ansible_facts"]["inventory_hostname"]
+    name = host.ansible.get_variables()["inventory_hostname"]
     service = name.split("-")[3]
     if host.ansible("setup")["ansible_facts"]["ansible_os_family"] != "Debian":
         if service != "mariadb":
