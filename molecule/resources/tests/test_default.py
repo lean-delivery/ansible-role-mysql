@@ -20,4 +20,3 @@ def test_mysql_service(host):
 
 def test_mysql_is_listening(host):
     assert host.socket('tcp://127.0.0.1:3306').is_listening
-
