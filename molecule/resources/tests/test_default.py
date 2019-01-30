@@ -14,13 +14,12 @@ def test_hosts_file(host):
 
 
 def test_mysql_service(host):
-    vars = host.ansible.get_variables()
-    print(vars)
-    name = "mysql"
-    with host.sudo():
-        service = host.service(name)
-        assert service.is_running
-        assert service.is_enabled
+    #name = host.ansible.get_variables()["mysql_service_name"]
+    print(host.ansible("setup")["ansible_facts"])
+    #with host.sudo():
+        #service = host.service(name)
+        #assert service.is_running
+        #assert service.is_enabled
 
 
 def test_mysql_is_listening(host):
