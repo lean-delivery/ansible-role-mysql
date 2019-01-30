@@ -8,21 +8,29 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_hosts_file(host):
     f = host.file('/etc/hosts')
+
     assert f.exists
     assert f.user == 'root'
     assert f.group == 'root'
 
 
 def test_mysql_service(host):
-    # name = host.ansible.get_variables()["mysql_service_name"]
-    print(host.ansible("setup")["ansible_facts"])
-    print(host.ansible.get_variables()["mysql_daemon"])
-    # print(host.ansible("setup")["ansible_facts"]["mysql_daemon"])
-
-    # with host.sudo():
-    #    service = host.service(name)
-    #    assert service.is_running
-    #    assert service.is_enabled
+    name = host.ansible("setup")["ansible_facts"]["inventory_hostname"]
+    service = name.split("-")[3]
+    if host.ansible("setup")["ansible_facts"]["ansible_os_family"] != "Debian":
+        if service != "mariadb":
+            service = "mysqld"
+        with host.sudo():
+            service = host.service(service)
+            assert service.is_running
+            assert service.is_enabled
+    else:
+        if service != "mariadb":
+            service = "mysql"
+        with host.sudo():
+            service = host.service(service)
+            assert service.is_running
+            assert service.is_enabled
 
 
 def test_mysql_is_listening(host):
