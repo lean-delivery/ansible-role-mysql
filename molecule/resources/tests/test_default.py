@@ -15,22 +15,13 @@ def test_hosts_file(host):
 
 
 def test_mysql_service(host):
-    name = host.ansible.get_variables()["inventory_hostname"]
-    service = name.split("-")[3]
-    if host.ansible("setup")["ansible_facts"]["ansible_os_family"] != "Debian":
-        if service != "mariadb":
-            service = "mysqld"
+    flag = False
+    for service in ["mysql", "mariadb", "mysqld"]:
         with host.sudo():
             service = host.service(service)
-            assert service.is_running
-            assert service.is_enabled
-    else:
-        if service != "mariadb":
-            service = "mysql"
-        with host.sudo():
-            service = host.service(service)
-            assert service.is_running
-            assert service.is_enabled
+            if service.is_running and service.is_enabled:
+                flag = True
+    assert flag
 
 
 def test_mysql_is_listening(host):
