@@ -39,7 +39,7 @@
       delay: 2
       until: task_result is succeeded
 
-    - name: 'Install {{ mysql_daemon }}'
+    - name: 'Install {{ mysql_daemon }}  {{ mysql_version }}'
       apt:
         name: '{{ mysql_packages }}'
         state: present

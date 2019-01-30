@@ -16,6 +16,7 @@ def test_hosts_file(host):
 def test_mysql_service(host):
     vars = host.ansible.get_variables()
     print(vars)
+    name = "mysql"
     with host.sudo():
         service = host.service(name)
         assert service.is_running
