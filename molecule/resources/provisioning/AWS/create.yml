@@ -36,7 +36,9 @@
           Name: '{{ item.name }}'
           ssh_user: '{{ item.ssh_user }}'
         spot_price: '{{ item.spot_price }}'
+        spot_wait_timeout: '{{ item.wait_timeout | default(600) }}'
         wait: True
+        wait_timeout: '{{ item.wait_timeout | default(600) }}'
         assign_public_ip: '{{ item.assign_public_ip | default(True) }}'
         exact_count: 1
         count_tag:
