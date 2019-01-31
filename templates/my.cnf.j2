@@ -6,7 +6,9 @@ port = {{ mysql_port }}
 socket = {{ mysql_socket }}
 
 [mysqld]
+{% if mysql_version is version('5.7.2', '>=') %}
 default_authentication_plugin = mysql_native_password
+{% endif %}
 user = mysql
 port = {{ mysql_port }}
 bind-address = {{ mysql_bind_address }}
