@@ -2,6 +2,15 @@
 - name: Add repository and install {{ mysql_version }} packages
   block:
     - block:
+        - name: Install packages
+          apt:
+            name: '{{ mysql_python_packages }}'
+            state: present
+          register: task_result
+          retries: 3
+          delay: 2
+          until: task_result is succeeded
+
         - name: Add Mysql apt key
           apt_key:
             keyserver: pgp.mit.edu
@@ -20,15 +29,6 @@
             group: root
             mode: 0644
       when: mysql_daemon == 'mysqld'
-
-    - name: Install packages
-      apt:
-        name: '{{ mysql_python_packages }}'
-        state: present
-      register: task_result
-      retries: 3
-      delay: 2
-      until: task_result is succeeded
 
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
       apt:
