@@ -17,7 +17,7 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
 
 ## Requirements
 
-  - Minimal Version of the Ansible for installation: 2.5.13
+  - Minimal Version of the Ansible for installation: 2.5.14
   - Supported versions:
       - Mysql
           - 5.5

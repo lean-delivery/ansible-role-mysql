@@ -1,6 +1,6 @@
 ---
 # Variable configuration.
-- name: "Include OS-specific variables."
+- name: Include OS-specific variables
   include_vars: '{{ platform_vars }}'
   with_first_found:
     - "{{ ansible_os_family }}\
@@ -11,20 +11,20 @@
     loop_var: platform_vars
 
 # Install Mysql
-- name: 'Choose platform based task '
-  include_tasks: '{{ platform }}'
+- name: Configure system
+  include_tasks: "{{ platform }}"
   with_first_found:
     - 'setup-{{ ansible_os_family }}.yml'
-    - not-supported.yml
+    - 'not-supported.yml'
   loop_control:
     loop_var: platform
 
 # Configure MySQL.
-- name: 'Configure'
+- name: Configure
   include_tasks: configure.yml
 
-- name: 'Run secure installation'
+- name: Run secure installation
   include_tasks: secure-installation.yml
 
-- name: 'Create databases and users'
+- name: Create databases and users
   include_tasks: databases_and_users.yml

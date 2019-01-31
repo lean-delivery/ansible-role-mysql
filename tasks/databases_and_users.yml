@@ -1,5 +1,5 @@
 ---
-- name: 'Ensure MySQL databases are present.'
+- name: Ensure MySQL databases are present
   mysql_db:
     name: '{{ item.name }}'
     collation: '{{ item.collation | default("utf8_general_ci") }}'
@@ -11,15 +11,15 @@
   loop: '{{ mysql_databases }}'
   become: True
 
-- name: 'Ensure MySQL users are present.'
+- name: Ensure MySQL users are present
   mysql_user:
     name: '{{ item.name }}'
     host: '{{ item.host | default("localhost") }}'
     password: '{{ item.password }}'
     priv: '{{ item.priv | default("*.*:USAGE") }}'
     state: '{{ item.state | default("present") }}'
-    append_privs: '{{ item.append_privs | default("no") }}'
-    encrypted: '{{ item.encrypted | default("no") }}'
+    append_privs: '{{ item.append_privs | default("False") }}'
+    encrypted: '{{ item.encrypted | default("False") }}'
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
   loop: '{{ mysql_users }}'
