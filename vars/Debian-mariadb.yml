@@ -6,7 +6,7 @@ mysql_packages:
 
 mysql_python_packages:
   - dirmngr
-  - python3-mysqldb
+  - python-mysqldb
 
 mysql_service_name: mysql
 

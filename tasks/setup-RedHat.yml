@@ -22,7 +22,7 @@
       delay: 2
       until: task_result is succeeded
 
-    - name: Install packages
+    - name: Install requirements
       yum:
         name: '{{ mysql_python_packages }}'
         state: present
