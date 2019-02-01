@@ -1,16 +1,16 @@
 ---
 - name: Add repository and install {{ mysql_version }} packages
   block:
-    - block:
-        - name: Install packages
-          apt:
-            name: '{{ mysql_python_packages }}'
-            state: present
-          register: task_result
-          retries: 3
-          delay: 2
-          until: task_result is succeeded
+    - name: Install requirements
+      apt:
+        name: '{{ mysql_python_packages }}'
+        state: present
+      register: task_result
+      retries: 3
+      delay: 2
+      until: task_result is succeeded
 
+    - block:
         - name: Add Mysql apt key
           apt_key:
             keyserver: pgp.mit.edu
