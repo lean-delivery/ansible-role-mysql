@@ -1,9 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: Collect facts
-      setup:
   roles:
     - role: ansible-role-mysql
       mysql_root_password: 88TEM-veDRE<888serd
@@ -18,4 +15,5 @@
           priv: "example2_db.*:ALL"
       mysql_port: "3306"
       mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mariadb
+      mysql_daemon: mysqld
+      mysql_version: 5.7
