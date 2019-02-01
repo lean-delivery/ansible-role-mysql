@@ -7,7 +7,8 @@ mysql_packages:
 
 mysql_python_packages:
   - dirmngr
-  - python-mysqldb
+#  - python-mysqldb
+  - python-pymysql
 
 mysql_slow_query_log_file: /var/log/mysql-slow.log
 mysql_log_error: /var/log/mysql.err
