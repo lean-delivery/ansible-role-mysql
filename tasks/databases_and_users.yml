@@ -23,5 +23,5 @@
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
   loop: '{{ mysql_users }}'
-  no_log: True
+  no_log: False
   become: True

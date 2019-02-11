@@ -372,6 +372,10 @@ def user_mod(cursor, user, host, host_all, password, encrypted, new_priv, append
         # Handle privileges
         if new_priv is not None:
             curr_priv = privileges_get(cursor, user, host)
+            if "ALL" in new_priv.values()[0]:
+                version = get_db_version(cursor)[0].split(".")[0]
+                if version == "8":
+                    new_priv = privileges_get_all()
 
             # If the user has privileges on a db.table that doesn't appear at all in
             # the new specification, then revoke all privileges on it.
@@ -472,6 +476,23 @@ def privileges_get(cursor, user, host):
             privileges.append('REQUIRESSL')
         db = res.group(2)
         output[db] = privileges
+    return output
+
+def privileges_get_all():
+    output = {}
+    privileges = [
+        "APPLICATION_PASSWORD_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTION_ADMIN,CONNECTION_ADMIN,"
+        "ENCRYPTION_KEY_ADMIN,GROUP_REPLICATION_ADMIN,PERSIST_RO_VARIABLES_ADMIN,REPLICATION_SLAVE_ADMIN,"
+        "RESOURCE_GROUP_ADMIN,RESOURCE_GROUP_USER,ROLE_ADMIN,SERVICE_CONNECTION_ADMIN,SESSION_VARIABLES_ADMIN,"
+        "SET_USER_ID,SYSTEM_VARIABLES_ADMIN,XA_RECOVER_ADMIN",
+        "GRANT"
+    ]
+    output["*.*"] = privileges
+    return output
+
+def get_db_version(cursor):
+    cursor.execute("Select @@version")
+    output = cursor.fetchall()[0]
     return output
 
 
