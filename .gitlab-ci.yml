@@ -20,7 +20,7 @@ Ansible lint:
   tags:
     - aws
 
-Docker mysql:
+.Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default

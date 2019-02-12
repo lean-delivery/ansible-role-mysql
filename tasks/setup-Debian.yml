@@ -13,7 +13,7 @@
     - block:
         - name: Add Mysql apt key
           apt_key:
-            keyserver: pool.sks-keyservers.net
+            keyserver: ha.pool.sks-keyservers.net
             id: 5072E1F5
             state: present
           register: apt_key_install
