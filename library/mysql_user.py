@@ -408,7 +408,7 @@ def user_mod(cursor, user, host, host_all, password, encrypted, new_priv, append
                     priv_diff = set(full_priv[db_table]) ^ set(curr_priv[db_table])
                 else:
                     priv_diff = set(new_priv[db_table]) ^ set(curr_priv[db_table])
-                if len(priv_diff) > 0:
+                if priv_diff:
                     msg = "Privileges updated"
                     if module.check_mode:
                         return (True, msg)
