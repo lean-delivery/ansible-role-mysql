@@ -481,12 +481,11 @@ def privileges_get(cursor, user, host):
         if "REQUIRE SSL" in res.group(7):
             privileges.append('REQUIRESSL')
         db = res.group(2)
-        if db in output.keys():
+        if db in output.keys() and db == '*.*':
             privileges = res.group(1).split(",")
             if "GRANT" in output[db]:
                 output[db].remove("GRANT")
             output[db] += privileges
-
         else:
             output[db] = privileges
     return output
@@ -507,6 +506,7 @@ def get_db_version(cursor):
     output = cursor.fetchall()[0]
     version = output[0].split(".")[0]
     return version
+
 
 def privileges_unpack(priv, mode):
     """ Take a privileges string, typically passed as a parameter, and unserialize
