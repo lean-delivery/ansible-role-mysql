@@ -18,5 +18,3 @@ mysql_config_include_dir: /etc/mysql/mysql.conf.d
 mysql_socket: /var/run/mysqld/mysqld.sock
 mysql_supports_innodb_large_prefix: False
 mysql_datadir: /var/lib/mysql
-mysql_user_name: '{{ ansible_user_id }}'
-mysql_user_home: '/home/{{ ansible_user_id }}'
