@@ -22,7 +22,7 @@
     encrypted: '{{ item.encrypted | default("False") }}'
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
-    update_password: on_create
+    #update_password: on_create
   loop: '{{ mysql_users }}'
   no_log: True
   become: True
