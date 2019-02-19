@@ -13,7 +13,7 @@
           host: "%"
           password: Sime32-SRRR-password
           priv: "example2_db.*:ALL"
-      mysql_port: "3306"
+      mysql_port: 3306
       mysql_bind_address: '0.0.0.0'
       mysql_daemon: mysqld
       mysql_version: 5.7

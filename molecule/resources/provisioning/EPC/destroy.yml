@@ -21,7 +21,6 @@
       with_items: "{{ molecule_yml.platforms }}"
       async: 7200
       poll: 0
-      no_log: False
 
     - name: Wait for instance(s) deletion to complete
       async_status:
@@ -29,9 +28,8 @@
       register: epc_jobs
       until: epc_jobs.finished
       retries: 300
-      delay: 20
+      delay: 5
       with_items: "{{ server.results }}"
-      no_log: False
 
     # Mandatory configuration for Molecule to function.
     - name: Populate instance config
@@ -45,4 +43,4 @@
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
-      # Mandatory configuration for Molecule to function.
+    # Mandatory configuration for Molecule to function.

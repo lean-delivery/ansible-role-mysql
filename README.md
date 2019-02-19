@@ -1,6 +1,7 @@
 # Ansible Role: MySQL
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-mysql/master/LICENSE)
 [![Build Status](https://travis-ci.org/lean-delivery/ansible-role-mysql.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-mysql)
+[![Build Status](https://gitlab.com/lean-delivery/ansible-role-mysql/badges/master/build.svg)](https://gitlab.com/lean-delivery/ansible-role-mysql)
 [![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.mysql-blue.svg)](https://galaxy.ansible.com/lean_delivery/mysql)
 ![Ansible](https://img.shields.io/ansible/role/d/35413.svg)
 ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F35413%2F&query=$.min_ansible_version)
@@ -23,8 +24,10 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 5.5
           - 5.6
           - 5.7
+          - 8.0
       - Mariadb
           - 10.1
+          - 10.2
   - Supported OS:
       - RHEL
           - 6
@@ -32,6 +35,12 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
       - CentOS
           - 6
           - 7
+      - Ubuntu
+          - 16.04
+          - 18.04
+      - Debian
+          - 8
+          - 9
 
 ## Role Variables
 
@@ -148,8 +157,9 @@ This role works with either MySQL or a compatible version of MariaDB. On RHEL/Ce
 
 None.
 
-## Example Playbook
+## Example Playbooks
 
+### Installing MySQL 5.7 version:
 ```yaml
 - hosts: db-servers
   roles:
@@ -164,11 +174,53 @@ None.
           host: "%"
           password: Sime32_U$er_p@ssw0rd
           priv: "example2_db.*:ALL"
-      mysql_port: "3306"
+      mysql_port: 3306
       mysql_bind_address: '0.0.0.0'
       mysql_daemon: mysqld
       mysql_version: 5.7
 ``` 
+
+### Installing MySQL 8.0 version:
+```yaml
+- hosts: db-servers
+  roles:
+    - role: lean_delivery.mysql
+      mysql_root_password: 88TEM-veDRE<888serd
+      mysql_databases:
+        - name: example2_db
+          encoding: latin1
+          collation: latin1_general_ci
+      mysql_users:
+        - name: example2_user
+          host: "%"
+          password: Sime32-SRRR-password
+          priv: "example2_db.*:ALL"
+      mysql_port: 3306
+      mysql_bind_address: '0.0.0.0'
+      mysql_daemon: mysqld
+      mysql_version: 8.0
+``` 
+
+### Installing MariaDB:
+```yaml
+- hosts: db-servers
+  roles:
+    - role: lean_delivery.mysql
+      mysql_root_password: 88TEM-veDRE<888serd
+      mysql_databases:
+        - name: example2_db
+          encoding: latin1
+          collation: latin1_general_ci
+      mysql_users:
+        - name: example2_user
+          host: "%"
+          password: Sime32-SRRR-password
+          priv: "example2_db.*:ALL"
+      mysql_port: 3306
+      mysql_bind_address: '0.0.0.0'
+      mysql_daemon: mariadb
+``` 
+
 
 __Note__: CentOS always do password reset via `rescue` section: It should be noted that the play continues if a rescue section completes successfully as it ‘erases’ the error status (but not the reporting), this means it will appear in the **playbook statistics** ONLY.
 
