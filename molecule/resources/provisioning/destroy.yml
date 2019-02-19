@@ -21,6 +21,7 @@
       with_items: "{{ molecule_yml.platforms }}"
       async: 7200
       poll: 0
+      no_log: False
 
     - name: Wait for instance(s) deletion to complete
       async_status:
@@ -30,6 +31,7 @@
       retries: 300
       delay: 20
       with_items: "{{ server.results }}"
+      no_log: False
 
     # Mandatory configuration for Molecule to function.
     - name: Populate instance config

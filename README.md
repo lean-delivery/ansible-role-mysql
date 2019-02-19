@@ -17,7 +17,7 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
 
 ## Requirements
 
-  - Minimal Version of the Ansible for installation: 2.5.13
+  - Minimal Version of the Ansible for installation: 2.5.14
   - Supported versions:
       - Mysql
           - 5.5
@@ -169,6 +169,8 @@ None.
       mysql_daemon: mysqld
       mysql_version: 5.7
 ``` 
+
+__Note__: CentOS always do password reset via `rescue` section: It should be noted that the play continues if a rescue section completes successfully as it ‘erases’ the error status (but not the reporting), this means it will appear in the **playbook statistics** ONLY.
 
 **ATTENTION!** Note that override parameters in playbook have to be set as `role parameters` (see example above). Parameters set as usual hostvars or inventory parameters will not supercede default role parameters set by role scenario depending on OS version etc. 
 

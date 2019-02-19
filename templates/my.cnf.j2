@@ -6,6 +6,9 @@ port = {{ mysql_port }}
 socket = {{ mysql_socket }}
 
 [mysqld]
+{% if mysql_version is version('5.7.2', '>=') and mysql_daemon in ['mysqld'] %}
+default_authentication_plugin = mysql_native_password
+{% endif %}
 user = mysql
 port = {{ mysql_port }}
 bind-address = {{ mysql_bind_address }}
@@ -80,7 +83,7 @@ read_buffer_size = {{ mysql_read_buffer_size }}
 read_rnd_buffer_size = {{ mysql_read_rnd_buffer_size }}
 myisam_sort_buffer_size = {{ mysql_myisam_sort_buffer_size }}
 thread_cache_size = {{ mysql_thread_cache_size }}
-{% if mysql_version is version('8.0', '>=') %}
+{% if mysql_version is version('8.0', '<') %}
 query_cache_type = {{ mysql_query_cache_type }}
 query_cache_size = {{ mysql_query_cache_size }}
 query_cache_limit = {{ mysql_query_cache_limit }}
