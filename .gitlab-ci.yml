@@ -20,7 +20,7 @@ Ansible lint:
   tags:
     - aws
 
-.Docker mysql:
+Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default
@@ -91,7 +91,7 @@ AWS mysql-8.0:
   tags:
     - delegated
 
-.EPC mysql-5.7:
+EPC mysql-5.7:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

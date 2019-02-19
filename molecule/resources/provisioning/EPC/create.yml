@@ -33,7 +33,7 @@
       register: epc_jobs
       until: epc_jobs.finished
       retries: 300
-      delay: 30
+      delay: 20
       with_items: "{{ server.results }}"
 
     # Mandatory configuration for Molecule to function.
@@ -86,6 +86,6 @@
         port: "{{ ssh_port }}"
         host: "{{ item.address }}"
         search_regex: SSH
-        delay: 10
+        delay: 2
         timeout: 320
       with_items: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
