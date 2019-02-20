@@ -26,8 +26,11 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 5.7
           - 8.0
       - Mariadb
+          - 5.5
+          - 10.0
           - 10.1
           - 10.2
+          - 10.3
   - Supported OS:
       - RHEL
           - 6
