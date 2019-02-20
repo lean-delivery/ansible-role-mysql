@@ -155,7 +155,7 @@ This role works with either MySQL or a compatible version of MariaDB. On RHEL/Ce
 
 ## Dependencies
 
-None.
+Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user`. It's shipping with that role and resides in `library` directory. Current Ansible module `mysql_user` is not compatible with latest changes but fixes are already in place and new Ansible release 2.8 should not require customized module to run.
 
 ## Example Playbooks
 
