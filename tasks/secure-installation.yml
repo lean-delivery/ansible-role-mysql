@@ -128,7 +128,7 @@
         priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
-      no_log: False
+      no_log: false
 
     - name: Remove anonymous MySQL users
       mysql_user:
