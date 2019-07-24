@@ -9,7 +9,7 @@
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
       register: mysql_version_out
-      become: True
+      become: true
 
     - name: Set mysql version
       set_fact:
@@ -32,13 +32,13 @@
             owner: root
             group: root
             mode: 0644
-            force: True
+            force: true
 
         - name: Start mysql with skip-grant-tables
           service:
             name: '{{ mysql_service_name }}'
             state: started
-      become: True
+      become: true
 
     - name: Check mysql version
       mysql_variables:
@@ -58,7 +58,7 @@
       template:
         src: reset.sql.j2
         dest: /tmp/reset.sql
-        force: True
+        force: true
 
     - name: Reset root credentials
       mysql_db:
@@ -83,7 +83,7 @@
           service:
             name: '{{ mysql_service_name }}'
             state: started
-      become: True
+      become: true
 
     - name: Remove file reset.sql
       file:
@@ -122,9 +122,9 @@
     - name: Update mysql root password for all root accounts
       mysql_user:
         name: root
-        host_all: True
+        host_all: true
         password: '{{ mysql_root_password }}'
-        check_implicit_admin: True
+        check_implicit_admin: true
         priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
@@ -133,7 +133,7 @@
     - name: Remove anonymous MySQL users
       mysql_user:
         name: ''
-        host_all: True
+        host_all: true
         state: absent
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
@@ -144,4 +144,4 @@
         state: absent
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
-  become: True
+  become: true

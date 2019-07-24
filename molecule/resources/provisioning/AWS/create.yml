@@ -2,7 +2,7 @@
 - name: Create
   hosts: localhost
   connection: local
-  gather_facts: False
+  gather_facts: false
   no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
   vars:
     ssh_port: 22
@@ -37,9 +37,9 @@
           ssh_user: '{{ item.ssh_user }}'
         spot_price: '{{ item.spot_price }}'
         spot_wait_timeout: '{{ item.wait_timeout | default(600) }}'
-        wait: True
+        wait: true
         wait_timeout: '{{ item.wait_timeout | default(600) }}'
-        assign_public_ip: '{{ item.assign_public_ip | default(True) }}'
+        assign_public_ip: '{{ item.assign_public_ip | default(true) }}'
         exact_count: 1
         count_tag:
           instance: '{{ item.name }}'
@@ -63,7 +63,7 @@
       set_fact:
         instance_conf_dict:
           instance: '{{ item.instances[0].tags.instance }}'
-          address: '{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}'
+          address: '{{ item.instances[0].public_ip | default(item.instances[0].private_ip, true) }}'
           user: '{{ item.instances[0].tags.ssh_user }}'
           port: '{{ ssh_port }}'
           identity_file: '{{ keypair_path }}'

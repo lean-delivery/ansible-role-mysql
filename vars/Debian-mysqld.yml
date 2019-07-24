@@ -16,5 +16,5 @@ mysql_pid_file: /var/run/mysqld/mysqld.pid
 mysql_config_file: /etc/my.cnf
 mysql_config_include_dir: /etc/mysql/mysql.conf.d
 mysql_socket: /var/run/mysqld/mysqld.sock
-mysql_supports_innodb_large_prefix: False
+mysql_supports_innodb_large_prefix: false
 mysql_datadir: /var/lib/mysql

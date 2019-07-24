@@ -2,7 +2,7 @@
 - name: Create
   hosts: localhost
   connection: local
-  gather_facts: False
+  gather_facts: false
   no_log: "{{ not (lookup('env', 'MOLECULE_DEBUG') | bool or molecule_yml.provisioner.log|default(false) | bool) }}"
   vars:
     ssh_port: 22
@@ -17,7 +17,7 @@
         project: "{{ item.project | default(omit) }}"
         shape: "{{ item.shape }}"
         image: "{{ item.image }}"
-        ignore_ssl: "{{ item.ignore_ssl | default(True) }}"
+        ignore_ssl: "{{ item.ignore_ssl | default(true) }}"
         instance_id: "{{ item.instance_id | default(omit) }}"
         ssh_key: "{{ item.ssh_key | default(omit) }}"
         wait_timeout: "{{ item.wait_timeout | default(1200) }}"
