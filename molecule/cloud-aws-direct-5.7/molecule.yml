@@ -12,6 +12,7 @@ lint:
 platforms:
   - name: test-aws-centos7-mysql-5.7
     image: ami-9887c6e7
+    platform: centos7
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -26,6 +27,7 @@ platforms:
 
   - name: test-aws-centos6-mysql-5.7
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -40,6 +42,7 @@ platforms:
 
   - name: test-aws-ubuntu16-mysql-5.7
     image: ami-09677e0a6b14905b0
+    platform: ubuntu16
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -54,6 +57,7 @@ platforms:
 
   - name: test-aws-ubuntu18-mysql-5.7
     image: ami-012fd5eb46f56731f
+    platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -68,6 +72,7 @@ platforms:
 
   - name: test-aws-Debian9-mysql-5.7
     image: ami-003f19e0e687de1cd
+    platform: debian9
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
