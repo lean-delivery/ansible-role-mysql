@@ -21,7 +21,6 @@ galaxy_info:
     - name: Debian
       versions:
         - stretch
-        - jessie
   versions_mysql:
     - name: mysql
       versions:

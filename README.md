@@ -42,7 +42,6 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 16.04
           - 18.04
       - Debian
-          - 8
           - 9
 
 ## Role Variables
@@ -237,4 +236,3 @@ Apache
 authors:
 
   - Lean Delivery Team team@lean-delivery.com
-
