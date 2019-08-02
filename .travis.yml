@@ -13,14 +13,13 @@ before_install:
   - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
 
 install:
-  - pip install --upgrade ansible==2.5.* docker-py pyOpenSSL PyYAML
+  - pip install --upgrade ansible==2.8.* docker molecule==2.20.2
   - pip install git+https://github.com/ansible/ansible-lint.git
-  - pip install git+https://github.com/ansible/molecule.git
   - ansible --version
   - ansible-lint --version
-  - molecule --version
 
 script:
+  - yamllint . -c .yamllint
   - ansible-lint . -c .ansible-lint
   - molecule test -s default
 

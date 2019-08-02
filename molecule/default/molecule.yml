@@ -15,7 +15,6 @@ platforms:
     privileged: true
     groups:
       - rhel_family
-
   - name: test-docker-ubuntu1804-mysql
     image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: true
@@ -30,13 +29,9 @@ platforms:
       - SYS_ADMIN
     groups:
       - debian_family
-
 provisioner:
   name: ansible
-config_options:
-  defaults:
-    stdout_callback: yaml
-    bin_ansible_callbacks: true
+  # log: true
   lint:
     name: ansible-lint
 scenario:

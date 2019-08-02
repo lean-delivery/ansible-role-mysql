@@ -1,5 +1,9 @@
 ---
 # Run all tests
+default:
+  image:
+    name: leandelivery/docker-ansible-ci:ansible-2.8
+
 stages:
   - lint
   - deployment test
@@ -14,11 +18,15 @@ before_script:
 variables:
   GET_SOURCES_ATTEMPTS: "5"
 
-Ansible lint:
+Lint:
   stage: lint
+  before_script:
+    - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
   script:
-    - pip install git+https://github.com/ansible/ansible-lint.git
+    - yamllint . -c .yamllint
     - ansible-lint . -c .ansible-lint
+  after_script:
+    - rm -rf ~/ansible-lint-rules
   tags:
     - aws
 
@@ -37,7 +45,6 @@ AWS mysql 5.7:
     - molecule test -s cloud-aws-direct-5.7
   tags:
     - aws
-
 
 AWS mysql 5.6:
   variables:
@@ -75,7 +82,7 @@ AWS mysql-8.0:
   tags:
     - aws
 
-.EPC mysql-5.5:
+EPC mysql-5.5:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -84,7 +91,7 @@ AWS mysql-8.0:
   tags:
     - delegated
 
-.EPC mysql-5.6:
+EPC mysql-5.6:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -102,7 +109,7 @@ EPC mysql-5.7:
   tags:
     - delegated
 
-.EPC mariadb:
+EPC mariadb:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
