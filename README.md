@@ -18,7 +18,6 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
 
 ## Requirements
 
-  - Minimal Version of the Ansible for installation: 2.5.14
   - Supported versions:
       - Oracle Mysql
           - 5.5
@@ -42,7 +41,6 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 16.04
           - 18.04
       - Debian
-          - 8
           - 9
 
 ## Role Variables
@@ -237,4 +235,3 @@ Apache
 authors:
 
   - Lean Delivery Team team@lean-delivery.com
-

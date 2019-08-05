@@ -15,7 +15,7 @@
       service:
         name: '{{ mysql_service_name }}'
         state: started
-  become: True
+  become: true
 
 - name: Wait for service to be ready
   wait_for:

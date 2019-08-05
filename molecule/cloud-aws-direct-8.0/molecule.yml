@@ -12,10 +12,11 @@ lint:
 platforms:
   - name: test-aws-centos7-mysql-8.0
     image: ami-9887c6e7
+    platform: centos7
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -26,24 +27,26 @@ platforms:
 
   - name: test-aws-centos6-mysql-8.0
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
+      - rhel_family
 
   - name: test-aws-ubuntu16-mysql-8.0
     image: ami-09677e0a6b14905b0
+    platform: ubuntu16
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     security_group_name:
       - default
     spot_price: 0.04
@@ -54,10 +57,11 @@ platforms:
 
   - name: test-aws-ubuntu18-mysql-8.0
     image: ami-012fd5eb46f56731f
+    platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     security_group_name:
       - default
     spot_price: 0.04
@@ -68,10 +72,11 @@ platforms:
 
   - name: test-aws-Debian9-mysql-8.0
     image: ami-003f19e0e687de1cd
+    platform: debian9
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -80,31 +85,18 @@ platforms:
     groups:
       - debian_family
 
-  # - name: test-aws-Debian8-mysql-8.0
-  #   image: ami-b14ba7a7
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: admin
-  #   groups:
-  #     - debian_family
-
 provisioner:
   name: ansible
-  log: False
+  log: true
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-direct-8.0
 verifier:

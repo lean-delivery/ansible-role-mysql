@@ -17,6 +17,7 @@ platforms:
     wait_timeout: 3600
     groups:
       - rhel_family
+
   - name: test-epc-centos6-mysql-5.6
     image: CentOS6_64-bit
     shape: large
@@ -24,9 +25,10 @@ platforms:
     wait_timeout: 3600
     groups:
       - rhel_family
+
 provisioner:
   name: ansible
-  log: True
+  log: true
   playbooks:
     create: ../resources/provisioning/EPC/create.yml
     prepare: ../resources/provisioning/EPC/prepare.yml

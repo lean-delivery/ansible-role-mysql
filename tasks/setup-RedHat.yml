@@ -7,7 +7,7 @@
         description: mysql YUM repo
         baseurl: '{{ mysql_repo }}'
         gpgcakey: '{{ mysql_gpgkey }}'
-        gpgcheck: True
+        gpgcheck: true
       register: task_result
       retries: 3
       delay: 2
@@ -35,9 +35,9 @@
       yum:
         name: '{{ mysql_packages }}'
         state: present
-        update_cache: True
+        update_cache: true
       register: task_result
       retries: 3
       delay: 2
       until: task_result is succeeded
-  become: True
+  become: true
