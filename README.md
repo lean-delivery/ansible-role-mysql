@@ -50,6 +50,13 @@ Available variables are listed below, along with default values (see `defaults/m
     mysql_packages:
       - mysql-community-server   # (mysql-community-server/MariaDB-server)
       - mysql-community-client   # (mysql-community-client/MariaDB-client)
+      
+If you want to select a specific minor version of package, you can enter appropriate package name, for instance:
+
+    mysql_packages:
+      - mysql-community-server-8.0.16-2.el7.x86_64
+      - mysql-community-client-8.0.16-2.el7.x86_64
+      
                                  # (MariaDB-common)
     mysql_daemon: mysqld         # (mysqld/mariadb)
     mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
