@@ -20,3 +20,4 @@ mysql_default_config_include_dir: /etc/my.cnf.d
 mysql_default_socket: /var/lib/mysql/mysql.sock
 mysql_default_supports_innodb_large_prefix: false
 mysql_default_service_name: mysql
+mysql_default_datadir: /var/lib/mysql

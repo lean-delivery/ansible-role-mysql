@@ -1,6 +1,12 @@
 ---
 - name: Add repository and install {{ mysql_version }} packages
   block:
+    - name: Add universe repository for bionic
+      apt_repository:
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
     - name: Install requirements
       apt:
         name: '{{ mysql_python_packages }}'
