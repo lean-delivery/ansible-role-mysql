@@ -18,6 +18,7 @@
       pip:
         name:
           - mysql-connector-python
+          - PyMySQL
         state: present
       register: mysql_connector_install
       until: mysql_connector_install is succeeded

@@ -40,4 +40,13 @@
       retries: 3
       delay: 2
       until: task_result is succeeded
+
+    - name: Install pip requirements
+      pip:
+        name:
+          - mysql-connector-python
+          - PyMySQL
+        state: present
+      register: mysql_connector_install
+      until: mysql_connector_install is succeeded
   become: true
