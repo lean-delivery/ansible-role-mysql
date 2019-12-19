@@ -1,0 +1,2 @@
+---
+python_executable: '{{ ansible_facts.discovered_interpreter_python | basename }}'

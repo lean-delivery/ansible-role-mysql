@@ -8,7 +8,7 @@ mysql_default_packages:
 
 
 mysql_default_python_packages:
-  - mysql-connector-python
+  - '{{ python_executable }}-pip'
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mysql.err
 mysql_default_syslog_tag: mysql

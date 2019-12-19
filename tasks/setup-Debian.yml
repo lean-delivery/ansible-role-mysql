@@ -8,6 +8,14 @@
       register: task_result
       until: task_result is succeeded
 
+    - name: Install pip requirements
+      pip:
+        name:
+          - mysql-connector-python
+        state: present
+      register: mysql_connector_install
+      until: mysql_connector_install is succeeded
+
     - block:
         - name: Add Mysql apt key
           apt_key:
