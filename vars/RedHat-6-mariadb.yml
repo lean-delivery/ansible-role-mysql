@@ -9,7 +9,7 @@ mysql_default_packages:
   - MariaDB-common
 
 mysql_default_python_packages:
-  - PyMySQL
+  - '{{ python_executable }}-pip'
   - perl-DBD-MySQL
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log

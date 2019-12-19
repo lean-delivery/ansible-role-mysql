@@ -1,6 +1,12 @@
 ---
 - name: Add repository and install packages
   block:
+    - name: Add repository
+      yum_repository:
+        name: epel
+        description: EPEL YUM repo
+        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+
     - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
       yum_repository:
         name: '{{ mysql_daemon }}'
@@ -41,12 +47,12 @@
       delay: 2
       until: task_result is succeeded
 
-    # - name: Install pip requirements
-    #   pip:
-    #     name:
-    #       - mysql-connector-python
-    #       - PyMySQL
-    #     state: present
-    #   register: mysql_connector_install
-    #   until: mysql_connector_install is succeeded
+    - name: Install pip requirements
+      pip:
+        name:
+          - mysql-connector-python
+          - PyMySQL
+        state: present
+      register: mysql_connector_install
+      until: mysql_connector_install is succeeded
   become: true
