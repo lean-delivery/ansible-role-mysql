@@ -1,7 +1,7 @@
 ---
 - name: Add repository and install {{ mysql_version }} packages
   block:
-    - name: Add universe repository for bionic
+    - name: Add universe repository for Ubuntu
       apt_repository:
         repo: deb http://archive.ubuntu.com/ubuntu bionic universe
         state: present
@@ -13,15 +13,6 @@
         state: present
       register: task_result
       until: task_result is succeeded
-
-    - name: Install pip requirements
-      pip:
-        name:
-          - mysql-connector-python
-          - PyMySQL
-        state: present
-      register: mysql_connector_install
-      until: mysql_connector_install is succeeded
 
     - block:
         - name: Add Mysql apt key
@@ -50,5 +41,14 @@
       retries: 3
       delay: 2
       until: task_result is succeeded
+
+    - name: Install pip requirements
+      pip:
+        name:
+          - mysql-connector-python
+          - PyMySQL
+        state: present
+      register: mysql_connector_install
+      until: mysql_connector_install is succeeded
 
   become: true
