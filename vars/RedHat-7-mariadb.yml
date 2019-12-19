@@ -1,20 +1,20 @@
 ---
-mysql_daemon: mariadb
-mysql_version: latest
-mysql_repo: http://yum.mariadb.org/10.1/centos7-amd64
-mysql_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-mysql_packages:
+mysql_default_daemon: mariadb
+mysql_default_version: latest
+mysql_default_repo: http://yum.mariadb.org/10.1/centos7-amd64
+mysql_default_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+mysql_default_packages:
   - MariaDB-client
   - MariaDB-server
 
-mysql_python_packages:
+mysql_default_python_packages:
   - MySQL-python
   - perl-DBD-MySQL
-mysql_slow_query_log_file: /var/log/mysql-slow.log
-mysql_log_error: /var/log/mariadb.log
-mysql_syslog_tag: mariadb
-mysql_pid_file: /var/run/mariadb/mariadb.pid
-mysql_config_file: /etc/my.cnf
-mysql_config_include_dir: /etc/my.cnf.d
-mysql_socket: /var/lib/mysql/mysql.sock
-mysql_supports_innodb_large_prefix: true
+mysql_default_slow_query_log_file: /var/log/mysql-slow.log
+mysql_default_log_error: /var/log/mariadb.log
+mysql_default_syslog_tag: mariadb
+mysql_default_pid_file: /var/run/mariadb/mariadb.pid
+mysql_default_config_file: /etc/my.cnf
+mysql_default_config_include_dir: /etc/my.cnf.d
+mysql_default_socket: /var/lib/mysql/mysql.sock
+mysql_default_supports_innodb_large_prefix: true

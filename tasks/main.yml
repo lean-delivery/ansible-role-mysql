@@ -12,7 +12,7 @@
 
 # Install Mysql
 - name: Configure system
-  include_tasks: "{{ platform }}"
+  include_tasks: '{{ platform }}'
   with_first_found:
     - 'setup-{{ ansible_os_family }}.yml'
     - 'not-supported.yml'

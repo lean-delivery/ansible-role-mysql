@@ -1,19 +1,15 @@
 ---
 # Define a what install mysqd(and which version 5.5/5.6/5.7) or mariabd (version 10.1)
-mysql_daemon: "mysqld"
-mysql_version: "5.7"
-mysql_repo: "http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/"
-mysql_gpgkey: "http://repo.mysql.com/RPM-GPG-KEY-mysql"
+mysql_daemon: '{{ mysql_default_daemon }}'
+mysql_version: '{{ mysql_default_version }}'
+mysql_repo: '{{ mysql_default_repo }}'
+mysql_gpgkey: '{{ mysql_default_gpgkey }}'
 
 # Define a custom list of packages to install; if none provided, the default
 # package list from vars/[OS-family].yml will be used.
-mysql_packages:
-  - mysql-community-server
-  - mysql-community-client
+mysql_packages: '{{ mysql_default_packages }}'
 #
-mysql_python_packages:
-  - MySQL-python
-  - perl-DBD-MySQL
+mysql_python_packages: '{{ mysql_default_python_packages }}'
 
 # Set this to the user ansible is logging in as - should have root
 # or sudo access
@@ -31,21 +27,21 @@ overwrite_global_mycnf: true
 
 # The following variables have a default value depending on operating system. The default
 # parametr from vars/[OS-family].yml will be used
-# mysql_config_file: /etc/my.cnf
-# mysql_config_include_dir: /etc/my.cnf.d
+mysql_config_file: '{{ mysql_default_config_file }}'
+mysql_config_include_dir: '{{ mysql_default_config_include_dir }}'
 
 # MySQL connection settings.
 mysql_port: "3306"
 mysql_bind_address: "0.0.0.0"
 mysql_skip_name_resolve: false
-mysql_datadir: /var/lib/mysql
+mysql_datadir: '{{ mysql_default_datadir }}'
 mysql_sql_mode: ""
 # The following variables have a default value depending on operating system. The default
 # parametr from vars/[OS-family].yml will be used
-# mysql_pid_file: /var/run/mysqld/mysqld.pid
-mysql_socket: /var/run/mysqld/mysqld.sock
+mysql_pid_file: '{{ mysql_default_pid_file }}'
+mysql_socket: '{{ mysql_default_socket }}'
 
-mysql_service_name: "{{ mysql_daemon }}"
+mysql_service_name: "{{ mysql_default_service_name }}"
 
 # Log file settings.
 mysql_log_file_group: mysql
@@ -54,7 +50,7 @@ mysql_log_file_group: mysql
 mysql_slow_query_log_enabled: false
 mysql_slow_query_time: "2"
 # The following variable has a default value depending on operating system.
-mysql_slow_query_log_file: /var/log/mysql-slow.log
+mysql_slow_query_log_file: '{{ mysql_default_slow_query_log_file }}'
 
 # Memory settings (default values optimized ~512MB RAM).
 mysql_key_buffer_size: "256M"
@@ -75,34 +71,34 @@ mysql_group_concat_max_len: "1024"
 mysql_join_buffer_size: "262144"
 
 # Other settings.
-mysql_lower_case_table_names: "0"
-mysql_wait_timeout: "28800"
-mysql_event_scheduler_state: "OFF"
+mysql_lower_case_table_names: 0
+mysql_wait_timeout: 28800
+mysql_event_scheduler_state: OFF
 
-mysql_supports_innodb_large_prefix: false
+mysql_supports_innodb_large_prefix: '{{ mysql_default_supports_innodb_large_prefix }}'
 # InnoDB settings.
-mysql_innodb_file_per_table: "1"
+mysql_innodb_file_per_table: 1
 # Set .._buffer_pool_size up to 80% of RAM but beware of setting too high.
-mysql_innodb_buffer_pool_size: "256M"
+mysql_innodb_buffer_pool_size: 256M
 # Set .._log_file_size to 25% of buffer pool size.
-mysql_innodb_log_file_size: "64M"
-mysql_innodb_log_buffer_size: "8M"
-mysql_innodb_flush_log_at_trx_commit: "1"
-mysql_innodb_lock_wait_timeout: "50"
+mysql_innodb_log_file_size: 64M
+mysql_innodb_log_buffer_size: 8M
+mysql_innodb_flush_log_at_trx_commit: 1
+mysql_innodb_lock_wait_timeout: 50
 
 # These settings require MySQL > 5.5.
-mysql_innodb_large_prefix: "1"
-mysql_innodb_file_format: "barracuda"
+mysql_innodb_large_prefix: 1
+mysql_innodb_file_format: barracuda
 
 # mysqldump settings.
-mysql_mysqldump_max_allowed_packet: "64M"
+mysql_mysqldump_max_allowed_packet: 64M
 
 # Logging settings.
 mysql_log: "/var/log/{{ mysql_daemon }}.log"
 # The following variables have a default value depending on operating system. The default
 # parametr from vars/[OS-family].yml will be used
-# mysql_log_error: /var/log/mysql/mysql.err
-# mysql_syslog_tag: mysql
+mysql_log_error: '{{ mysql_default_log_error }}'
+mysql_syslog_tag: '{{ mysql_default_syslog_tag }}'
 
 mysql_config_include_files: []
 #  - src: path/relative/to/playbook/file.cnf
