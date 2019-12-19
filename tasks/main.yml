@@ -11,17 +11,17 @@
     loop_var: platform_vars
 
 # Install Mysql
-# - name: Configure system
-#   include_tasks: '{{ platform }}'
-#   with_first_found:
-#     - 'setup-{{ ansible_os_family }}.yml'
-#     - 'not-supported.yml'
-#   loop_control:
-#     loop_var: platform
+- name: Configure system
+  include_tasks: '{{ platform }}'
+  with_first_found:
+    - 'setup-{{ ansible_os_family }}.yml'
+    - 'not-supported.yml'
+  loop_control:
+    loop_var: platform
 
-# # Configure MySQL.
-# - name: Configure
-#   include_tasks: configure.yml
+# Configure MySQL.
+- name: Configure
+  include_tasks: configure.yml
 
 - name: Run secure installation
   include_tasks: secure-installation.yml

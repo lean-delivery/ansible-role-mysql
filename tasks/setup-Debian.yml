@@ -45,7 +45,6 @@
     - name: Install pip requirements
       pip:
         name:
-          - mysql-connector-python
           - PyMySQL
         state: present
       register: mysql_connector_install
