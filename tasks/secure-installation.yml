@@ -45,6 +45,7 @@
         variable: version
       register: mysql_version_out
       until: mysql_version_out is succeeded
+      become: true
 
     - name: Set mysql version
       set_fact:
