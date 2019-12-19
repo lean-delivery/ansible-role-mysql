@@ -6,6 +6,7 @@
         name: epel
         description: EPEL YUM repo
         baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        gpgcheck: false
 
     - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
       yum_repository:
