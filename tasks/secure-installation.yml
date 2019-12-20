@@ -11,13 +11,13 @@
       register: mysql_version_out
       become: true
 
-    - name: Set mysql version
-      set_fact:
-        mysql_version: '{{ mysql_version_out.msg }}'
+    # - name: Set mysql version
+    #   set_fact:
+    #     mysql_version: '{{ mysql_version_out.msg }}'
 
     - name: Out mysql_version
       debug:
-        var: mysql_version
+        var: mysql_version_out
 
   rescue:
     - name: Clear InnoDB logs and restart MySQL in skip-grant-tables mode
@@ -53,10 +53,10 @@
       debug:
         var: mysql_version_out
 
-    - name: Set mysql version
-      set_fact:
-        mysql_version: >-
-          {{ mysql_version_out.msg.split('-')[0] }}
+    # - name: Set mysql version
+    #   set_fact:
+    #     mysql_version: >-
+    #       {{ mysql_version_out.msg.split('-')[0] }}
 
     - name: Out mysql_cli_version
       debug:

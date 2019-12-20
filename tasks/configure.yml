@@ -5,13 +5,14 @@
       package_facts:
         manager: auto
 
-    - name: debug facts
-      debug:
-        var: ansible_facts.packages['mysql-server']
+    - name: Set mysql version
+      set_fact:
+        mysql_version: >-
+          {{ ansible_facts.packages['mysql-community-server'].split('-')[0] }}
 
-    - name: debug facts mysql-community-server
+    - name: debug mysql_version
       debug:
-        var: ansible_facts.packages['mysql-community-server']
+        var: mysql_version
 
     - name: Copy my.cnf global MySQL configuration
       template:
