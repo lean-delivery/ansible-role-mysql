@@ -8,7 +8,7 @@
     - name: Set mysql version
       set_fact:
         mysql_version: >-
-          {{ ansible_facts.packages['mysql-community-server'].split('-')[0] }}
+          {{ ansible_facts.packages['mysql-community-server'][0]['version'].split('-')[0] }}
 
     - name: debug mysql_version
       debug:
