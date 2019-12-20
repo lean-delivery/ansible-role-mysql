@@ -13,7 +13,7 @@
 
     - name: Set mysql version
       set_fact:
-        mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
+        mysql_version: "{{ mysql_version_out.msg }}"
 
     - name: Out mysql_version
       debug:
@@ -48,6 +48,10 @@
       register: mysql_version_out
       until: mysql_version_out is succeeded
       become: true
+
+    - name: debug mysql_version_out
+      debug:
+        var: mysql_version_out
 
     - name: Set mysql version
       set_fact:
