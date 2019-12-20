@@ -140,6 +140,7 @@
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
         login_unix_socket: '{{ mysql_socket }}'
+      changed_when: false
       no_log: false
 
     - name: Remove anonymous MySQL users
