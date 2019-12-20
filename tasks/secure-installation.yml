@@ -123,7 +123,7 @@
         dest: '{{ mysql_user_home }}/.my.cnf'
         owner: '{{ mysql_user_name }}'
         mode: 0600
-      when: mysql_user_name != mysql_root_username
+      # when: mysql_user_name != mysql_root_username
 
     - name: Update mysql root password for all root accounts
       mysql_user:
