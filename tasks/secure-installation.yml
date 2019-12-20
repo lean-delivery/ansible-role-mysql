@@ -115,6 +115,7 @@
         state: present
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
       when: mysql_user_name != 'root'
 
     - name: Copy .my.cnf file with password credentials
@@ -123,7 +124,7 @@
         dest: '{{ mysql_user_home }}/.my.cnf'
         owner: '{{ mysql_user_name }}'
         mode: 0600
-      # when: mysql_user_name != mysql_root_username
+      when: mysql_user_name != mysql_root_username
 
     - name: Update mysql root password for all root accounts
       mysql_user:
@@ -134,6 +135,7 @@
         priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
       no_log: false
 
     - name: Remove anonymous MySQL users
