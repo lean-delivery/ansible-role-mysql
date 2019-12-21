@@ -18,6 +18,14 @@
     #   debug:
     #     var: mysql_version
 
+    - name: Check mysql version
+      command: mysql --version
+      register: mysql_out_version
+
+    - name: debug mysql_out_version
+      debug:
+        var: mysql_out_version
+
     - name: Copy my.cnf global MySQL configuration
       template:
         src: my.cnf.j2
