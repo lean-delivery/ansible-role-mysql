@@ -42,6 +42,10 @@
       delay: 2
       until: task_result is succeeded
 
+    - name: debug task_result
+      debug:
+        var: task_result
+
     - name: Install pip requirements
       pip:
         name:

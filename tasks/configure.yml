@@ -1,22 +1,22 @@
 ---
 - name: Setup config and start MySQL service
   block:
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
+    # - name: Gather the package facts
+    #   package_facts:
+    #     manager: auto
 
-    - name: debug ansible_facts
-      debug:
-        var: ansible_facts.packages
+    # - name: debug ansible_facts
+    #   debug:
+    #     var: ansible_facts.packages
 
-    - name: Set mysql version
-      set_fact:
-        mysql_version: >-
-          {{ ansible_facts.packages['mysql-community-server'][0]['version'].split('-')[0] }}
+    # - name: Set mysql version
+    #   set_fact:
+    #     mysql_version: >-
+    #       {{ ansible_facts.packages['mysql-community-server'][0]['version'].split('-')[0] }}
 
-    - name: debug mysql_version
-      debug:
-        var: mysql_version
+    # - name: debug mysql_version
+    #   debug:
+    #     var: mysql_version
 
     - name: Copy my.cnf global MySQL configuration
       template:
