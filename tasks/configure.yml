@@ -29,7 +29,7 @@
     - name: Extract mysql version
       set_fact:
         mysql_version: >-
-          {{ mysql_out_version.stdout | regex_findall('([\d\.]+)-' ~ mysql_daemon) }}
+          {{ mysql_out_version.stdout | regex_findall('(\d+\.\d+\.\d+)') | first }}
 
     - name: debug mysql_version
       debug:
