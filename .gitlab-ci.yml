@@ -73,7 +73,7 @@ AWS mysql mariadb:
   tags:
     - aws
 
-.AWS mysql-8.0:
+AWS mysql-8.0:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

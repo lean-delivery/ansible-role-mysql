@@ -26,6 +26,15 @@
       debug:
         var: mysql_out_version
 
+    - name: Extract mysql version
+      set_fact:
+        mysql_version: >-
+          {{ mysql_out_version.stdout | regex_findall('([\d\.]+)-' ~ mysql_daemon) }}
+
+    - name: debug mysql_version
+      debug:
+        var: mysql_version
+
     - name: Copy my.cnf global MySQL configuration
       template:
         src: my.cnf.j2
