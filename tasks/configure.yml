@@ -5,6 +5,10 @@
       package_facts:
         manager: auto
 
+    - name: debug ansible_facts
+      debug:
+        var: ansible_facts.packages
+
     - name: Set mysql version
       set_fact:
         mysql_version: >-
