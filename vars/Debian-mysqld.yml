@@ -1,6 +1,6 @@
 ---
 mysql_default_daemon: mysqld
-
+mysql_apt_template: mysql.list
 
 
 mysql_default_packages:
@@ -18,3 +18,5 @@ mysql_default_socket: /var/run/mysqld/mysqld.sock
 mysql_default_supports_innodb_large_prefix: false
 mysql_default_datadir: /var/lib/mysql
 mysql_default_service_name: mysql
+mysql_default_apt_keyserver: pool.sks-keyservers.net
+mysql_default_apt_key_id: 5072E1F5

@@ -1,7 +1,8 @@
 ---
 mysql_default_daemon: mariadb
-mysql_default_version: latest
-
+mysql_default_version: 10.4
+mysql_default_repo: http://nyc2.mirrors.digitalocean.com/mariadb/repo
+mysql_apt_template: mariadb.list
 
 mysql_default_packages:
   - mariadb-server
@@ -19,3 +20,5 @@ mysql_default_socket: /var/run/mysqld/mysqld.sock
 mysql_default_supports_innodb_large_prefix: true
 mysql_default_datadir: /var/lib/mysql
 mysql_default_service_name: mysql
+mysql_default_apt_keyserver: keyserver.ubuntu.com
+mysql_default_apt_key_id: 0xF1656F24C74CD1D8

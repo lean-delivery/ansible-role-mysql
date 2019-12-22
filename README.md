@@ -45,7 +45,14 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `defaults/main.yml` and `var/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-{{ mysql_daemon }}.yml`):
+Available variables are listed below, along with default values:
+
+Mysql/MariaDB repository settings:
+
+    mysql_repo: *default value depends on OS*   
+    mysql_gpgkey: *default value depends on OS*   
+    mysql_apt_keyserver: *default value depends on OS*   
+    mysql_apt_key_id: *default value depends on OS*   
 
     mysql_packages:
       - mysql-community-server   # (mysql-community-server/MariaDB-server)
