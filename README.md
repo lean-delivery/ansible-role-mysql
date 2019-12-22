@@ -32,11 +32,11 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 10.3
   - Supported OS:
       - RHEL
-          - 6
           - 7
+          - 8
       - CentOS
-          - 6
           - 7
+          - 8
       - Ubuntu
           - 16.04
           - 18.04
@@ -179,20 +179,21 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
 - hosts: db-servers
   roles:
     - role: lean_delivery.mysql
-      mysql_root_password: Super_P@s$0rd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32_U$er_p@ssw0rd
-          priv: "example2_db.*:ALL"
-      mysql_port: 3306
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mysqld
-      mysql_version: 5.7
+  vars:
+    mysql_root_password: Super_P@s$0rd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32_U$er_p@ssw0rd
+        priv: "example2_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mysqld
+    mysql_version: 5.7
 ``` 
 
 ### Installing MySQL 8.0 version:
@@ -200,20 +201,21 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
 - hosts: db-servers
   roles:
     - role: lean_delivery.mysql
-      mysql_root_password: 88TEM-veDRE<888serd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32-SRRR-password
-          priv: "example2_db.*:ALL"
-      mysql_port: 3306
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mysqld
-      mysql_version: 8.0
+  vars:
+    mysql_root_password: 88TEM-veDRE<888serd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32-SRRR-password
+        priv: "example2_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mysqld
+    mysql_version: 8.0
 ``` 
 
 ### Installing MariaDB:
@@ -221,19 +223,20 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
 - hosts: db-servers
   roles:
     - role: lean_delivery.mysql
-      mysql_root_password: 88TEM-veDRE<888serd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32-SRRR-password
-          priv: "example2_db.*:ALL"
-      mysql_port: 3306
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mariadb
+  vars:
+    mysql_root_password: 88TEM-veDRE<888serd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32-SRRR-password
+        priv: "example2_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mariadb
 ``` 
 
 
