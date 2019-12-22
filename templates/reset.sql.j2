@@ -5,7 +5,7 @@ UPDATE user SET password=PASSWORD('{{ mysql_root_password }}') WHERE user='root'
 FLUSH PRIVILEGES;
 {% else %}
 FLUSH PRIVILEGES;
-SET password=PASSWORD('{{ mysql_root_password }}') WHERE user='root';
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('{{ mysql_root_password }}');
 {% endif %}
 {% elif mysql_version is version('5.7.6', '>=') %}
 FLUSH PRIVILEGES;
