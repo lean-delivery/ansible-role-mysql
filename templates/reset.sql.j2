@@ -1,6 +1,9 @@
 {% if mysql_daemon == 'mariadb' %}
-UPDATE user SET plugin='';
+{# UPDATE user SET plugin='';
 UPDATE user SET password=PASSWORD('{{ mysql_root_password }}') WHERE user='root';
+FLUSH PRIVILEGES; #}
+use mysql;
+UPDATE user SET authentication_string = password("SecreT") where User='root';
 FLUSH PRIVILEGES;
 {% elif mysql_version is version('5.7.6', '>=') %}
 FLUSH PRIVILEGES;
