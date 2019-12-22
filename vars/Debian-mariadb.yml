@@ -10,6 +10,8 @@ mysql_default_packages:
 # - mysql-connector-python
 mysql_default_python_packages:
   - '{{ python_executable }}-pip'
+  - dirmngr
+  - software-properties-common
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
 mysql_default_syslog_tag: mariadb
