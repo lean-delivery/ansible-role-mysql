@@ -9,8 +9,8 @@
     - name: debug python_executable
       debug:
         var: ansible_facts.python.version.major
-  # roles:
-  #   - role: ansible-role-mysql
+  roles:
+    - role: ansible-role-mysql
   vars:
     mysql_root_password: 88TEM-veDRE<888serd
     mysql_databases:
