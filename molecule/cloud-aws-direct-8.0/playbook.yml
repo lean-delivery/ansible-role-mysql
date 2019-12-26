@@ -2,6 +2,10 @@
 - name: Converge
   hosts: all
   pre_tasks:
+    - name: debug ansible_python_executable
+      debug:
+        var: ansible_python_executable
+
     - name: debug python_executable
       debug:
         var: python_executable
