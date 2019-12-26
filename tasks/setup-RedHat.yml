@@ -5,7 +5,8 @@
       yum_repository:
         name: epel
         description: EPEL YUM repo
-        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        # baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-8&arch=$basearch&infra=$infra&content=$contentdir
         gpgcheck: false
 
     - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
@@ -33,6 +34,7 @@
       yum:
         name: '{{ mysql_python_packages }}'
         state: present
+      update_cache: true
       register: task_result
       retries: 3
       delay: 2

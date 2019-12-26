@@ -1,6 +1,10 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+    - name: debug python_executable
+      debug:
+        var: python_executable
   roles:
     - role: ansible-role-mysql
   vars:
