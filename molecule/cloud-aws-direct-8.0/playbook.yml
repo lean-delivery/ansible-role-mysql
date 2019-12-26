@@ -4,11 +4,11 @@
   pre_tasks:
     - name: debug ansible_python_executable
       debug:
-        var: ansible_python_executable
+        var: ansible_facts.python_version
 
     - name: debug python_executable
       debug:
-        var: python_executable
+        var: ansible_facts.python.version.major
   # roles:
   #   - role: ansible-role-mysql
   vars:
