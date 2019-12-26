@@ -4,9 +4,9 @@
   pre_tasks:
     - name: debug python_executable
       debug:
-        var: python_executable
-  roles:
-    - role: ansible-role-mysql
+        var: ansible_facts
+  # roles:
+  #   - role: ansible-role-mysql
   vars:
     mysql_root_password: 88TEM-veDRE<888serd
     mysql_databases:
