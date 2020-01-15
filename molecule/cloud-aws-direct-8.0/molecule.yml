@@ -100,9 +100,6 @@ provisioner:
 scenario:
   name: cloud-aws-direct-8.0
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint
