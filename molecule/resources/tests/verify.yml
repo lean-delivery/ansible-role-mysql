@@ -11,6 +11,10 @@
     - name: Gather facts on listening ports
       listen_ports_facts:
 
+    - name: debug ansible_facts.tcp_listen.port
+      debug:
+        var: ansible_facts.tcp_listen.port
+
     - name: Assert that mysql service is running
       assert:
         that: |
@@ -19,12 +23,6 @@
           "'running' in ansible_facts.services['mariadb.service'].state"
           or
           "'running' in ansible_facts.services['mysql.service'].state"
-
-          ansible_facts.tcp_listen  | map(attribute='port') | sort | list
-
-    - name: debug ansible_facts.tcp_listen.port
-      debug:
-        var: ansible_facts.tcp_listen.port
 
     - name: Assert that mysql port is listening
       assert:
