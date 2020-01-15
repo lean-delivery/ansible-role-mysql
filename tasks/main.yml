@@ -20,11 +20,11 @@
     loop_var: platform
 
 # Configure MySQL.
-# - name: Configure
-#   include_tasks: configure.yml
+- name: Configure
+  include_tasks: configure.yml
 
-# - name: Run secure installation
-#   include_tasks: secure-installation.yml
+- name: Run secure installation
+  include_tasks: secure-installation.yml
 
-# - name: Create databases and users
-#   include_tasks: databases_and_users.yml
+- name: Create databases and users
+  include_tasks: databases_and_users.yml
