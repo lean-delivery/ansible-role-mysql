@@ -11,10 +11,6 @@
     - name: Gather facts on listening ports
       listen_ports_facts:
 
-    - name: debug ansible_facts.tcp_listen.port
-      debug:
-        var: ansible_facts.tcp_listen
-
     - name: Assert that mysql service is running
       assert:
         that: |
@@ -27,4 +23,4 @@
     - name: Assert that mysql port is listening
       assert:
         that:
-          "'3306' in (ansible_facts.tcp_listen | map(attribute='port') | list)"
+          "3306 in (ansible_facts.tcp_listen | map(attribute='port') | list)"
