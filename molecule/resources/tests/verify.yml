@@ -7,6 +7,7 @@
     - name: Install netstat
       package:
         name: net-tools
+      become: true
 
     - name: Populate service facts
       service_facts:
