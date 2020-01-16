@@ -6,6 +6,7 @@ mysql_repo: '{{ mysql_default_repo }}'
 mysql_gpgkey: '{{ mysql_default_gpgkey }}'
 mysql_apt_keyserver: '{{ mysql_default_apt_keyserver }}'
 mysql_apt_key_id: '{{ mysql_default_apt_key_id }}'
+mysql_repo_disable_list: '{{ mysql_default_repo_disable_list }}'
 
 # Define a custom list of packages to install; if none provided, the default
 # package list from vars/[OS-family].yml will be used.
