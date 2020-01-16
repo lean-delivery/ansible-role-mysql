@@ -14,8 +14,6 @@ mysql_default_python_packages:
   - rsync
   - tar
 
-mysql_default_repo_disable_list:
-  - AppStream
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
 mysql_default_syslog_tag: mariadb
