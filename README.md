@@ -216,6 +216,8 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
     mysql_bind_address: '0.0.0.0'
     mysql_daemon: mysqld
     mysql_version: 8.0
+    mysql_packages:
+      - mysql-server
 ``` 
 
 ### Installing MariaDB:
