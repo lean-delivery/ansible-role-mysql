@@ -73,7 +73,7 @@ AWS mysql mariadb:
   tags:
     - aws
 
-.AWS mysql-8.0:
+AWS mysql-8.0:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -82,7 +82,7 @@ AWS mysql mariadb:
   tags:
     - aws
 
-AWS mysql-8.0 ansible 2.9:
+.AWS mysql-8.0 ansible 2.9:
   image:
     name: leandelivery/docker-ansible-ci:ansible-2.9
   variables:
