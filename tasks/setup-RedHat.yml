@@ -14,7 +14,7 @@
         name: '{{ mysql_daemon }}'
         description: mysql YUM repo
         baseurl: '{{ mysql_repo }}'
-        gpgcakey: '{{ mysql_gpgkey }}'
+        gpgkey: '{{ mysql_gpgkey }}'
         gpgcheck: true
       register: task_result
       retries: 3
@@ -35,6 +35,10 @@
         name: '{{ mysql_python_packages }}'
         state: present
         update_cache: true
+        enablerepo: mariadb
+        disablerepo:
+          - Stream-AppStream
+          - AppStream
       register: task_result
       retries: 3
       delay: 2
