@@ -30,14 +30,14 @@ Lint:
   tags:
     - lint
 
-.Docker mysql:
+Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - aws
 
-.AWS mysql 5.7:
+AWS mysql 5.7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -46,7 +46,7 @@ Lint:
   tags:
     - aws
 
-.AWS mysql 5.6:
+AWS mysql 5.6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -55,7 +55,7 @@ Lint:
   tags:
     - aws
 
-.AWS mysql 5.5:
+AWS mysql 5.5:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -64,7 +64,7 @@ Lint:
   tags:
     - aws
 
-.AWS mysql mariadb:
+AWS mysql mariadb:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -74,6 +74,17 @@ Lint:
     - aws
 
 AWS mysql-8.0:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-8.0
+  tags:
+    - aws
+
+AWS mysql-8.0 ansible 2.9:
+  image:
+    name: leandelivery/docker-ansible-ci:ansible-2.9
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
