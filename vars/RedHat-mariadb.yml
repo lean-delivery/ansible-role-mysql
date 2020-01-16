@@ -15,7 +15,6 @@ mysql_default_python_packages:
   - tar
 
 mysql_repo_disable_list:
-  - Stream-AppStream
   - AppStream
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log

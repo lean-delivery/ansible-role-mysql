@@ -39,6 +39,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - disablerepo
 
   - name: test-aws-ubuntu16-mariadb
     image: ami-09677e0a6b14905b0
@@ -91,6 +92,12 @@ provisioner:
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      disablerepo:
+        mysql_repo_disable_list:
+          - Stream-AppStream
+          - AppStream
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
