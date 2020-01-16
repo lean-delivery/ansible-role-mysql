@@ -4,6 +4,9 @@
 - name: Verify
   hosts: all
   tasks:
+    - name: Install netstat
+      package:
+        name: net-tools
 
     - name: Populate service facts
       service_facts:
