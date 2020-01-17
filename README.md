@@ -32,11 +32,11 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 10.3
   - Supported OS:
       - RHEL
-          - 6
           - 7
+          - 8
       - CentOS
-          - 6
           - 7
+          - 8
       - Ubuntu
           - 16.04
           - 18.04
@@ -45,11 +45,26 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `defaults/main.yml` and `var/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-{{ mysql_daemon }}.yml`):
+Available variables are listed below, along with default values:
+
+Mysql/MariaDB repository settings:
+
+    mysql_repo: *default value depends on OS*   
+    mysql_gpgkey: *default value depends on OS*   
+    mysql_apt_keyserver: *default value depends on OS*   
+    mysql_apt_key_id: *default value depends on OS*   
+    mysql_repo_disable_list: *default - undefined*. For CentOS 8 it's now list of `AppStream` and `Stream-AppStream`.
 
     mysql_packages:
       - mysql-community-server   # (mysql-community-server/MariaDB-server)
       - mysql-community-client   # (mysql-community-client/MariaDB-client)
+      
+If you want to select a specific minor version of package, you can enter appropriate package name, for instance:
+
+    mysql_packages:
+      - mysql-community-server-8.0.16-2.el7.x86_64
+      - mysql-community-client-8.0.16-2.el7.x86_64
+      
                                  # (MariaDB-common)
     mysql_daemon: mysqld         # (mysqld/mariadb)
     mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
@@ -165,20 +180,21 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
 - hosts: db-servers
   roles:
     - role: lean_delivery.mysql
-      mysql_root_password: Super_P@s$0rd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32_U$er_p@ssw0rd
-          priv: "example2_db.*:ALL"
-      mysql_port: 3306
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mysqld
-      mysql_version: 5.7
+  vars:
+    mysql_root_password: Super_P@s$0rd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32_U$er_p@ssw0rd
+        priv: "example2_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mysqld
+    mysql_version: 5.7
 ``` 
 
 ### Installing MySQL 8.0 version:
@@ -186,20 +202,23 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
 - hosts: db-servers
   roles:
     - role: lean_delivery.mysql
-      mysql_root_password: 88TEM-veDRE<888serd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32-SRRR-password
-          priv: "example2_db.*:ALL"
-      mysql_port: 3306
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mysqld
-      mysql_version: 8.0
+  vars:
+    mysql_root_password: 88TEM-veDRE<888serd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32-SRRR-password
+        priv: "example2_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mysqld
+    mysql_version: 8.0
+    mysql_packages:
+      - mysql-server
 ``` 
 
 ### Installing MariaDB:
@@ -207,19 +226,20 @@ Due to new breaking changes in MySQL 8.0 we included modified module `mysql_user
 - hosts: db-servers
   roles:
     - role: lean_delivery.mysql
-      mysql_root_password: 88TEM-veDRE<888serd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32-SRRR-password
-          priv: "example2_db.*:ALL"
-      mysql_port: 3306
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mariadb
+  vars:
+    mysql_root_password: 88TEM-veDRE<888serd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32-SRRR-password
+        priv: "example2_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mariadb
 ``` 
 
 

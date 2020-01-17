@@ -1,7 +1,12 @@
 {% if mysql_daemon == 'mariadb' %}
+{% if mysql_version is version('10.4.0', '<') %}
 UPDATE user SET plugin='';
 UPDATE user SET password=PASSWORD('{{ mysql_root_password }}') WHERE user='root';
 FLUSH PRIVILEGES;
+{% else %}
+FLUSH PRIVILEGES;
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('{{ mysql_root_password }}');
+{% endif %}
 {% elif mysql_version is version('5.7.6', '>=') %}
 FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}';

@@ -1,6 +1,38 @@
 ---
 - name: Setup config and start MySQL service
   block:
+
+    - name: Install pip requirements
+      pip:
+        name:
+          - PyMySQL
+        state: present
+      register: mysql_connector_install
+      until: mysql_connector_install is succeeded
+
+    - name: Install {{ mysql_daemon }} {{ mysql_version }}
+      package:
+        name: '{{ mysql_packages }}'
+        state: present
+        update_cache: true
+        disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
+      register: task_result
+      until: task_result is succeeded
+
+    - name: Check mysql version
+      command: mysql --version
+      register: mysql_out_version
+      changed_when: false
+
+    - name: Extract mysql version
+      set_fact:
+        mysql_version: >-
+          {{ mysql_out_version.stdout | regex_findall('(\d+\.\d+\.\d+)') | first }}
+
+    - name: debug mysql_version
+      debug:
+        var: mysql_version
+
     - name: Copy my.cnf global MySQL configuration
       template:
         src: my.cnf.j2
@@ -63,6 +95,7 @@
         name: '{{ mysql_service_name }}'
         state: started
         enabled: true
+
   become: true
 
 - name: Wait for service to be ready

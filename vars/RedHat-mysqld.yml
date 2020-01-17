@@ -1,22 +1,22 @@
 ---
 mysql_default_daemon: mysqld
-mysql_apt_template: mysql.list
-
-
+mysql_default_version: 5.7
+mysql_default_repo: 'http://repo.mysql.com/yum/mysql-{{ mysql_version }}-community/el/7/$basearch/'
+mysql_default_gpgkey: http://repo.mysql.com/RPM-GPG-KEY-mysql
 mysql_default_packages:
-  - mysql-server
+  - mysql-community-server
+  - mysql-community-client
 
 mysql_default_python_packages:
   - '{{ python_executable }}-pip'
+  - perl-DBD-MySQL
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mysql.err
 mysql_default_syslog_tag: mysql
 mysql_default_pid_file: /var/run/mysqld/mysqld.pid
 mysql_default_config_file: /etc/my.cnf
-mysql_default_config_include_dir: /etc/mysql/mysql.conf.d
-mysql_default_socket: /var/run/mysqld/mysqld.sock
+mysql_default_config_include_dir: /etc/my.cnf.d
+mysql_default_socket: /var/lib/mysql/mysql.sock
 mysql_default_supports_innodb_large_prefix: false
 mysql_default_datadir: /var/lib/mysql
-mysql_default_service_name: mysql
-mysql_default_apt_keyserver: pool.sks-keyservers.net
-mysql_default_apt_key_id: 5072E1F5
+mysql_default_service_name: mysqld

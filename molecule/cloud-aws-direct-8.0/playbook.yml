@@ -3,17 +3,20 @@
   hosts: all
   roles:
     - role: ansible-role-mysql
-      mysql_root_password: 88TEM-veDRE<888serd
-      mysql_databases:
-        - name: example2_db
-          encoding: latin1
-          collation: latin1_general_ci
-      mysql_users:
-        - name: example2_user
-          host: "%"
-          password: Sime32-SRRR-password
-          priv: "example2_db.*:ALL"
-      mysql_port: "3306"
-      mysql_bind_address: '0.0.0.0'
-      mysql_daemon: mysqld
-      mysql_version: 8.0
+  vars:
+    mysql_root_password: 88TEM-veDRE<888serd
+    mysql_databases:
+      - name: example2_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: example2_user
+        host: "%"
+        password: Sime32-SRRR-password
+        priv: "example2_db.*:ALL"
+    mysql_port: "3306"
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mysqld
+    mysql_version: 8.0
+    mysql_packages:
+      - mysql-server

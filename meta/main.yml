@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: mysql
   author: Lean Delivery Team <team@lean-delivery.com>
-  description: MySQL server for RHEL/CentOS/Debian
+  description: MySQL server for RHEL/CentOS/Debian/Ubuntu
   company: EPAM Systems
   issue_tracker_url: https://github.com/lean-delivery/ansible-role-mysql/issues
   license: Apache
@@ -10,8 +10,8 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 6
         - 7
+        - 8
     - name: Ubuntu
       versions:
         - xenial
@@ -28,7 +28,10 @@ galaxy_info:
         - 8.0
     - name: mariadb
       versions:
-        - latest
+        - 10.1
+        - 10.2
+        - 10.3
+        - 10.4
   galaxy_tags:
     - database
     - mysql

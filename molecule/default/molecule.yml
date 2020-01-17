@@ -31,15 +31,14 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  # log: true
+  log: false
   lint:
     name: ansible-lint
+  playbooks:
+    verify: ../resources/tests/verify.yml
 scenario:
   name: default
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

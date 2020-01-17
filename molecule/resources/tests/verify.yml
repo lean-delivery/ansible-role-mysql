@@ -1,0 +1,30 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Install netstat
+      package:
+        name: net-tools
+      become: true
+
+    - name: Populate service facts
+      service_facts:
+
+    - name: Gather facts on listening ports
+      listen_ports_facts:
+
+    - name: Assert that mysql service is running
+      assert:
+        that: |
+          "'running' in ansible_facts.services['mysqld.service'].state"
+          or
+          "'running' in ansible_facts.services['mariadb.service'].state"
+          or
+          "'running' in ansible_facts.services['mysql.service'].state"
+
+    - name: Assert that mysql port is listening
+      assert:
+        that:
+          "3306 in (ansible_facts.tcp_listen | map(attribute='port') | list)"

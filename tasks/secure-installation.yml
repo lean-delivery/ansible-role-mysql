@@ -11,13 +11,9 @@
       register: mysql_version_out
       become: true
 
-    - name: Set mysql version
-      set_fact:
-        mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
-
     - name: Out mysql_version
       debug:
-        var: mysql_version
+        var: mysql_version_out
 
   rescue:
     - name: Clear InnoDB logs and restart MySQL in skip-grant-tables mode
@@ -43,16 +39,11 @@
     - name: Check mysql version
       mysql_variables:
         variable: version
+        login_user: root
+        login_unix_socket: '{{ mysql_socket }}'
       register: mysql_version_out
       until: mysql_version_out is succeeded
-
-    - name: Set mysql version
-      set_fact:
-        mysql_version: "{{ mysql_version_out.msg.split('-')[0] }}"
-
-    - name: Out mysql_cli_version
-      debug:
-        var: mysql_version
+      become: true
 
     - name: Copy reset.sql for root reset
       template:
@@ -65,6 +56,8 @@
         name: mysql
         state: import
         target: /tmp/reset.sql
+        login_unix_socket: '{{ mysql_socket }}'
+      become: true
 
     - name: Clear InnoDB logs and restart MySQL in normal mode
       block:
@@ -109,6 +102,7 @@
         state: present
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
       when: mysql_user_name != 'root'
 
     - name: Copy .my.cnf file with password credentials
@@ -128,6 +122,7 @@
         priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
       no_log: false
 
     - name: Remove anonymous MySQL users

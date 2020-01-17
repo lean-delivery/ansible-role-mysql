@@ -1,0 +1,3 @@
+---
+python_executable: >-
+  {{ (ansible_facts.python.version.major|int == 3) | ternary('python3', 'python') }}

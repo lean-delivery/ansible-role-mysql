@@ -25,10 +25,10 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-centos6-mysql-5.7
-    image: ami-1585c46a
-    platform: centos6
-    instance_type: m4.large
+  - name: test-aws-centos8-mysql-5.7
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -87,7 +87,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: true
+  log: false
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
@@ -95,14 +95,12 @@ provisioner:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify.yml
   lint:
     name: ansible-lint
 scenario:
   name: cloud-aws-direct-5.7
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint
