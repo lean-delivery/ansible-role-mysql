@@ -22,6 +22,7 @@ platforms:
     groups:
       - rhel_family
       - centos7
+      - pip3
 
   - name: test-aws-centos8-mysql-8.0
     image: ami-0ed2ad9dc845b42b6

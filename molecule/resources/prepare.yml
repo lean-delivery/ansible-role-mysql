@@ -1,7 +1,9 @@
 ---
-- name: Converge
+- name: Prepare python3
   hosts: centos7
   become: true
+  vars:
+    ansible_python_interpreter: auto
   tasks:
 
     - name: Add repository

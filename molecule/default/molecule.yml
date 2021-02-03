@@ -13,6 +13,7 @@ platforms:
     groups:
       - rhel_family
       - centos7
+      - pip3
 
   - name: test-docker-ubuntu1804-mysql
     image: leandelivery/docker-systemd:ubuntu-18.04
@@ -34,6 +35,8 @@ provisioner:
   log: false
   inventory:
     group_vars:
+      pip3:
+        ansible_python_interpreter: /usr/bin/python3
       pip2:
         mysql_python_packages:
           - gcc
