@@ -21,7 +21,8 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - pip2
+      - centos7
+      - pip3
 
   - name: test-aws-centos8-mysql-8.0
     image: ami-0ed2ad9dc845b42b6
@@ -67,6 +68,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - pip3
 
 provisioner:
   name: ansible
@@ -76,6 +78,8 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
+      pip3:
+        ansible_python_interpreter: /usr/bin/python3
       pip2:
         mysql_python_packages:
           - gcc
