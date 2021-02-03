@@ -50,6 +50,7 @@
         src: reset.sql.j2
         dest: /tmp/reset.sql
         force: true
+        mode: 0644
 
     - name: Reset root credentials
       mysql_db:
