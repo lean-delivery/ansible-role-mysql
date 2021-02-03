@@ -5,8 +5,10 @@
     - name: Install pip requirements
       pip:
         name:
-          - PyMySQL
+          - mysqlclient
+          - pip
         state: present
+        extra_args: --upgrade
       register: mysql_connector_install
       until: mysql_connector_install is succeeded
 

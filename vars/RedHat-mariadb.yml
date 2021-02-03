@@ -13,6 +13,8 @@ mysql_default_python_packages:
   - lsof
   - rsync
   - tar
+  - python3-devel
+  - mysql-devel
 
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
