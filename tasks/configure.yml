@@ -8,6 +8,7 @@
           - pip
         state: present
         extra_args: --upgrade
+        executable: pip3
       register: pip_install
       until: pip_install is succeeded
 
@@ -16,6 +17,7 @@
         name:
           - mysqlclient
         state: present
+        executable: pip3
       register: mysql_connector_install
       until: mysql_connector_install is succeeded
 

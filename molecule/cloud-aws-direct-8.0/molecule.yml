@@ -21,6 +21,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - pip2
 
   - name: test-aws-centos8-mysql-8.0
     image: ami-0ed2ad9dc845b42b6
@@ -51,7 +52,6 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - pip3
 
   - name: test-aws-Debian9-mysql-8.0
     image: ami-003f19e0e687de1cd
@@ -67,7 +67,6 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - pip3
 
 provisioner:
   name: ansible
@@ -77,8 +76,14 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
-      pip3:
-        ansible_python_interpreter: /usr/bin/python3
+      pip2:
+        mysql_python_packages:
+          - gcc
+          - python36
+          - python3-pip
+          - perl-DBD-MySQL
+          - python3-devel
+          - mysql-devel
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
