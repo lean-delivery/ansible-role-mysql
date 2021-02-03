@@ -2,13 +2,20 @@
 - name: Setup config and start MySQL service
   block:
 
-    - name: Install pip requirements
+    - name: Pip update
       pip:
         name:
-          - mysqlclient
           - pip
         state: present
         extra_args: --upgrade
+      register: pip_install
+      until: pip_install is succeeded
+
+    - name: Install mysqlclient
+      pip:
+        name:
+          - mysqlclient
+        state: present
       register: mysql_connector_install
       until: mysql_connector_install is succeeded
 

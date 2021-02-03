@@ -12,6 +12,7 @@ platforms:
     privileged: true
     groups:
       - rhel_family
+
   - name: test-docker-ubuntu1804-mysql
     image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: true
@@ -26,9 +27,15 @@ platforms:
       - SYS_ADMIN
     groups:
       - debian_family
+      - pip3
+
 provisioner:
   name: ansible
   log: false
+  inventory:
+    group_vars:
+      pip3:
+        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     verify: ../resources/tests/verify.yml
 scenario:
