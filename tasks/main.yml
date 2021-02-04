@@ -25,6 +25,8 @@
 
 - name: Run secure installation
   include_tasks: secure-installation.yml
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
 - name: Create databases and users
   include_tasks: databases_and_users.yml
