@@ -7,6 +7,12 @@
         state: present
       when: ansible_distribution == 'Ubuntu'
 
+    - name: Install mysql-apt-config
+      apt:
+        deb: https://dev.mysql.com/downloads/repo/apt/mysql-apt-config_0.8.6-1_all.deb
+      register: task_result
+      until: task_result is succeeded
+
     - name: Install requirements
       apt:
         name: '{{ mysql_python_packages }}'
@@ -14,13 +20,13 @@
       register: task_result
       until: task_result is succeeded
 
-    - name: Add Mysql apt key
-      apt_key:
-        keyserver: '{{ mysql_apt_keyserver }}'
-        id: '{{ mysql_apt_key_id }}'
-        state: present
-      register: apt_key_install
-      until: apt_key_install is succeeded
+    # - name: Add Mysql apt key
+    #   apt_key:
+    #     keyserver: '{{ mysql_apt_keyserver }}'
+    #     id: '{{ mysql_apt_key_id }}'
+    #     state: present
+    #   register: apt_key_install
+    #   until: apt_key_install is succeeded
 
     - name: Copy mysql.list
       template:
