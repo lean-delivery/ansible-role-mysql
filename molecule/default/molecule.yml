@@ -13,7 +13,6 @@ platforms:
     groups:
       - rhel_family
       - centos7
-      - pip3
 
   - name: test-docker-ubuntu1804-mysql
     image: leandelivery/docker-systemd:ubuntu-18.04
