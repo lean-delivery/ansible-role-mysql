@@ -30,3 +30,5 @@
 
 - name: Create databases and users
   include_tasks: databases_and_users.yml
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
