@@ -9,7 +9,7 @@
 
     - name: Install mysql-apt-config
       apt:
-        deb: https://dev.mysql.com/downloads/repo/apt/mysql-apt-config_0.8.6-1_all.deb
+        deb: https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
       register: task_result
       until: task_result is succeeded
 
