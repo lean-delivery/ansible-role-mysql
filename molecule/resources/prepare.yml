@@ -24,14 +24,3 @@
         update_cache: true
       register: task_result
       until: task_result is succeeded
-
-    - name: Install python3-dnf
-      dnf:
-        name:
-          - python3-dnf
-        state: present
-        update_cache: true
-      register: task_result
-      until: task_result is succeeded
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
