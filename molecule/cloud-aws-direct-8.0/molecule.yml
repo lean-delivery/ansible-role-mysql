@@ -82,6 +82,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - pip3
 
 provisioner:
   name: ansible
