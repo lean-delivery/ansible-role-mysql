@@ -16,6 +16,7 @@ mysql_default_python_packages:
   - tar
   - python3-devel
   - mysql-devel
+  - libselinux-python3
 
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
