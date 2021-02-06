@@ -7,16 +7,16 @@
         state: present
       when: ansible_distribution == 'Ubuntu'
 
-    - name: Install mysql-apt-config
-      apt:
-        deb: https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
-      register: task_result
-      until: task_result is succeeded
-
     - name: Install requirements
       apt:
         name: '{{ mysql_python_packages }}'
         state: present
+      register: task_result
+      until: task_result is succeeded
+
+    - name: Install mysql-apt-config
+      apt:
+        deb: https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
       register: task_result
       until: task_result is succeeded
 

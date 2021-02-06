@@ -9,15 +9,16 @@ mysql_default_packages:
   - MariaDB-shared
 
 mysql_default_python_packages:
-  - '{{ python_executable }}-pip'
   - boost-program-options
   - gcc
   - lsof
   - rsync
   - tar
   - python3-devel
+  - python3-pip
   - mysql-devel
   - libselinux-python3
+  - mariadb-devel
 
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
