@@ -16,7 +16,6 @@ mysql_default_python_packages:
   - tar
   - python3-devel
   - python3-pip
-  - mysql-devel
   - libselinux-python3
   - mariadb-devel
 
