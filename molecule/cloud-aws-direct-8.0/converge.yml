@@ -18,5 +18,3 @@
     mysql_bind_address: '0.0.0.0'
     mysql_daemon: mysqld
     mysql_version: 8.0
-    mysql_packages:
-      - mysql-server
