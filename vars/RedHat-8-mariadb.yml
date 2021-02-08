@@ -15,10 +15,10 @@ mysql_default_python_packages:
   - lsof
   - rsync
   - tar
-  - python3-devel
+  - python36u-devel
   - python3-pip
   - libselinux-python3
-  # - mariadb-devel
+  - mariadb-devel
   # - mysql-devel
 
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
