@@ -37,6 +37,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - disablerepo
 
   - name: test-aws-ubuntu18-mariadb
     image: ami-012fd5eb46f56731f
@@ -81,7 +82,6 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
       disablerepo:
         mysql_repo_disable_list:
-          - Stream-AppStream
           - AppStream
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
