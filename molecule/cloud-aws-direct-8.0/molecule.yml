@@ -8,7 +8,6 @@ driver:
 lint: ansible-lint
 platforms:
   - name: test-aws-centos7-mysql-8.0
-    image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
     region: us-east-1
@@ -24,7 +23,6 @@ platforms:
       - centos7
 
   - name: test-aws-centos8-mysql-8.0
-    image: ami-0ed2ad9dc845b42b6
     platform: centos8
     instance_type: m5.large
     region: us-east-1
@@ -39,7 +37,6 @@ platforms:
       - rhel_family
 
   - name: test-aws-ubuntu18-mysql-8.0
-    image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
@@ -54,7 +51,6 @@ platforms:
       - debian_family
 
   - name: test-aws-Debian9-mysql-8.0
-    image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: m5.large
     region: us-east-1

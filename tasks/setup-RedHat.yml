@@ -9,6 +9,33 @@
         metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
         gpgcheck: false
 
+    # - name: Install MySQL repos
+    #   yum:
+    #     name: '{{ mysql_repo_package }}'
+    #     state: present
+    #     update_cache: true
+    #   register: task_result
+    #   until: task_result is succeeded
+
+    # - name: Enable current version repo
+    #   yum_repository:
+    #     name: >-
+    #       {{ 'mysql' ~ mysql_repoitem.split('.')[:2] | join ~ '-community' }}
+    #     description: 'MySQL {{ mysql_version }} Community Server'
+    #     baseurl: "http://repo.mysql.com/yum/\
+    #   mysql-{{ mysql_repoitem }}-community/\
+    #   el/{{ ansible_distribution_major_version }}/$basearch/"
+    #     enabled: '{{ mysql_repoitem == mysql_version }}'
+    #   loop:
+    #     - '5.5'
+    #     - '5.6'
+    #     - '5.7'
+    #     - '8.0'
+    #   loop_control:
+    #     loop_var: mysql_repoitem
+
+# https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
+
     - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
       yum_repository:
         name: '{{ mysql_daemon }}'
@@ -23,10 +50,21 @@
       rpm_key:
         state: present
         key: '{{ mysql_gpgkey }}'
+        fingerprint: '{{ mysql_fingerprint | default(omit) }}'
       register: task_result
       retries: 5
       delay: 2
       until: task_result is succeeded
+
+    - name: Disable mysql dnf module if required
+      ini_file:
+        path: '/etc/dnf/modules.d/{{ mysql_syslog_tag }}.module'
+        section: '{{ mysql_syslog_tag }}'
+        option: state
+        value: disabled
+        no_extra_spaces: true
+      when:
+        - ansible_distribution_major_version | int > 7
 
     - name: Install requirements
       yum:
