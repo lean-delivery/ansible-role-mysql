@@ -66,11 +66,16 @@
 
     - name: Disable mysql dnf module if required
       ini_file:
-        path: '/etc/dnf/modules.d/{{ mysql_syslog_tag }}.module'
-        section: '{{ mysql_syslog_tag }}'
+        path: '/etc/dnf/modules.d/{{ module_item }}.module'
+        section: '{{ module_item }}'
         option: state
         value: disabled
         no_extra_spaces: true
+      loop:
+        - mysql
+        - mariadb
+      loop_control:
+        loop_var: module_item
       when:
         - ansible_distribution_major_version | int > 7
   become: true

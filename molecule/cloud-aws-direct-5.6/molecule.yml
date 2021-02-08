@@ -36,6 +36,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - pip3
 
 provisioner:
   name: ansible
@@ -43,6 +44,10 @@ provisioner:
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      pip3:
+        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
