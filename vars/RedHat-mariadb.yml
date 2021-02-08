@@ -1,6 +1,6 @@
 ---
 mysql_default_daemon: mariadb
-mysql_default_version: 10.4
+mysql_default_version: latest
 mysql_default_repo: 'http://yum.mariadb.org/{{ mysql_version }}/centos{{ ansible_distribution_major_version }}-amd64'
 mysql_default_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 mysql_default_packages:
