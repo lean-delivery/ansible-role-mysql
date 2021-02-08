@@ -16,9 +16,8 @@ mysql_default_python_packages:
   - python3-devel
   - python3-pip
   - libselinux-python3
-  - mariadb-devel
+  - MariaDB-devel
   - MariaDB-shared
-  - MariaDB-common
 
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log

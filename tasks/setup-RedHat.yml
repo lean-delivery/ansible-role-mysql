@@ -71,6 +71,7 @@
         option: state
         value: disabled
         no_extra_spaces: true
+        mode: 0644
       loop:
         - mysql
         - mariadb
