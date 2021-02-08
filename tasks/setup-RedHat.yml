@@ -46,18 +46,26 @@
     #   register: task_result
     #   until: task_result is succeeded
 
-    - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
-      ini_file:
-        path: '{{ mysql_repofile }}'
-        section: '{{ mysql_daemon }}'
-        option: '{{ repo_item.key }}'
-        value: '{{ repo_item.value }}'
-        no_extra_spaces: true
+    # - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
+    #   ini_file:
+    #     path: '{{ mysql_repofile }}'
+    #     section: '{{ mysql_daemon }}'
+    #     option: '{{ repo_item.key }}'
+    #     value: '{{ repo_item.value }}'
+    #     no_extra_spaces: true
+    #     mode: 0644
+    #   loop: >-
+    #     {{ mysql_repo_options | dict2items }}
+    #   loop_control:
+    #     loop_var: repo_item
+
+    - name: Set {{ mysql_daemon }} {{ mysql_version }} repository file
+      template:
+        src: yum.repo.j2
+        dest: '{{ mysql_repofile }}'
+        owner: root
+        group: root
         mode: 0644
-      loop: >-
-        {{ mysql_repo_options | dict2items }}
-      loop_control:
-        loop_var: repo_item
 
     - name: Add gpgkey
       rpm_key:
