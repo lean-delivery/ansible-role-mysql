@@ -64,7 +64,7 @@ Lint:
   tags:
     - aws
 
-.AWS mysql mariadb:
+AWS mysql mariadb:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -82,9 +82,9 @@ AWS mysql-8.0:
   tags:
     - aws
 
-.AWS mysql-8.0 ansible 2.9:
+AWS mysql-8.0 ansible 2.10:
   image:
-    name: leandelivery/docker-ansible-ci:ansible-2.9
+    name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
