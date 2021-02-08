@@ -5,17 +5,14 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: ansible-lint
 platforms:
   - name: test-aws-centos7-mysql-5.5
     image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
     spot_price: 0.05
     security_group_name:
@@ -41,5 +38,3 @@ scenario:
   name: cloud-aws-direct-5.5
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
