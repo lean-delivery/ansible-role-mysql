@@ -51,9 +51,19 @@ Mysql/MariaDB repository settings:
 
     mysql_repo: *default value depends on OS*   
     mysql_gpgkey: *default value depends on OS*   
-    mysql_apt_keyserver: *default value depends on OS*   
+    mysql_apt_keyserver: *default value depends on OS*  
+    mysql_repofile: /etc/yum.repos.d/mysql.repo|/etc/yum.repos.d/mariadb.repo
     mysql_apt_key_id: *default value depends on OS*   
     mysql_repo_disable_list: *default - undefined*. For CentOS 8 it's now list of `AppStream` and `Stream-AppStream`.
+    mysql_repo_options: dictionary with options and values for mysql/mariadb repository   
+    *default*:   
+```yaml
+  name: '{{ mysql_daemon }}'
+  description: MariaDB YUM repo
+  baseurl: '{{ mysql_repo }}'
+  gpgkey: '{{ mysql_gpgkey }}'
+  gpgcheck: true
+```
 
     mysql_packages:
       - mysql-community-server   # (mysql-community-server/MariaDB-server)

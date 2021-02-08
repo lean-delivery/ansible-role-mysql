@@ -1,8 +1,18 @@
 ---
 mysql_default_daemon: mariadb
 mysql_default_version: 10.5
-mysql_default_repo: 'http://yum.mariadb.org/{{ mysql_version }}/centos{{ ansible_distribution_major_version }}-amd64'
+mysql_default_repo: "http://yum.mariadb.org/\
+        {{ mysql_version }}/\
+        centos{{ ansible_distribution_major_version }}-amd64"
 mysql_default_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+mysql_default_repofile: '/etc/yum.repos.d/{{ mysql_daemon }}.repo'
+mysql_default_repo_options:
+  name: '{{ mysql_daemon }}'
+  description: MariaDB YUM repo
+  baseurl: '{{ mysql_repo }}'
+  gpgkey: '{{ mysql_gpgkey }}'
+  gpgcheck: true
+  module_hotfixes: 1
 mysql_default_packages:
   - MariaDB-client
   - MariaDB-server

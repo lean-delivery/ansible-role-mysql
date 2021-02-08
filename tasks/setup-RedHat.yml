@@ -36,15 +36,28 @@
 
 # https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
 
+    # - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
+    #   yum_repository:
+    #     name: '{{ mysql_daemon }}'
+    #     description: mysql YUM repo
+    #     baseurl: '{{ mysql_repo }}'
+    #     gpgkey: '{{ mysql_gpgkey }}'
+    #     gpgcheck: true
+    #   register: task_result
+    #   until: task_result is succeeded
+
     - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
-      yum_repository:
-        name: '{{ mysql_daemon }}'
-        description: mysql YUM repo
-        baseurl: '{{ mysql_repo }}'
-        gpgkey: '{{ mysql_gpgkey }}'
-        gpgcheck: true
-      register: task_result
-      until: task_result is succeeded
+      ini_file:
+        path: '{{ mysql_repofile }}'
+        section: '{{ mysql_daemon }}'
+        option: '{{ repo_item.key }}'
+        value: '{{ repo_item.value }}'
+        no_extra_spaces: true
+        mode: 0644
+      loop: >-
+        {{ mysql_repo_options | dict2items }}
+      loop_control:
+        loop_var: repo_item
 
     - name: Add gpgkey
       rpm_key:
@@ -55,18 +68,6 @@
       retries: 5
       delay: 2
       until: task_result is succeeded
-
-    - name: Add module_hotfixes 
-      ini_file:
-        path: /etc/yum.repos.d/mariadb.repo
-        section: mariadb
-        option: module_hotfixes
-        value: 1
-        no_extra_spaces: true
-        mode: 0644
-      when:
-        - ansible_distribution_major_version | int > 7
-        - mysql_daemon == 'mariadb'
 
     - name: Install requirements
       yum:
