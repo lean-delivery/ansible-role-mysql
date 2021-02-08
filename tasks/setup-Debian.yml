@@ -20,6 +20,8 @@
         deb: https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
       register: task_result
       until: task_result is succeeded
+      when:
+        - mysql_daemon == 'mysqld'
 
     - name: Add Mysql apt key
       apt_key:
