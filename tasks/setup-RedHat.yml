@@ -56,12 +56,24 @@
       delay: 2
       until: task_result is succeeded
 
+    - name: Add module_hotfixes 
+      ini_file:
+        path: /etc/yum.repos.d/mariadb.repo
+        section: mariadb
+        option: module_hotfixes
+        value: 1
+        no_extra_spaces: true
+        mode: 0644
+      when:
+        - ansible_distribution_major_version | int > 7
+        - mysql_daemon == 'mariadb'
+
     - name: Install requirements
       yum:
         name: '{{ mysql_python_packages }}'
         state: present
         update_cache: true
-        disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
+        # disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
       register: task_result
       until: task_result is succeeded
 
@@ -81,15 +93,15 @@
       when:
         - ansible_distribution_major_version | int > 7
 
-    # Temporary fix for MariaDB
-    - name: Uninstall mariadb-connector-c
-      yum:
-        name: mariadb-connector-c
-        state: absent
-      register: task_result
-      until: task_result is succeeded
-      when:
-        - ansible_distribution_major_version | int > 7
-        - mysql_daemon == 'mariadb'
+    # # Temporary fix for MariaDB
+    # - name: Uninstall mariadb-connector-c
+    #   yum:
+    #     name: mariadb-connector-c
+    #     state: absent
+    #   register: task_result
+    #   until: task_result is succeeded
+    #   when:
+    #     - ansible_distribution_major_version | int > 7
+    #     - mysql_daemon == 'mariadb'
 
   become: true

@@ -12,6 +12,20 @@
       register: pip_install
       until: pip_install is succeeded
 
+    - name: Install {{ mysql_daemon }} {{ mysql_version }}
+      package:
+        name: '{{ mysql_packages }}'
+        state: present
+        update_cache: true
+        # disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
+      register: task_result
+      until: task_result is succeeded
+
+    - name: Check mysql version
+      command: mysql --version
+      register: mysql_out_version
+      changed_when: false
+
     - name: Install mysqlclient
       pip:
         name:
@@ -20,20 +34,6 @@
         executable: pip3
       register: mysql_connector_install
       until: mysql_connector_install is succeeded
-
-    - name: Install {{ mysql_daemon }} {{ mysql_version }}
-      package:
-        name: '{{ mysql_packages }}'
-        state: present
-        update_cache: true
-        disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
-      register: task_result
-      until: task_result is succeeded
-
-    - name: Check mysql version
-      command: mysql --version
-      register: mysql_out_version
-      changed_when: false
 
     - name: Extract mysql version
       set_fact:
