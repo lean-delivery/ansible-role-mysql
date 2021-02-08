@@ -25,9 +25,6 @@ mysql_repo_list:
   - mysql57-community
   - mysql80-community
 
-
-
-
 mysql_default_python_packages:
   - gcc
   - '{{ python_executable }}-pip'
