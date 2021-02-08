@@ -6,8 +6,6 @@ mysql_default_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 mysql_default_packages:
   - MariaDB-client
   - MariaDB-server
-  - mariadb-shared
-  - mariadb-common
 
 mysql_default_python_packages:
   - boost-program-options
@@ -19,6 +17,8 @@ mysql_default_python_packages:
   - python3-pip
   - libselinux-python3
   - mariadb-devel
+  - mariadb-shared
+  - mariadb-common
 
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
