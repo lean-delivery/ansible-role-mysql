@@ -80,4 +80,16 @@
         loop_var: module_item
       when:
         - ansible_distribution_major_version | int > 7
+
+    # Temporary fix for MariaDB
+    - name: Uninstall mariadb-connector-c
+      yum:
+        name: mariadb-connector-c
+        state: absent
+      register: task_result
+      until: task_result is succeeded
+      when:
+        - ansible_distribution_major_version | int > 7
+        - mysql_daemon == 'mariadb'
+
   become: true
