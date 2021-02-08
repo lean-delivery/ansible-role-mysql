@@ -15,9 +15,10 @@ mysql_default_python_packages:
   - lsof
   - rsync
   - tar
-  - python36-devel
-  - python3-setuptools
-  - python3-pip
+  - python38
+  - python38-devel
+  - python38-setuptools
+  - python38-pip
   - libselinux-python3
   - mariadb-devel
   # - mysql-devel
