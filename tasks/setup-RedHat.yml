@@ -56,6 +56,14 @@
       delay: 2
       until: task_result is succeeded
 
+    - name: Install requirements
+      yum:
+        name: '{{ mysql_python_packages }}'
+        state: present
+        update_cache: true
+      register: task_result
+      until: task_result is succeeded
+
     - name: Disable mysql dnf module if required
       ini_file:
         path: '/etc/dnf/modules.d/{{ mysql_syslog_tag }}.module'
@@ -65,12 +73,4 @@
         no_extra_spaces: true
       when:
         - ansible_distribution_major_version | int > 7
-
-    - name: Install requirements
-      yum:
-        name: '{{ mysql_python_packages }}'
-        state: present
-        update_cache: true
-      register: task_result
-      until: task_result is succeeded
   become: true
