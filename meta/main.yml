@@ -19,7 +19,7 @@ galaxy_info:
     - name: Debian
       versions:
         - stretch
-        - butcher
+        - buster
   versions_mysql:
     - name: mysql
       versions:
