@@ -46,7 +46,7 @@ AWS mysql 5.7:
   tags:
     - aws
 
-AWS mysql 5.6:
+.AWS mysql 5.6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -55,7 +55,7 @@ AWS mysql 5.6:
   tags:
     - aws
 
-AWS mysql 5.5:
+.AWS mysql 5.5:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -64,7 +64,7 @@ AWS mysql 5.5:
   tags:
     - aws
 
-AWS mysql mariadb:
+.AWS mysql mariadb:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -74,6 +74,8 @@ AWS mysql mariadb:
     - aws
 
 AWS mysql-8.0:
+  image:
+    name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -82,13 +84,13 @@ AWS mysql-8.0:
   tags:
     - aws
 
-.AWS mysql-8.0 ansible 2.10:
+AWS mariadb ansible 2.10:
   image:
     name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-direct-8.0
+    - molecule test -s cloud-aws-direct-mariadb
   tags:
     - aws
