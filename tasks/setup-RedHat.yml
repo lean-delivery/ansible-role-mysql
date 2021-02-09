@@ -5,59 +5,8 @@
       yum_repository:
         name: epel
         description: EPEL YUM repo
-        # baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
         metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
         gpgcheck: false
-
-    # - name: Install MySQL repos
-    #   yum:
-    #     name: '{{ mysql_repo_package }}'
-    #     state: present
-    #     update_cache: true
-    #   register: task_result
-    #   until: task_result is succeeded
-
-    # - name: Enable current version repo
-    #   yum_repository:
-    #     name: >-
-    #       {{ 'mysql' ~ mysql_repoitem.split('.')[:2] | join ~ '-community' }}
-    #     description: 'MySQL {{ mysql_version }} Community Server'
-    #     baseurl: "http://repo.mysql.com/yum/\
-    #   mysql-{{ mysql_repoitem }}-community/\
-    #   el/{{ ansible_distribution_major_version }}/$basearch/"
-    #     enabled: '{{ mysql_repoitem == mysql_version }}'
-    #   loop:
-    #     - '5.5'
-    #     - '5.6'
-    #     - '5.7'
-    #     - '8.0'
-    #   loop_control:
-    #     loop_var: mysql_repoitem
-
-# https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
-
-    # - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
-    #   yum_repository:
-    #     name: '{{ mysql_daemon }}'
-    #     description: mysql YUM repo
-    #     baseurl: '{{ mysql_repo }}'
-    #     gpgkey: '{{ mysql_gpgkey }}'
-    #     gpgcheck: true
-    #   register: task_result
-    #   until: task_result is succeeded
-
-    # - name: Add {{ mysql_daemon }} {{ mysql_version }} repository file
-    #   ini_file:
-    #     path: '{{ mysql_repofile }}'
-    #     section: '{{ mysql_daemon }}'
-    #     option: '{{ repo_item.key }}'
-    #     value: '{{ repo_item.value }}'
-    #     no_extra_spaces: true
-    #     mode: 0644
-    #   loop: >-
-    #     {{ mysql_repo_options | dict2items }}
-    #   loop_control:
-    #     loop_var: repo_item
 
     - name: Set {{ mysql_daemon }} {{ mysql_version }} repository file
       template:
@@ -82,7 +31,6 @@
         name: '{{ mysql_python_packages }}'
         state: present
         update_cache: true
-        # disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
       register: task_result
       until: task_result is succeeded
 
@@ -101,16 +49,5 @@
         loop_var: module_item
       when:
         - ansible_distribution_major_version | int > 7
-
-    # # Temporary fix for MariaDB
-    # - name: Uninstall mariadb-connector-c
-    #   yum:
-    #     name: mariadb-connector-c
-    #     state: absent
-    #   register: task_result
-    #   until: task_result is succeeded
-    #   when:
-    #     - ansible_distribution_major_version | int > 7
-    #     - mysql_daemon == 'mariadb'
 
   become: true

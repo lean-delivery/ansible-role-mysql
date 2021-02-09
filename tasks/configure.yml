@@ -17,7 +17,6 @@
         name: '{{ mysql_packages }}'
         state: present
         update_cache: true
-        # disablerepo: '{{ mysql_repo_disable_list | default(omit) }}'
       register: task_result
       until: task_result is succeeded
 
