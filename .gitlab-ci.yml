@@ -2,7 +2,7 @@
 # Run all tests
 # default:
 #   image:
-#     name: leandelivery/docker-ansible-ci:ansible-2.9
+#     name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.9
 
 stages:
   - lint
@@ -46,7 +46,7 @@ AWS mysql 5.7:
   tags:
     - aws
 
-.AWS mysql 5.6:
+AWS mysql 5.6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -55,7 +55,7 @@ AWS mysql 5.7:
   tags:
     - aws
 
-.AWS mysql 5.5:
+AWS mysql 5.5:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
