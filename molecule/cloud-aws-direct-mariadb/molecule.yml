@@ -94,9 +94,6 @@ provisioner:
     group_vars:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
-      disablerepo:
-        mysql_repo_disable_list:
-          - AppStream
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml

@@ -39,8 +39,6 @@
     - name: Check mysql version
       mysql_variables:
         variable: version
-        # login_user: root
-        # login_unix_socket: '{{ mysql_socket }}'
       register: mysql_version_out
       until: mysql_version_out is succeeded
       become: true

@@ -90,14 +90,6 @@ provisioner:
     group_vars:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
-      pip2:
-        mysql_python_packages:
-          - gcc
-          - python36
-          - python3-pip
-          - perl-DBD-MySQL
-          - python3-devel
-          - mysql-devel
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
