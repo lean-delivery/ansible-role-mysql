@@ -1,8 +1,6 @@
 ---
 mysql_default_daemon: mysqld
 mysql_apt_template: mysql.list
-
-
 mysql_default_packages:
   - mysql-server
 

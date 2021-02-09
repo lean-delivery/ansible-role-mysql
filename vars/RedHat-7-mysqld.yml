@@ -8,27 +8,9 @@ mysql_default_gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql
 mysql_default_repofile: '/etc/yum.repos.d/{{ mysql_daemon }}.repo'
 mysql_fingerprint: 'A4A9 4068 76FC BD3C 4567  70C8 8C71 8D3B 5072 E1F5'
 mysql_default_repo_package: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-mysql_default_repo_options:
-  name: '{{ mysql_daemon }}'
-  description: MySQL YUM repo
-  baseurl: '{{ mysql_repo }}'
-  gpgkey: '{{ mysql_gpgkey }}'
-  gpgcheck: true
 mysql_default_packages:
   - mysql-community-server
   - mysql-community-client
-mysql_version_repoid: >-
-  'mysql' ~ mysql_version.split('.')[:2] | join ~ '-community'
-mysql_repo_list:
-  - mysql55-community
-  - mysql56-community
-  - mysql57-community
-  - mysql80-community
-
-# mysql_repo_disable_list: >-
-#   {{ mysql_repo_list | difference([mysql_version_repoid]) }}
-mysql_repo_enable_list: '{{ mysql_version_repoid }}'
-
 
 mysql_default_python_packages:
   - gcc
