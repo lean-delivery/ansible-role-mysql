@@ -17,7 +17,7 @@ mysql_default_python_packages:
   - dirmngr
   - software-properties-common
   - python3-dev
-  - default-libmysqlclient-dev
+  - libmariadb-dev
   - build-essential
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log

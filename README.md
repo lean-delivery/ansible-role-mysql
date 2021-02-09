@@ -77,7 +77,7 @@ If you want to select a specific minor version of package, you can enter appropr
       
                                  # (MariaDB-common)
     mysql_daemon: mysqld         # (mysqld/mariadb)
-    mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
+    mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.5) )
 
 (OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
