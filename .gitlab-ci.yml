@@ -84,7 +84,7 @@ AWS mysql-8.0:
   tags:
     - aws
 
-AWS mariadb ansible 2.10:
+.AWS mariadb ansible 2.10:
   image:
     name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
