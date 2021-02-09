@@ -39,8 +39,6 @@
     - name: Check mysql version
       mysql_variables:
         variable: version
-        login_user: root
-        login_unix_socket: '{{ mysql_socket }}'
       register: mysql_version_out
       until: mysql_version_out is succeeded
       become: true
@@ -50,6 +48,7 @@
         src: reset.sql.j2
         dest: /tmp/reset.sql
         force: true
+        mode: 0644
 
     - name: Reset root credentials
       mysql_db:
@@ -123,7 +122,7 @@
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
         login_unix_socket: '{{ mysql_socket }}'
-      no_log: false
+      no_log: true
 
     - name: Remove anonymous MySQL users
       mysql_user:

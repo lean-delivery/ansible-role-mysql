@@ -1,0 +1,31 @@
+---
+mysql_default_daemon: mysqld
+mysql_default_version: 8.0
+mysql_default_repo: "http://repo.mysql.com/yum/\
+      mysql-{{ mysql_version }}-community/\
+      el/{{ ansible_distribution_major_version }}/$basearch/"
+mysql_default_gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql
+mysql_default_repofile: '/etc/yum.repos.d/{{ mysql_daemon }}.repo'
+mysql_fingerprint: 'A4A9 4068 76FC BD3C 4567  70C8 8C71 8D3B 5072 E1F5'
+mysql_default_repo_package: https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
+mysql_default_packages:
+  - mysql-community-server
+  - mysql-community-client
+
+mysql_default_python_packages:
+  - gcc
+  - '{{ python_executable }}-pip'
+  - perl-DBD-MySQL
+  - python3-devel
+  - mysql-devel
+  - libselinux-python3
+mysql_default_slow_query_log_file: /var/log/mysql-slow.log
+mysql_default_log_error: /var/log/mysql.err
+mysql_default_syslog_tag: mysql
+mysql_default_pid_file: /var/run/mysqld/mysqld.pid
+mysql_default_config_file: /etc/my.cnf
+mysql_default_config_include_dir: /etc/my.cnf.d
+mysql_default_socket: /var/lib/mysql/mysql.sock
+mysql_default_supports_innodb_large_prefix: false
+mysql_default_datadir: /var/lib/mysql
+mysql_default_service_name: mysqld

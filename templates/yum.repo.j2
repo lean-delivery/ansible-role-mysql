@@ -1,0 +1,10 @@
+[{{ mysql_daemon }}]
+name={{ mysql_daemon }}
+description={{ mysql_daemon }} YUM repo
+baseurl={{ mysql_repo }}
+gpgcheck=1
+gpgkey={{ mysql_gpgkey }}
+enabled=1
+{% if mysql_module_hotfixes|default(false)|bool %}
+module_hotfixes=1
+{% endif %}

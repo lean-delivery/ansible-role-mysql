@@ -1,8 +1,8 @@
 ---
 # Run all tests
-default:
-  image:
-    name: leandelivery/docker-ansible-ci:ansible-2.9
+# default:
+#   image:
+#     name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.9
 
 stages:
   - lint
@@ -30,7 +30,7 @@ Lint:
   tags:
     - lint
 
-Docker mysql:
+.Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default
@@ -82,9 +82,9 @@ AWS mysql-8.0:
   tags:
     - aws
 
-.AWS mysql-8.0 ansible 2.9:
+.AWS mysql-8.0 ansible 2.10:
   image:
-    name: leandelivery/docker-ansible-ci:ansible-2.9
+    name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

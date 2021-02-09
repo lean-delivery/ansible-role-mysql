@@ -1,17 +1,23 @@
 ---
 mysql_default_daemon: mariadb
-mysql_default_version: 10.4
+mysql_default_version: 10.5
 mysql_default_repo: http://nyc2.mirrors.digitalocean.com/mariadb/repo
 mysql_apt_template: mariadb.list
 
 mysql_default_packages:
   - mariadb-server
+  - libmariadb3
+  - galera-4
+  - mariadb-client
+  - mariadb-common
 
-# - mysql-connector-python
 mysql_default_python_packages:
   - '{{ python_executable }}-pip'
   - dirmngr
   - software-properties-common
+  - python3-dev
+  - libmariadb-dev
+  - build-essential
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mariadb.log
 mysql_default_syslog_tag: mariadb

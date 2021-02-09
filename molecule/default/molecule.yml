@@ -5,16 +5,15 @@ dependency:
     role-file: requirements.yml
 driver:
   name: docker
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: ansible-lint
 platforms:
   - name: test-docker-centos7-mysql
     image: leandelivery/docker-systemd:centos7
     privileged: true
     groups:
       - rhel_family
+      - centos7
+
   - name: test-docker-ubuntu1804-mysql
     image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: true
@@ -29,16 +28,18 @@ platforms:
       - SYS_ADMIN
     groups:
       - debian_family
+
 provisioner:
   name: ansible
   log: false
-  lint:
-    name: ansible-lint
+  inventory:
+    group_vars:
+      pip3:
+        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     verify: ../resources/tests/verify.yml
+    prepare: ../resources/prepare.yml
 scenario:
   name: default
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

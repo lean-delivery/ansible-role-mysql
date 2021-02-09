@@ -25,11 +25,9 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 5.7
           - 8.0
       - Mariadb
-          - 5.5
-          - 10.0
-          - 10.1
-          - 10.2
           - 10.3
+          - 10.4
+          - 10.5
   - Supported OS:
       - RHEL
           - 7
@@ -38,10 +36,10 @@ This role installs and configures MySQL or MariaDB server on RHEL/CentOS servers
           - 7
           - 8
       - Ubuntu
-          - 16.04
           - 18.04
       - Debian
           - 9
+          - 10
 
 ## Role Variables
 
@@ -51,7 +49,8 @@ Mysql/MariaDB repository settings:
 
     mysql_repo: *default value depends on OS*   
     mysql_gpgkey: *default value depends on OS*   
-    mysql_apt_keyserver: *default value depends on OS*   
+    mysql_apt_keyserver: *default value depends on OS*  
+    mysql_repofile: /etc/yum.repos.d/mysql.repo|/etc/yum.repos.d/mariadb.repo
     mysql_apt_key_id: *default value depends on OS*   
     mysql_repo_disable_list: *default - undefined*. For CentOS 8 it's now list of `AppStream` and `Stream-AppStream`.
 
@@ -67,7 +66,7 @@ If you want to select a specific minor version of package, you can enter appropr
       
                                  # (MariaDB-common)
     mysql_daemon: mysqld         # (mysqld/mariadb)
-    mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.1) )
+    mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.5) )
 
 (OS-specific, RedHat/CentOS defaults listed here) Packages to be installed. In some situations, you may need to add additional packages, like `mysql-devel`.
 
