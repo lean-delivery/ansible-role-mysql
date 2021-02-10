@@ -1,8 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  collections:
-    - community.mysql
   roles:
     - role: ansible-role-mysql
   vars:

@@ -39,3 +39,5 @@ galaxy_info:
     - db
     - sql
 dependencies: []
+collections:
+  - community.mysql
