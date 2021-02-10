@@ -73,7 +73,7 @@ Lint:
   tags:
     - aws
 
-AWS mysql-8.0:
+.AWS mysql-8.0:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -82,7 +82,7 @@ AWS mysql-8.0:
   tags:
     - aws
 
-.WS mysql-8.0 ansible-2.10:
+WS mysql-8.0 ansible-2.10:
   image:
     name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
