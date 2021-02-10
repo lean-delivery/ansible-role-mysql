@@ -3,23 +3,33 @@ python_executable: >-
   {{ (ansible_facts.python.version.major|int == 3) | ternary('python3', 'python') }}
 mysql_priviledge_list:
   - ALTER
+  - ALTER\ ROUTINE
   - CREATE
+  - CREATE\ ROLE
+  - CREATE\ ROUTINE
+  - CREATE\ TABLESPACE
+  - CREATE\ TEMPORARY TABLES
+  - CREATE\ USER
+  - CREATE\ VIEW
   - DELETE
   - DROP
+  - DROP\ ROLE
   - EVENT
   - EXECUTE
   - FILE
   - GRANT
   - INDEX
   - INSERT
-  - LOCK
+  - LOCK\ TABLES
   - PROCESS
   - PROXY
   - REFERENCES
   - RELOAD
-  - REPLICATION
+  - REPLICATION\ CLIENT
+  - REPLICATION\ SLAVE
   - SELECT
-  - SHOW
+  - SHOW\ DATABASES
+  - SHOW\ VIEW
   - SHUTDOWN
   - SUPER
   - TRIGGER
