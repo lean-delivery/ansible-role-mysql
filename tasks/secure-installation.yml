@@ -113,7 +113,7 @@
       when: mysql_user_name != mysql_root_username
 
     - name: Update mysql root password for all root accounts
-      mysql_user:
+      community.mysql.mysql_user:
         name: root
         host_all: true
         password: '{{ mysql_root_password }}'
