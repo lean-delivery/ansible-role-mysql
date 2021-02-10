@@ -118,15 +118,13 @@
         host_all: true
         password: '{{ mysql_root_password }}'
         check_implicit_admin: true
-        priv: '*.*:ALL,GRANT'
+        priv: >-
+          *.*:{{ mysql_priviledge_list | join(',') }}
+        # priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
       register: mysql_res
       # no_log: true
-
-    - name: output res
-      debug:
-        var: mysql_res
 
     - name: Remove anonymous MySQL users
       mysql_user:
