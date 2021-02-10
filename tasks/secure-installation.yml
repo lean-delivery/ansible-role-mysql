@@ -118,12 +118,11 @@
         host_all: true
         password: '{{ mysql_root_password }}'
         check_implicit_admin: true
-        priv: >-
-          *.*:{{ mysql_priviledge_list | join(',') }}
-        # priv: '*.*:ALL,GRANT'
+        priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
-      register: mysql_res
+        login_unix_socket: '{{ mysql_socket }}'
+      changed_when: false # Workaround related to https://github.com/ansible-collections/community.mysql/issues/77
       # no_log: true
 
     - name: Remove anonymous MySQL users
