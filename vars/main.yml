@@ -3,7 +3,6 @@ python_executable: >-
   {{ (ansible_facts.python.version.major|int == 3) | ternary('python3', 'python') }}
 mysql_priviledge_list:
   - ALTER
-  - ALTER ROUTINE
   - CREATE
   - DELETE
   - DROP
