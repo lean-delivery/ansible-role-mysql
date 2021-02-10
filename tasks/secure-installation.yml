@@ -121,8 +121,12 @@
         priv: '*.*:ALL,GRANT'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
-        # login_unix_socket: '{{ mysql_socket }}'
+      register: mysql_res
       # no_log: true
+
+    - name: output res
+      debug:
+        var: mysql_res
 
     - name: Remove anonymous MySQL users
       mysql_user:
