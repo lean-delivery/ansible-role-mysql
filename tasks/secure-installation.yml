@@ -125,7 +125,7 @@
       # no_log: true
 
     - name: Remove anonymous MySQL users
-      mysql_user:
+      community.mysql.mysql_user:
         name: ''
         host_all: true
         state: absent
@@ -133,7 +133,7 @@
         login_password: '{{ mysql_root_password }}'
 
     - name: Remove MySQL test database
-      mysql_db:
+      community.mysql.mysql_db:
         name: test
         state: absent
         login_user: '{{ mysql_root_username }}'
