@@ -1,6 +1,6 @@
 ---
 - name: Ensure MySQL databases are present
-  community.mysql.mysql_db:
+  mysql_db:
     name: '{{ item.name }}'
     collation: '{{ item.collation | default("utf8_general_ci") }}'
     encoding: '{{ item.encoding | default("utf8") }}'
@@ -12,7 +12,7 @@
   become: true
 
 - name: Ensure MySQL users are present
-  community.mysql.mysql_user:
+  mysql_user:
     name: '{{ item.name }}'
     host: '{{ item.host | default("localhost") }}'
     password: '{{ item.password }}'
