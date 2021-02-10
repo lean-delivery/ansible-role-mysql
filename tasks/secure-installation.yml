@@ -4,7 +4,7 @@
 - name: Make new mysql admin user
   block:
     - name: Check mysql version
-      mysql_variables:
+      community.mysql.mysql_variables:
         variable: version
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
@@ -37,7 +37,7 @@
       become: true
 
     - name: Check mysql version
-      mysql_variables:
+      community.mysql.mysql_variables:
         variable: version
       register: mysql_version_out
       until: mysql_version_out is succeeded
@@ -51,7 +51,7 @@
         mode: 0644
 
     - name: Reset root credentials
-      mysql_db:
+      community.mysql.mysql_db:
         name: mysql
         state: import
         target: /tmp/reset.sql
@@ -93,7 +93,7 @@
 - name: Setup admin credentials
   block:
     - name: Ensure default user is present
-      mysql_user:
+      community.mysql.mysql_user:
         name: '{{ mysql_user_name }}'
         host: localhost
         password: '{{ mysql_user_password }}'
