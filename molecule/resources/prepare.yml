@@ -1,7 +1,9 @@
 ---
 - name: Prepare python3
-  hosts: all
+  hosts: localhost
   become: true
+  vars:
+    ansible_connection: local
   tasks:
     - name: Copy module
       copy:
