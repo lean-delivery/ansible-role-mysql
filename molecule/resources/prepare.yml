@@ -1,16 +1,5 @@
 ---
 - name: Prepare python3
-  hosts: localhost
-  become: true
-  vars:
-    ansible_connection: local
-  tasks:
-    - name: Copy module
-      copy:
-        src: '{{ playbook_dir }}/../../library/mysql_user.py'
-        dest: ~/.ansible/collections/ansible_collections/community/mysql/plugins/modules/mysql_user.py
-
-- name: Prepare python3
   hosts: centos7
   become: true
   vars:
