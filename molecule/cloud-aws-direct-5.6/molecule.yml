@@ -2,7 +2,8 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
+    requirements-file: requirements.yml
+    collections-path: ~/.ansible/collections
 driver:
   name: ec2
 lint: ansible-lint
