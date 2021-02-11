@@ -1,3 +1,5 @@
 ---
 collections:
   - name: community.mysql
+    source: https://github.com/lean-delivery/community.mysql.git
+    type: git

@@ -474,6 +474,13 @@ def get_grants(cursor, user, host):
     grants = re.search(pattern, grants_line[0]).group().strip()
     return grants.split(", ")
 
+def privileges_get_all(cursor):	
+    privileges = []	
+    cursor.execute('SELECT DISTINCT PRIVILEGE_TYPE FROM INFORMATION_SCHEMA.USER_PRIVILEGES WHERE IS_GRANTABLE="yes"')	
+    grants = cursor.fetchall()	
+    for grant in grants:	
+        privileges.append(grant[0])	
+    return privileges
 
 def user_add(cursor, user, host, host_all, password, encrypted,
              plugin, plugin_hash_string, plugin_auth_string, new_priv,
@@ -676,22 +683,37 @@ def user_mod(cursor, user, host, host_all, password, encrypted,
             # and in the new privileges, then we need to see if there's a difference.
             db_table_intersect = set(new_priv.keys()) & set(curr_priv.keys())
             for db_table in db_table_intersect:
-
-                # If appending privileges, only the set difference between new privileges and current privileges matter.
-                # The symmetric difference isn't relevant for append because existing privileges will not be revoked.
-                if append_privs:
-                    priv_diff = set(new_priv[db_table]) - set(curr_priv[db_table])
-                else:
-                    priv_diff = set(new_priv[db_table]) ^ set(curr_priv[db_table])
-
-                if len(priv_diff) > 0:
-                    msg = "Privileges updated"
-                    if module.check_mode:
-                        return (True, msg)
+                if "ALL" in new_priv[db_table]:
                     if not append_privs:
                         privileges_revoke(cursor, user, host, db_table, curr_priv[db_table], grant_option)
                     privileges_grant(cursor, user, host, db_table, new_priv[db_table], tls_requires)
-                    changed = True
+                    new_priv = {db_table: privileges_get_all(cursor)}	
+                    if append_privs:
+                        priv_diff = set(new_priv[db_table]) - set(curr_priv[db_table])
+                    else:
+                        priv_diff = set(new_priv[db_table]) ^ set(curr_priv[db_table])
+
+                    if len(priv_diff) > 0:
+                        msg = "Privileges updated"
+                        if module.check_mode:
+                            return (True, msg)
+                        changed = True
+                else:
+                  # If appending privileges, only the set difference between new privileges and current privileges matter.
+                  # The symmetric difference isn't relevant for append because existing privileges will not be revoked.
+                    if append_privs:
+                        priv_diff = set(new_priv[db_table]) - set(curr_priv[db_table])
+                    else:
+                        priv_diff = set(new_priv[db_table]) ^ set(curr_priv[db_table])
+
+                    if len(priv_diff) > 0:
+                        msg = "Privileges updated"
+                        if module.check_mode:
+                            return (True, msg)
+                        if not append_privs:
+                            privileges_revoke(cursor, user, host, db_table, curr_priv[db_table], grant_option)
+                        privileges_grant(cursor, user, host, db_table, new_priv[db_table], tls_requires)
+                        changed = True
 
         # Handle TLS requirements
         current_requires = get_tls_requires(cursor, user, host)
