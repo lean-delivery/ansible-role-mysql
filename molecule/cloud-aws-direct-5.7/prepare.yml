@@ -14,3 +14,11 @@
 
     - name: Re-Install python3-apt
       raw: apt-get -y install python3-apt
+
+    - name: Get apt
+      shell: ls -la /usr/lib/python3/dist-packages/apt_pkg.cpython*
+      register: cmd_res
+
+    - name: debug cmd_res
+      debug:
+        var: cmd_res
