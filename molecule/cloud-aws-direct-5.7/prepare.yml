@@ -3,7 +3,7 @@
   hosts: minor
   become: true
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: auto
   tasks:
 
     - name: Install software-properties-common
