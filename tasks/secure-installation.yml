@@ -123,9 +123,8 @@
         login_password: '{{ mysql_root_password }}'
         login_unix_socket: '{{ mysql_socket }}'
       no_log: true
-      # tags:
-      #   - molecule-idempotence-notest
-
+      tags:
+        - molecule-idempotence-notest
 
     - name: Remove anonymous MySQL users
       mysql_user:
