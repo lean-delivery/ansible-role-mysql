@@ -22,6 +22,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - centos7
 
 provisioner:
   name: ansible

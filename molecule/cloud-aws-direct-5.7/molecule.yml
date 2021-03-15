@@ -8,20 +8,35 @@ driver:
   name: ec2
 lint: ansible-lint
 platforms:
-  - name: test-aws-centos7-mysql-5.7
-    platform: centos7
+  # - name: test-aws-centos7-mysql-5.7
+  #   platform: centos7
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.05
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - centos7
+
+  - name: test-aws-ubuntu16-mysql-5.7
+    platform: ubuntu16
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.05
     security_group_name:
       - default
+    spot_price: 0.05
     wait_timeout: 1800
-    ssh_user: centos
+    ssh_user: ubuntu
     groups:
-      - rhel_family
-      - centos7
+      - debian_family
+      - minor
 
   - name: test-aws-ubuntu18-mysql-5.7
     platform: ubuntu18
@@ -37,20 +52,20 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Debian9-mysql-5.7
-    platform: debian9
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.05
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - pip3
+  # - name: test-aws-Debian9-mysql-5.7
+  #   platform: debian9
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.05
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - pip3
 
 provisioner:
   name: ansible
@@ -62,6 +77,12 @@ provisioner:
     group_vars:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
+      minor:
+        mysql_packages:
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu16.04_amd64.deb
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu16.04_amd64.deb
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1ubuntu16.04_amd64.deb
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.31-1ubuntu16.04_amd64.deb
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
