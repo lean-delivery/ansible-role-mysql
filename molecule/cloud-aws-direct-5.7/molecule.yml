@@ -38,19 +38,19 @@ platforms:
       - debian_family
       - minor
 
-  - name: test-aws-ubuntu18-mysql-5.7
-    platform: ubuntu18
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    security_group_name:
-      - default
-    spot_price: 0.05
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
+  # - name: test-aws-ubuntu18-mysql-5.7
+  #   platform: ubuntu18
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   security_group_name:
+  #     - default
+  #   spot_price: 0.05
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
 
   # - name: test-aws-Debian9-mysql-5.7
   #   platform: debian9
@@ -81,10 +81,10 @@ provisioner:
         mysql_python_packages:
           - '{{ python_executable }}-pip'
           - '{{ python_executable }}-apt'
-          - python3-dev
-          - gnupg
+          # - python3-dev
+          # - gnupg
           - libmysqlclient-dev
-          - build-essential
+          # - build-essential
         mysql_packages:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu16.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu16.04_amd64.deb
