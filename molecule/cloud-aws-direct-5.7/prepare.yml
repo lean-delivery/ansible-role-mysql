@@ -20,14 +20,6 @@
       debug:
         var: cmd_res
 
-    - name: Set apt
-      shell: ls -la /usr/lib/python3.7/dist-packages/apt_pkg.cpython*
-      register: cmd_res2
-
-    - name: debug cmd_res2
-      debug:
-        var: cmd_res2
-
     - name: Re-Install python3-apt
       pip:
         name: python3-apt
