@@ -132,6 +132,8 @@
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
         login_unix_socket: '{{ mysql_socket }}'
+      tags:
+        - molecule-idempotence-notest
       # changed_when: false # Workaround related to https://github.com/ansible-collections/community.mysql/issues/77
       # no_log: true
 

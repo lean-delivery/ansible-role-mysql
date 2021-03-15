@@ -84,7 +84,7 @@ AWS mysql 5.7:
   tags:
     - aws
 
-WS mysql-8.0 ansible-2.10:
+AWS mysql-8.0 ansible-2.10:
   image:
     name: $AWS_ECR_REPO/docker-ansible-ci:ansible-2.10
   variables:
