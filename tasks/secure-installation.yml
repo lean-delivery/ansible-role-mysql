@@ -1,5 +1,5 @@
 ---
-# Reset default passwort for root didn"t work with module mysql_user,
+# Reset default passwort for root didn't work with module mysql_user,
 # that why we use this block
 - name: Make new mysql admin user
   block:
@@ -112,16 +112,6 @@
         mode: 0600
       when: mysql_user_name != mysql_root_username
 
-    # - name: Collect info
-    #   mysql_info:
-    #     config_file: '{{ mysql_config_file }}'
-    #     filter:
-    #       - users
-    #     login_user: '{{ mysql_root_username }}'
-    #     login_password: '{{ mysql_root_password }}'
-    #     login_unix_socket: '{{ mysql_socket }}'
-    #   register: users1
-
     - name: Update mysql root password for all root accounts
       mysql_user:
         name: root
@@ -132,28 +122,10 @@
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
         login_unix_socket: '{{ mysql_socket }}'
-      tags:
-        - molecule-idempotence-notest
-      # changed_when: false # Workaround related to https://github.com/ansible-collections/community.mysql/issues/77
-      # no_log: true
+      no_log: true
+      # tags:
+      #   - molecule-idempotence-notest
 
-    # - name: Collect new info
-    #   mysql_info:
-    #     config_file: '{{ mysql_config_file }}'
-    #     filter:
-    #       - users
-    #     login_user: '{{ mysql_root_username }}'
-    #     login_password: '{{ mysql_root_password }}'
-    #     login_unix_socket: '{{ mysql_socket }}'
-    #   register: users2
-
-    # - name: debug users1
-    #   debug:
-    #     var: users1
-
-    # - name: debug users2
-    #   debug:
-    #     var: users2
 
     - name: Remove anonymous MySQL users
       mysql_user:
