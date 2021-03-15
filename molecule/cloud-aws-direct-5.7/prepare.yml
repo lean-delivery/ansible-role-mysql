@@ -6,17 +6,17 @@
     ansible_python_interpreter: auto
   tasks:
 
-    - name: Re-Install python3
-      raw: apt -y remove python3.5 && apt update && add-apt-repository ppa:deadsnakes/ppa && apt install software-properties-common python3.7
+    - name: Remove python3
+      raw: apt -y remove python3.5
 
     - name: Remove alternatives
-      raw: update-alternatives --remove-all python3
+      raw: apt-get -y update && update-alternatives --remove-all python3
+
+    - name: Install python3.7
+      raw: add-apt-repository -y ppa:deadsnakes/ppa && apt-get -y install software-properties-common python3.7
 
     - name: Update alternatives
-      alternatives:
-        name: python3
-        link: /usr/bin/python3
-        path: /usr/bin/python3.7
+      raw: update-alternatives --set python3 /usr/bin/python3.7
 
     - name: Re-Install python3-apt
       raw: apt-get -y remove python3-apt && apt-get -y install python3-apt
