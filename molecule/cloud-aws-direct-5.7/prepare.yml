@@ -21,4 +21,9 @@
         var: cmd_res
 
     - name: Re-Install python3-apt
-      raw: apt-get -y install python3-apt
+      pip:
+        name: python3-apt
+        state: present
+        update_cache: true
+      register: task_result
+      until: task_result is succeeded

@@ -78,7 +78,7 @@ provisioner:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
       minor:
-        ansible_python_interpreter: /usr/bin/python3.7
+        ansible_python_interpreter: /usr/bin/python3
         mysql_python_packages:
           - '{{ python_executable }}-pip'
           - '{{ python_executable }}-apt'
