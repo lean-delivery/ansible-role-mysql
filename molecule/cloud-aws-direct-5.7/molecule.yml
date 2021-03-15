@@ -78,6 +78,13 @@ provisioner:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
       minor:
+        mysql_python_packages:
+          - '{{ python_executable }}-pip'
+          - '{{ python_executable }}-apt'
+          - python3-dev
+          - gnupg
+          - libmysqlclient-dev
+          - build-essential
         mysql_packages:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu16.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu16.04_amd64.deb
