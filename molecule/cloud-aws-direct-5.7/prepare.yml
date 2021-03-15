@@ -7,7 +7,7 @@
   tasks:
 
     - name: Remove python3
-      raw: apt -y remove python3.5
+      raw: apt-get -y update && apt -y remove python3.5
 
     - name: Remove alternatives
       raw: apt-get -y update && update-alternatives --remove-all python3
