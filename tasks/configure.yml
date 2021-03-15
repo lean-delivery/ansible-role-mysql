@@ -14,7 +14,8 @@
 
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
       package:
-        name: '{{ mysql_packages }}'
+        name: '{{ (mysql_artifacts | default(false,true)) | ternary(omit, mysql_packages) }}'
+        deb: '{{ mysql_artifacts | default(omit, true) }}'
         state: present
         update_cache: true
       register: task_result
