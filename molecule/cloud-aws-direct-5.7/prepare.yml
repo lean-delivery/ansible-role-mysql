@@ -2,6 +2,8 @@
 - name: Prepare python3
   hosts: minor
   become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
 
     - name: Install software-properties-common
