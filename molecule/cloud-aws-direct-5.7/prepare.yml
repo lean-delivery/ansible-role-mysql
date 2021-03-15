@@ -6,14 +6,6 @@
     ansible_python_interpreter: auto
   tasks:
 
-    - name: Install software-properties-common
-      apt:
-        name: software-properties-common
-        state: present
-        update_cache: true
-      register: task_result
-      until: task_result is succeeded
-
     - name: Add repository
       apt_repository:
         repo: ppa:deadsnakes/ppa
@@ -22,7 +14,9 @@
       apt:
         name:
           - python3.7
+          - python3-apt
           - python3-pip
+          - software-properties-common
         state: present
         update_cache: true
       register: task_result
