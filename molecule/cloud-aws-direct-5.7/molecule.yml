@@ -81,7 +81,7 @@ provisioner:
         mysql_python_packages:
           - '{{ python_executable }}-pip'
           - '{{ python_executable }}-apt'
-          - python3.6-dev
+          - python3.5-dev
           - gnupg
           - libmysqlclient-dev
           - build-essential
