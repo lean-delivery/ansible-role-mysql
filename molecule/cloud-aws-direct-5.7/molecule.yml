@@ -81,7 +81,7 @@ provisioner:
         mysql_python_packages:
           - '{{ python_executable }}-pip'
           - '{{ python_executable }}-apt'
-          - python3.5-dev
+          - python3.6-dev
           - gnupg
           - libmysqlclient-dev
           - build-essential
@@ -94,7 +94,7 @@ provisioner:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-    prepare: ../resources/prepare.yml
+    prepare: prepare.yml
 scenario:
   name: cloud-aws-direct-5.7
 verifier:
