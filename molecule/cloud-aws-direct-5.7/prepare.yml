@@ -24,6 +24,5 @@
       pip:
         name: python3-apt
         state: present
-        update_cache: true
       register: task_result
       until: task_result is succeeded
