@@ -14,10 +14,18 @@
       apt:
         name:
           - python3.7
-          - python3-apt
           - python3-pip
           - software-properties-common
         state: present
         update_cache: true
       register: task_result
       until: task_result is succeeded
+
+    - name: Update alternatives
+      alternatives:
+        name: python3
+        link: /usr/bin/python3
+        path: /usr/bin/python3.7
+
+    - name: Re-Install python3-apt
+      raw: apt-get -y remove python3-apt && apt-get -y install python3-apt 
