@@ -1,12 +1,6 @@
 ---
 - name: Add repository and install packages
   block:
-    # - name: Add repository
-    #   yum_repository:
-    #     name: epel
-    #     description: EPEL YUM repo
-    #     metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
-    #     gpgcheck: false
 
     - name: Set {{ mysql_daemon }} {{ mysql_version }} repository file
       template:
