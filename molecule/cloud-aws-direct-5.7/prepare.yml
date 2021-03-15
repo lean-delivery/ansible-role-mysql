@@ -28,4 +28,4 @@
         path: /usr/bin/python3.7
 
     - name: Re-Install python3-apt
-      raw: apt-get -y remove python3-apt && apt-get -y install python3-apt 
+      raw: apt-get -y remove python3-apt && apt-get -y install python3-apt
