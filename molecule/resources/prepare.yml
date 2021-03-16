@@ -7,11 +7,12 @@
   tasks:
 
     - name: Add repository
-      yum_repository:
-        name: epel
-        description: EPEL YUM repo
-        metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
-        gpgcheck: false
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        state: present
+        update_cache: true
+      register: task_result
+      until: task_result is succeeded
 
     - name: Install python3
       yum:
