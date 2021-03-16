@@ -19,7 +19,6 @@ mysql_default_python_packages:
   - python3-devel
   - mysql-devel
   - libselinux-python3
-  - libselinux-python
 mysql_default_slow_query_log_file: /var/log/mysql-slow.log
 mysql_default_log_error: /var/log/mysql.err
 mysql_default_syslog_tag: mysql
