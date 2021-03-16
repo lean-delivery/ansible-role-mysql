@@ -11,6 +11,7 @@
         apt-get -y update
           && apt -y remove --purge python3.5 python-apt python3-apt python-pip python3-pip
           && rm -rf /usr/local/bin/pip* && rm -rf /usr/local/lib/python3.5
+          && rm -rf /usr/lib/python3
           && apt-get -y install software-properties-common
 
     - name: Install python3.7
