@@ -22,21 +22,6 @@ platforms:
     groups:
       - rhel_family
       - rhel7
-      - minor_rhel
-
-  - name: test-aws-centos8-mysql-5.7
-    platform: centos8
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.1
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
 
   - name: test-aws-ubuntu18-mysql-5.7
     platform: ubuntu18
@@ -85,11 +70,6 @@ provisioner:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu18.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1ubuntu18.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.31-1ubuntu18.04_amd64.deb
-      minor_rhel:
-        mysql_packages:
-          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-common-5.7.31-1.el7.x86_64.rpm
-          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client-5.7.31-1.el7.x86_64.rpm
-          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server-5.7.31-1.el7.x86_64.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml

@@ -18,6 +18,7 @@
       yum:
         name:
           - python36
+          - python-dnf
         state: present
         update_cache: true
       register: task_result
