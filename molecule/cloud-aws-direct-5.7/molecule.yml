@@ -86,7 +86,7 @@ provisioner:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1ubuntu18.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.31-1ubuntu18.04_amd64.deb
       minor_rhel:
-        mysql_artifacts:
+        mysql_packages:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1.el7.x86_64.rpm
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1.el7.x86_64.rpm
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1.el7.x86_64.rpm
