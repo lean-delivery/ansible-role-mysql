@@ -34,7 +34,7 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: centos
+    ssh_user: ec2-user
     groups:
       - rhel_family
 
