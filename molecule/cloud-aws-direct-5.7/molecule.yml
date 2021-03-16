@@ -85,7 +85,7 @@ provisioner:
           - python3.7-dev
           - gnupg
           - libmysqlclient-dev
-          - build-essential
+          # - build-essential
         mysql_artifacts:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu16.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu16.04_amd64.deb
