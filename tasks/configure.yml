@@ -35,7 +35,7 @@
         name:
           - mysqlclient
         state: present
-        executable: pip3.7
+        executable: pip3
       register: mysql_connector_install
       until: mysql_connector_install is succeeded
 
