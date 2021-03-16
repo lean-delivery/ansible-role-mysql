@@ -13,7 +13,7 @@ platforms:
     privileged: true
     groups:
       - rhel_family
-      - centos7
+      - rhel7
 
   - name: test-docker-ubuntu1804-mysql
     image: leandelivery/docker-systemd:ubuntu-18.04

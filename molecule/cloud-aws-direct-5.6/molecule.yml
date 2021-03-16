@@ -9,7 +9,6 @@ driver:
 lint: ansible-lint
 platforms:
   - name: test-aws-centos7-mysql-5.6
-    image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
     region: us-east-1
@@ -22,10 +21,9 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - centos7
+      - rhel7
 
   - name: test-aws-Debian9-mysql-5.6
-    image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: m5.large
     region: us-east-1
