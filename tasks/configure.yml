@@ -11,6 +11,8 @@
         executable: pip3
       register: pip_install
       until: pip_install is succeeded
+      var:
+        ansible_python_interpreter: /usr/bin/python3
 
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
       package:
