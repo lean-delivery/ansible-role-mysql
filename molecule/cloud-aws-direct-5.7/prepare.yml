@@ -19,13 +19,13 @@
     - name: Install pip
       raw: curl -s https://bootstrap.pypa.io/pip/get-pip.py | python3.7
 
-    # - name: Set apt
-    #   shell: ln -s /usr/lib/python3/dist-packages/apt_pkg.cpython-35m-x86_64-linux-gnu.so /usr/lib/python3/dist-packages/apt_pkg.so
-    #   register: cmd_res
+    - name: Check pip3
+      shell: pip3 -V
+      register: cmd_res
 
-    # - name: debug cmd_res
-    #   debug:
-    #     var: cmd_res
+    - name: debug cmd_res
+      debug:
+        var: cmd_res
 
     # - name: Re-Install python3-apt
     #   pip:
