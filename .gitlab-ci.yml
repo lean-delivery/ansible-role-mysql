@@ -30,7 +30,7 @@ Lint:
   tags:
     - lint
 
-Docker mysql:
+.Docker mysql:
   stage: deployment test
   script:
     - molecule test -s default
