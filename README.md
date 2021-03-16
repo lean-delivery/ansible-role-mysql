@@ -63,6 +63,12 @@ If you want to select a specific minor version of package, you can enter appropr
     mysql_packages:
       - mysql-community-server-8.0.16-2.el7.x86_64
       - mysql-community-client-8.0.16-2.el7.x86_64
+
+Alternatively, you can define the packages as a list of external urls by setting the variable `mysql_artifacts`, e.g.:
+
+    mysql_artifacts:
+      - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1.el7.x86_64.rpm
+      - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1.el7.x86_64.rpm
       
                                  # (MariaDB-common)
     mysql_daemon: mysqld         # (mysqld/mariadb)

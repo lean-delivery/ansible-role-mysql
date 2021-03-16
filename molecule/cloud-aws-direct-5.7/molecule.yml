@@ -8,35 +8,35 @@ driver:
   name: ec2
 lint: ansible-lint
 platforms:
-  # - name: test-aws-centos7-mysql-5.7
-  #   platform: centos7
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: false
-  #   spot_price: 0.05
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #     - rhel_family
-  #     - centos7
+  - name: test-aws-centos7-mysql-5.7.31
+    platform: centos7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: false
+    spot_price: 0.05
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - centos7
+      - minor_rhel
 
-  # - name: test-aws-ubuntu16-mysql-5.7
-  #   platform: ubuntu16
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: false
-  #   security_group_name:
-  #     - default
-  #   spot_price: 0.05
-  #   wait_timeout: 1800
-  #   ssh_user: ubuntu
-  #   groups:
-  #     - debian_family
-  #     - minor
+  - name: test-aws-rhel7-mysql-5.7
+    platform: rhel7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: false
+    spot_price: 0.05
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
 
   - name: test-aws-ubuntu18-mysql-5.7
     platform: ubuntu18
@@ -51,22 +51,22 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - minor
+      - minor_ubuntu
 
-  # - name: test-aws-Debian9-mysql-5.7
-  #   platform: debian9
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: false
-  #   spot_price: 0.05
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: admin
-  #   groups:
-  #     - debian_family
-  #     - pip3
+  - name: test-aws-Debian9-mysql-5.7
+    platform: debian9
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: false
+    spot_price: 0.05
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - pip3
 
 provisioner:
   name: ansible
@@ -78,20 +78,20 @@ provisioner:
     group_vars:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
-      minor:
+      minor_ubuntu:
         ansible_python_interpreter: /usr/bin/python3
-        # mysql_python_packages:
-        #   - '{{ python_executable }}-pip'
-        #   - '{{ python_executable }}-apt'
-        #   - python3.7-dev
-        #   - gnupg
-        #   - libmysqlclient-dev
-        #   - build-essential
         mysql_artifacts:
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu18.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu18.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1ubuntu18.04_amd64.deb
           - https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.31-1ubuntu18.04_amd64.deb
+      minor_rhel:
+        ansible_python_interpreter: /usr/bin/python3
+        mysql_artifacts:
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1.el7.x86_64.rpm
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1.el7.x86_64.rpm
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1.el7.x86_64.rpm
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.31-1.el7.x86_64.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
