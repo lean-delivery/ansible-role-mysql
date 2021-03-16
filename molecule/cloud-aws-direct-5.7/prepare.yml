@@ -7,12 +7,11 @@
   tasks:
 
     - name: Remove python3
-      raw: >-
-        apt-get -y update
-          && apt -y remove --purge python3.5 python-apt python3-apt python-pip python3-pip
-          && rm -rf /usr/local/bin/pip* && rm -rf /usr/local/lib/python3.5
-          && rm -rf /usr/lib/python3
-          && apt-get -y install software-properties-common
+      raw: "apt-get -y update\
+          && apt -y remove --purge python3.5 python-apt python3-apt python-pip python3-pip\
+          && rm -rf /usr/local/bin/pip* && rm -rf /usr/local/lib/python3.5\
+          && rm -rf /usr/lib/python3\
+          && apt-get -y install software-properties-common"
 
     - name: Install python3.7
       raw: add-apt-repository -y ppa:deadsnakes/ppa && apt-get -y update && apt-get -y install python3.7 python3-setuptools python3-pip python3-apt
