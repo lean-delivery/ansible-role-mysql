@@ -1,6 +1,6 @@
 ---
 - name: Prepare python3
-  hosts: centos7
+  hosts: rhel7
   become: true
   vars:
     ansible_python_interpreter: auto
