@@ -14,7 +14,7 @@ mysql_default_packages:
 
 mysql_default_python_packages:
   - gcc
-  - '{{ python_executable }}-pip'
+  - python3-pip
   - perl-DBD-MySQL
   - python3-devel
   - mysql-devel

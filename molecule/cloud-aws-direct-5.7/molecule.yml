@@ -2,7 +2,8 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
+    requirements-file: requirements.yml
+    collections-path: ~/.ansible/collections
 driver:
   name: ec2
 lint: ansible-lint
@@ -20,9 +21,9 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - centos7
+      - rhel7
 
-  - name: test-aws-ubuntu18-mysql-5.7
+  - name: test-aws-ubuntu18-mysql-5.7.31
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
@@ -35,6 +36,7 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - minor_ubuntu
 
   - name: test-aws-Debian9-mysql-5.7
     platform: debian9
@@ -61,10 +63,18 @@ provisioner:
     group_vars:
       pip3:
         ansible_python_interpreter: /usr/bin/python3
+      minor_ubuntu:
+        ansible_python_interpreter: /usr/bin/python3
+        mysql_artifacts:
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu18.04_amd64.deb
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1ubuntu18.04_amd64.deb
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1ubuntu18.04_amd64.deb
+          - https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.31-1ubuntu18.04_amd64.deb
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
+    prepare: ../resources/prepare.yml
 scenario:
   name: cloud-aws-direct-5.7
 verifier:

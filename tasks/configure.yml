@@ -11,14 +11,21 @@
         executable: pip3
       register: pip_install
       until: pip_install is succeeded
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
 
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
       package:
-        name: '{{ mysql_packages }}'
+        name: '{{ (mysql_artifacts | default(false,true)) | ternary(omit, mysql_packages) }}'
+        deb: '{{ mysql_artifact_item | default(omit, true) }}'
         state: present
         update_cache: true
       register: task_result
       until: task_result is succeeded
+      loop: >-
+        {{ mysql_artifacts | default([''], true) }}
+      loop_control:
+        loop_var: mysql_artifact_item
 
     - name: Check mysql version
       command: mysql --version

@@ -2,13 +2,13 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
+    requirements-file: requirements.yml
+    collections-path: ~/.ansible/collections
 driver:
   name: ec2
 lint: ansible-lint
 platforms:
   - name: test-aws-centos7-mariadb
-    image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
     region: us-east-1
@@ -21,10 +21,9 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - centos7
+      - rhel7
 
   - name: test-aws-centos8-mariadb
-    image: ami-0ed2ad9dc845b42b6
     platform: centos8
     instance_type: m5.large
     region: us-east-1
@@ -40,7 +39,6 @@ platforms:
       - disablerepo
 
   - name: test-aws-ubuntu18-mariadb
-    image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
@@ -98,6 +96,7 @@ provisioner:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
+    prepare: ../resources/prepare.yml
   lint:
     name: ansible-lint
 scenario:

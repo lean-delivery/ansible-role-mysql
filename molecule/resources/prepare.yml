@@ -1,24 +1,23 @@
 ---
 - name: Prepare python3
-  hosts: centos7
+  hosts: rhel7
   become: true
   vars:
     ansible_python_interpreter: auto
   tasks:
 
     - name: Add repository
-      yum_repository:
-        name: epel
-        description: EPEL YUM repo
-        # baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-        metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
-        gpgcheck: false
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        state: present
+        update_cache: true
+      register: task_result
+      until: task_result is succeeded
 
     - name: Install python3
       yum:
         name:
           - python36
-          - python3-pip
           - python-dnf
         state: present
         update_cache: true

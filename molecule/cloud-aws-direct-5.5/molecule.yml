@@ -2,13 +2,13 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
+    requirements-file: requirements.yml
+    collections-path: ~/.ansible/collections
 driver:
   name: ec2
 lint: ansible-lint
 platforms:
   - name: test-aws-centos7-mysql-5.5
-    image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
     region: us-east-1
@@ -21,6 +21,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - rhel7
 
 provisioner:
   name: ansible
@@ -32,6 +33,7 @@ provisioner:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
+    prepare: ../resources/prepare.yml
   lint:
     name: ansible-lint
 scenario:
