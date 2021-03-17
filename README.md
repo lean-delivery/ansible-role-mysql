@@ -1,6 +1,5 @@
 # Ansible Role: MySQL
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-mysql/master/LICENSE)
-[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-mysql.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-mysql)
 [![Build status](https://gitlab.com/lean-delivery/ansible-role-mysql/badges/master/pipeline.svg)](https://gitlab.com/lean-delivery/ansible-role-mysql/-/commits/master)
 [![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.mysql-blue.svg)](https://galaxy.ansible.com/lean_delivery/mysql)
 ![Ansible](https://img.shields.io/ansible/role/d/35413.svg)
@@ -67,9 +66,10 @@ If you want to select a specific minor version of package, you can enter appropr
 Alternatively, you can define the packages as a list of external urls by setting the variable `mysql_artifacts`, e.g.:
 
     mysql_artifacts:
-      - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1.el7.x86_64.rpm
-      - https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.31-1.el7.x86_64.rpm
+      - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.31-1ubuntu18.04_amd64.deb
+      - https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.31-1ubuntu18.04_amd64.deb
       
+### NOTE: *This option was tested only for deb-based packages at the moment.*
                                  # (MariaDB-common)
     mysql_daemon: mysqld         # (mysqld/mariadb)
     mysql_version: 5.7           # (for mysql = 5.5/5.6/5.7; for mariadb = last (10.5) )

@@ -8,7 +8,7 @@ driver:
   name: ec2
 lint: ansible-lint
 platforms:
-  - name: test-aws-centos7-mysql-5.7.31
+  - name: test-aws-centos7-mysql-5.7
     platform: centos7
     instance_type: m5.large
     region: us-east-1
@@ -23,7 +23,7 @@ platforms:
       - rhel_family
       - rhel7
 
-  - name: test-aws-ubuntu18-mysql-5.7
+  - name: test-aws-ubuntu18-mysql-5.7.31
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
