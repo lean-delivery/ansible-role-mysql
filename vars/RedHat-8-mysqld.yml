@@ -4,9 +4,9 @@ mysql_default_version: 8.0
 mysql_default_repo: "http://repo.mysql.com/yum/\
       mysql-{{ mysql_version }}-community/\
       el/{{ ansible_distribution_major_version }}/$basearch/"
-mysql_default_gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql
+mysql_default_gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 mysql_default_repofile: '/etc/yum.repos.d/{{ mysql_daemon }}.repo'
-mysql_fingerprint: 'A4A9 4068 76FC BD3C 4567  70C8 8C71 8D3B 5072 E1F5'
+mysql_fingerprint: '859B E8D7 C586 F538 430B 19C2 467B 942D 3A79 BD29'
 mysql_default_repo_package: https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
 mysql_default_packages:
   - mysql-community-server
