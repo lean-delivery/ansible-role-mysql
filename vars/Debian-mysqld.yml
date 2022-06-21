@@ -21,5 +21,5 @@ mysql_default_socket: /var/run/mysqld/mysqld.sock
 mysql_default_supports_innodb_large_prefix: false
 mysql_default_datadir: /var/lib/mysql
 mysql_default_service_name: mysql
-mysql_default_apt_keyserver: pool.sks-keyservers.net
-mysql_default_apt_key_id: 5072E1F5
+mysql_default_apt_keyserver: keyserver.ubuntu.com
+mysql_default_apt_key_id: 467B942D3A79BD29 # expires: 2023-12-14
