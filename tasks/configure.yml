@@ -42,6 +42,23 @@
       command: mysql --version
       register: mysql_out_version
       changed_when: false
+ 
+    # Avoid errors when starting mariadb
+    # [ERROR] Could not open mysql.plugin table: "Table 'mysql.plugin' doesn't exist". Some plugins may be not loaded
+    - name: Modify mariadb.service start up configuration
+      lineinfile:
+        path: '{{ mysql_default_service_script }}'
+        regexp: "{{ item }}"
+        insertafter: '{{ item }}'
+        line: 'ExecStartPre=/usr/bin/mysql_install_db -u mysql'
+        #backrefs: yes
+        owner: root
+        group: root
+        mode: 0644
+      with_items:
+        - '(^#ExecStartPre=/usr/bin/mysql_install_db)'
+      when:
+        - mysql_daemon == 'mariadb'
 
     - name: Install mysqlclient
       pip:
@@ -119,10 +136,11 @@
       changed_when: touch_log.diff.before.state != 'file'
 
     - name: Start MySQL service
-      service:
+      systemd:
         name: '{{ mysql_service_name }}'
         state: started
         enabled: true
+        daemon_reload: true
 
   become: true
 
