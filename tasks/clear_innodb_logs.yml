@@ -22,3 +22,6 @@
   loop: '{{ innodb_log.files }}'
   loop_control:
     loop_var: idb_log
+  # Deleting ib_logfile0 will cause mariadb to fail to start
+  when:
+    - mysql_daemon != 'mariadb'
