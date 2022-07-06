@@ -9,8 +9,8 @@ mysql_default_repofile: '/etc/yum.repos.d/{{ mysql_daemon }}.repo'
 mysql_fingerprint: '859B E8D7 C586 F538 430B 19C2 467B 942D 3A79 BD29'
 mysql_default_repo_package: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 mysql_default_packages:
-  - mysql-community-server
-  - mysql-community-client
+  - "{{ 'mysql-community-server-' +  mysql_exact_version if mysql_exact_version else 'mysql-community-server' }}"
+  - "{{ 'mysql-community-client-' +  mysql_exact_version if mysql_exact_version else 'mysql-community-client' }}"
 
 mysql_default_python_packages:
   - gcc
