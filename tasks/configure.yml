@@ -64,6 +64,7 @@
       pip:
         name:
           - mysqlclient
+          - pymysql
         state: present
         executable: pip3
       register: mysql_connector_install
