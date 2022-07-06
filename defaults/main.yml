@@ -1,5 +1,5 @@
 ---
-# Define a what install mysqd(and which version 5.5/5.6/5.7) or mariabd (version 10.1)
+# Define a what install mysqld(and which version 5.5/5.6/5.7) or mariadb (version 10.1)
 mysql_daemon: '{{ mysql_default_daemon }}'
 mysql_version: '{{ mysql_default_version }}'
 mysql_repo: '{{ mysql_default_repo }}'
@@ -8,6 +8,10 @@ mysql_gpgkey: '{{ mysql_default_gpgkey }}'
 mysql_apt_keyserver: '{{ mysql_default_apt_keyserver }}'
 mysql_apt_key_id: '{{ mysql_default_apt_key_id }}'
 mysql_repo_package: '{{ mysql_default_repo_package }}'
+
+# Specify a specific version
+mysql_exact_version:
+mysql_users_groups: mysql
 
 # Define a custom list of packages to install; if none provided, the default
 # package list from vars/[OS-family].yml will be used.
