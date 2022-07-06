@@ -30,3 +30,4 @@ mysql_default_datadir: /var/lib/mysql
 mysql_default_service_name: mysql
 mysql_default_apt_keyserver: keyserver.ubuntu.com
 mysql_default_apt_key_id: '0xF1656F24C74CD1D8'
+mysql_default_service_script: /usr/lib/systemd/system/mariadb.service
