@@ -1,8 +1,9 @@
 ---
 - name: Stop MySQL to change configs
-  service:
+  systemd:
     name: '{{ mysql_service_name }}'
     state: stopped
+    daemon_reload: true
 
 - name: Wait until the lock file is removed
   wait_for:
