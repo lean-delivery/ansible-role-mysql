@@ -135,6 +135,7 @@
         state: absent
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
 
     - name: Remove MySQL test database
       mysql_db:
@@ -142,4 +143,5 @@
         state: absent
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
   become: true
