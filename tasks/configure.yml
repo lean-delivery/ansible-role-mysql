@@ -1,15 +1,4 @@
 ---
-- name: Create directory if necessary
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ mysql_users_groups }}"
-    group: "{{ mysql_users_groups }}"
-  loop:
-    - "{{ mysql_datadir }}"
-  when:
-    - mysql_datadir and mysql_datadir != None
- 
 - name: Setup config and start MySQL service
   block:
 
@@ -42,6 +31,17 @@
       command: mysql --version
       register: mysql_out_version
       changed_when: false
+    
+    - name: Create directory if necessary
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ mysql_users_groups }}"
+        group: "{{ mysql_users_groups }}"
+      loop:
+        - "{{ mysql_datadir }}"
+      when:
+        - mysql_datadir and mysql_datadir != None
  
     # Avoid errors when starting mariadb
     # [ERROR] Could not open mysql.plugin table: "Table 'mysql.plugin' doesn't exist". Some plugins may be not loaded
