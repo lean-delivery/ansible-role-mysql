@@ -34,12 +34,14 @@
     
     - name: Create directory if necessary
       file:
-        path: "{{ item }}"
+        path: "{{ dir_item }}"
         state: directory
         owner: "{{ mysql_users_groups }}"
         group: "{{ mysql_users_groups }}"
       loop:
         - "{{ mysql_datadir }}"
+      loop_control:
+        loop_var: dir_item
       when:
         - mysql_datadir and mysql_datadir != None
  
