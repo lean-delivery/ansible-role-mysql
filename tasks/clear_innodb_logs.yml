@@ -1,8 +1,9 @@
 ---
 - name: Stop MySQL to change configs
-  service:
+  systemd:
     name: '{{ mysql_service_name }}'
     state: stopped
+    daemon_reload: true
 
 - name: Wait until the lock file is removed
   wait_for:
@@ -22,3 +23,6 @@
   loop: '{{ innodb_log.files }}'
   loop_control:
     loop_var: idb_log
+  # Deleting ib_logfile0 will cause mariadb to fail to start
+  when:
+    - mysql_daemon != 'mariadb'

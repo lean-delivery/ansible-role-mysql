@@ -3,3 +3,7 @@
 [client]
 user="{{ mysql_user_name }}"
 password="{{ mysql_user_password }}"
+
+[mysqld]
+datadir = {{ mysql_datadir }}
+socket = {{ mysql_socket }}

@@ -2,9 +2,10 @@
 - name: Stop and start mysql service
   block:
     - name: Stop mysql
-      service:
+      systemd:
         name: '{{ mysql_service_name }}'
         state: stopped
+        daemon_reload: true
 
     - name: Wait until the lock file is removed
       wait_for:
@@ -12,9 +13,10 @@
         state: absent
 
     - name: Start mysql
-      service:
+      systemd:
         name: '{{ mysql_service_name }}'
         state: started
+        daemon_reload: true
   become: true
 
 - name: Wait for service to be ready

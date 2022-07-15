@@ -7,12 +7,12 @@ mysql_default_repo: "http://yum.mariadb.org/\
 mysql_default_gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 mysql_default_repofile: '/etc/yum.repos.d/{{ mysql_daemon }}.repo'
 mysql_default_packages:
-  - MariaDB-client
-  - MariaDB-server
-  - MariaDB-shared
-  - MariaDB-common
+  - "{{ 'MariaDB-client-' + mysql_exact_version if mysql_exact_version else 'MariaDB-client' }}"
+  - "{{ 'MariaDB-server-' + mysql_exact_version if mysql_exact_version else 'MariaDB-server' }}"
+  - "{{ 'MariaDB-shared-' + mysql_exact_version if mysql_exact_version else 'MariaDB-shared' }}"
+  - "{{ 'MariaDB-common-' + mysql_exact_version if mysql_exact_version else 'MariaDB-common' }}"
   - galera-4
-  - MariaDB-devel
+  - "{{ 'MariaDB-devel-' + mysql_exact_version if mysql_exact_version else 'MariaDB-devel' }}"
 
 mysql_fingerprint: '1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB'
 mysql_default_python_packages:
@@ -35,3 +35,4 @@ mysql_default_socket: /var/lib/mysql/mysql.sock
 mysql_default_supports_innodb_large_prefix: true
 mysql_default_datadir: /var/lib/mysql
 mysql_default_service_name: mariadb
+mysql_default_service_script: /usr/lib/systemd/system/mariadb.service

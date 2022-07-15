@@ -31,9 +31,10 @@
             force: true
 
         - name: Start mysql with skip-grant-tables
-          service:
+          systemd:
             name: '{{ mysql_service_name }}'
             state: started
+            daemon_reload: true
       become: true
 
     - name: Check mysql version
@@ -72,9 +73,10 @@
             group: root
 
         - name: Start mysql
-          service:
+          systemd:
             name: '{{ mysql_service_name }}'
             state: started
+            daemon_reload: true
       become: true
 
     - name: Remove file reset.sql
@@ -133,6 +135,7 @@
         state: absent
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
 
     - name: Remove MySQL test database
       mysql_db:
@@ -140,4 +143,5 @@
         state: absent
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
+        login_unix_socket: '{{ mysql_socket }}'
   become: true

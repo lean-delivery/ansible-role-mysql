@@ -2,7 +2,7 @@
 mysql_default_daemon: mysqld
 mysql_apt_template: mysql.list
 mysql_default_packages:
-  - mysql-server
+  - "{{ 'mysql-server-' +  mysql_exact_version if mysql_exact_version else 'mysql-server' }}"
 
 mysql_default_python_packages:
   - '{{ python_executable }}-pip'

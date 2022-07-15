@@ -8,6 +8,7 @@
     target: '{{ item.target | default(None) }}'
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
+    login_unix_socket: '{{ mysql_socket }}'
   loop: '{{ mysql_databases }}'
   become: true
 
@@ -23,6 +24,7 @@
     login_user: '{{ mysql_root_username }}'
     login_password: '{{ mysql_root_password }}'
     update_password: on_create
+    login_unix_socket: '{{ mysql_socket }}'
   loop: '{{ mysql_users }}'
   no_log: true
   become: true
